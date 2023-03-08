@@ -1,0 +1,63 @@
+nlu:
+- intent: greet
+  examples: |
+    - Hola
+    - Hoola
+    - Holaa
+    - Hey
+    - Heey
+    - Hola, podrias ayudarme?
+    - Hola, podrias echarme una mano?
+    - Hola, que puedo hacer ahora?
+
+- intent: farewell
+  examples: |
+    - Deu
+    - Adeu
+    - Adios, gracias
+    - Adeu, gracies
+    - Gracies, adeu
+    
+- intent: sign_in
+  examples: |
+    - Como puedo registrarme?
+    - No tengo usuario, que hago?
+    - Donde me registro?
+
+- intent: whereami
+  examples: |
+    - Que es esto?
+    - Donde estoy?
+    - Que hago ahora?
+    - No sé que hacer. 
+
+- intent: affirm
+  examples: |
+    - Si
+    - S
+    . Sip
+
+- intent: deny
+  examples: |
+    - No
+    - N
+    . Nop
+
+- intent: demo
+  examples: |
+    - demo
+
+- intent: give_neighborhood
+  examples: |
+    - Soy de [Horta](neighborhood_location)
+    - Soy del barrio [Nou Barris](neighborhood_location)
+    - Resido en [sants](neighborhood_location)
+    - Resido en el barrio [Sant Andreu](neighborhood_location)
+    - Me interesa el barrio [Les Corts](neighborhood_location)
+    - Me interesan debates sobre [Eixample](neighborhood_location)
+
+- intent: definition
+  examples: |
+    - Que significa [procesos participativos](concept)
+    - Que es un [debate](concept)
+    - Defineme [organos de participacion](concept)

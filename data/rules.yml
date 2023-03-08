@@ -1,0 +1,34 @@
+rules:
+ - rule: welcome
+   steps:
+   - intent: greet
+   - action: utter_greet
+
+ - rule: farewell
+   steps:
+   - intent: farewell
+   - action: utter_farewell
+
+ - rule: whereami
+   steps: 
+   - intent: whereami
+   - action: utter_inform
+
+ - rule: neighborhood
+   steps: 
+   - intent: give_neighborhood
+   - action: action_return_debates
+
+ - rule: definitions
+   steps: 
+   - intent: definition
+   - action: action_definition
+
+ - rule: demo
+   steps: 
+   - intent: demo
+    #  - action: "action_return_debates"
+  #  - action: "action_go_to_page"
+#    - action: "action_picker"
+#    - action: "action_yes_no"
+   - action: "action_weather_api"
