@@ -63,20 +63,20 @@ class ActionGoToPage(Action):
 
         return []
 
-class ActionReturnDefinition(Action):
+# class ActionReturnDefinition(Action):
 
-    def name(self) -> Text:
-        return "action_definition"
+#     def name(self) -> Text:
+#         return "action_definition"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        # concept = tracker.get_latest_entity_values("concept")
-        concept = tracker.latest_message['entities'][0]['value']
-        dispatcher.utter_message(text=f"Definicion sobre {concept}: {definiciones[concept]}")
+#         # concept = tracker.get_latest_entity_values("concept")
+#         concept = tracker.latest_message['entities'][0]['value']
+#         dispatcher.utter_message(text=f"Definicion sobre {concept}: {definiciones[concept]}")
 
-        return []
+#         return []
 
 
 class ActionDisplayButtons(Action):

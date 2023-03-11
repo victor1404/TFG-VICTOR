@@ -56,8 +56,79 @@ nlu:
     - Me interesa el barrio [Les Corts](neighborhood_location)
     - Me interesan debates sobre [Eixample](neighborhood_location)
 
-- intent: definition
+- intent: comentarios
   examples: |
-    - Que significa [procesos participativos](concept)
-    - Que es un [debate](concept)
-    - Defineme [organos de participacion](concept)
+    - Define comentarios
+    - Que son comentarios?
+    - Que es un comentario?
+- intent: consejo_de_barrio
+  examples: |
+    - Define consejo de barrio
+    - Que son consejos de barrio?
+    - Que son consejos de barrios?
+    - Que es un consejo de barrio?
+- intent: presupuesto
+  examples: |
+    - Define presupuesto
+    - Que son los presupuestos?
+    - Que es un presupuesto?
+  
+- intent: propuestas
+  examples: |
+    - Define propuestas
+    - Que son las propuestas?
+    - Que es una propuesta?
+    
+- intent: encuentros
+  examples: |
+    - Define encuentros
+    - Que son los encuentros?
+    - Que es un encuentros?
+    
+- intent: votacion
+  examples: |
+    - Define votacion
+    - Que son las votaciones?
+    - Que es una votacion?
+    
+- intent: debate
+  examples: |
+    - Define debate
+    - Que son los debates?
+    - Que es un debate?
+    
+- intent: iniciar_sesion
+  examples: |
+    - Define inicar sesion
+    - Que es inicar sesion?
+    
+- intent: registrar
+  examples: |
+    - Define registrar
+    - Que es registrar?
+    
+- intent: iniciativas_ciudadanas
+  examples: |
+    - Define iniciativas ciudadanas
+    - Que son las iniciativas ciudadanas?
+    - Que es una iniciativa ciudadana?
+    
+- intent: organos_de_participacion
+  examples: |
+    - Define organos de participacion
+    - Que son los organos de participacion?
+    - Que es un organo de participacion?
+    
+- intent: procesos_participativos
+  examples: |
+    - Define procesos participativos
+    - Que son los procesos participativos?
+    - Que es un proceso participativo?
+    
+
+# - intent: definition
+#   examples: |
+#     - Que significa [procesos participativos](concept)
+#     - Que es un [debate](concept)
+#     - Defineme [organos de participacion](concept)
+
