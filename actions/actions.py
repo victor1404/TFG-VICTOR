@@ -131,7 +131,7 @@ class ActionPicker(Action):
 
         return []
 
-class ActionAPI(Action):
+class ActionAPIWeather(Action):
 
     def name(self) -> Text:
         return "action_weather_api"
@@ -145,3 +145,18 @@ class ActionAPI(Action):
             tracker,temp=temp)
 
         return []
+
+
+
+class ActionAPIDemo(Action):
+  
+    def name(self) -> Text:
+        return "action_demo_api"
+
+    def run(self, dispatcher: CollectingDispatcher,
+    tracker: Tracker,
+    domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # querys.query_demo()
+        querys.query_decidim()
+
+        return []  

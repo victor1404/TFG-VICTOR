@@ -80,4 +80,5 @@ rules:
   #  - action: "action_go_to_page"
 #    - action: "action_picker"
 #    - action: "action_yes_no"
-   - action: "action_weather_api"
+  #  - action: "action_weather_api"
+   - action: "action_demo_api"

@@ -103,6 +103,7 @@ actions:
 # - action_definition
 - utter_temp
 - action_weather_api
+- action_demo_api
 
 
 
