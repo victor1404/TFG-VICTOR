@@ -157,6 +157,7 @@ class ActionAPIDemo(Action):
     tracker: Tracker,
     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         # querys.query_demo()
-        querys.query_decidim()
+        # querys.query_decidim()
+        querys.query_user_information("Victor Llinares")
 
         return []  

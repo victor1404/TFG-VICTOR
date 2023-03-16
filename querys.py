@@ -34,6 +34,7 @@ def query_demo():
     df = pd.DataFrame(df_data)
     print(df_data)
 
+
 def query_decidim():
     query = """query {
         decidim {
@@ -47,3 +48,50 @@ def query_decidim():
     print(r.text)
     json_data = json.loads(r.text)
     print(json_data)
+
+
+def query_user_information(user_name):
+    query = ("""query {
+        users(filter: {name:""" + '"' + f"{user_name}" + '"' +  """}) {
+            avatarUrl
+            badge
+            deleted
+            id
+            name
+            nickname
+            organizationName
+            profilePath
+            __typename
+        }
+    }""")
+
+    print(query)
+
+    url = 'https://www.decidim.barcelona/api/'
+    r = requests.post(url, json={'query': query})
+    print(r.status_code)
+    print(r.text)
+    json_data = json.loads(r.text)
+    print(json_data)
+
+
+
+
+
+
+
+
+
+    # query = ("""query {
+    #     users(filter: {name:""" + """ "Victor Llinares" """ + """}) {
+    #         avatarUrl
+    #         badge
+    #         deleted
+    #         id
+    #         name
+    #         nickname
+    #         organizationName
+    #         profilePath
+    #         __typename
+    #     }
+    # }""")
