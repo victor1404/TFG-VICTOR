@@ -9,11 +9,6 @@ rules:
    - intent: farewell
    - action: utter_farewell
 
- - rule: whereami
-   steps: 
-   - intent: whereami
-   - action: utter_inform
-
  - rule: neighborhood
    steps: 
    - intent: give_neighborhood
@@ -39,22 +34,23 @@ rules:
    steps: 
    - intent: encuentros
    - action: utter_encuentros
- - rule: define_votacion
-   steps: 
-   - intent: votacion
-   - action: utter_votacion
  - rule: define_debate
    steps: 
    - intent: debate
    - action: utter_debate
- - rule: define_iniciar_sesion
-   steps: 
-   - intent: iniciar_sesion
-   - action: utter_iniciar_sesion
- - rule: define_registrar
-   steps: 
-   - intent: registrar
-   - action: utter_registrar
+
+#  - rule: define_votacion
+#    steps: 
+#    - intent: votacion
+#    - action: utter_votacion
+#  - rule: define_iniciar_sesion
+#    steps: 
+#    - intent: iniciar_sesion
+#    - action: utter_iniciar_sesion
+#  - rule: define_registrar
+#    steps: 
+#    - intent: registrar
+#    - action: utter_registrar
  - rule: define_iniciativas_ciudadanas
    steps: 
    - intent: iniciativas_ciudadanas
@@ -68,17 +64,12 @@ rules:
    - intent: procesos_participativos
    - action: utter_procesos_participativos
 
-#  - rule: definitions
-#    steps: 
-#    - intent: definition
-#    - action: action_definition
+
 
  - rule: demo
    steps: 
    - intent: demo
     #  - action: "action_return_debates"
-  #  - action: "action_go_to_page"
+   - action: "action_go_to_page"
 #    - action: "action_picker"
 #    - action: "action_yes_no"
-  #  - action: "action_weather_api"
-   - action: "action_demo_api"

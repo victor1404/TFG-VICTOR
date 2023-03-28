@@ -63,21 +63,21 @@ class ActionGoToPage(Action):
 
         return []
 
-# class ActionReturnDefinition(Action):
+class ActionGoToSignIn(Action):
 
-#     def name(self) -> Text:
-#         return "action_definition"
+    def name(self) -> Text:
+        return "action_go_to_sign_in"
 
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        dispatcher.utter_message(text="En caso de que no tengas cuenta puedes registrarte desde aqui: ")
+        dispatcher.utter_message(attachment="https://www.decidim.barcelona/users/sign_up?locale=es")
 
-#         # concept = tracker.get_latest_entity_values("concept")
-#         concept = tracker.latest_message['entities'][0]['value']
-#         dispatcher.utter_message(text=f"Definicion sobre {concept}: {definiciones[concept]}")
+        dispatcher.utter_message(text="\nEn caso de que ya tengas cuenta puedes iniciar sesion desde aqui ")
+        dispatcher.utter_message(attachment="https://www.decidim.barcelona/users/sign_up?locale=es")
 
-#         return []
-
+        return []
 
 class ActionDisplayButtons(Action):
 
@@ -131,33 +131,34 @@ class ActionPicker(Action):
 
         return []
 
-class ActionAPIWeather(Action):
-
-    def name(self) -> Text:
-        return "action_weather_api"
-
-    def run(self, dispatcher: CollectingDispatcher,
-    tracker: Tracker,
-    domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        city="Barcelona"
-        temp=int(querys.weather(city)['temp']-273)
-        dispatcher.utter_template("utter_temp",
-            tracker,temp=temp)
-
-        return []
-
-
-
 class ActionAPIDemo(Action):
   
     def name(self) -> Text:
-        return "action_demo_api"
+        return "action_user_info"
 
     def run(self, dispatcher: CollectingDispatcher,
     tracker: Tracker,
     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        # querys.query_demo()
-        # querys.query_decidim()
         querys.query_user_information("Victor Llinares")
+
+        return []  
+
+
+class ActionAPI_Latest_PP(Action):
+  
+    def name(self) -> Text:
+        return "action_latest_procesos_participativos"
+
+    def run(self, dispatcher: CollectingDispatcher,
+    tracker: Tracker,
+    domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        response_dict = querys.query_latest_ParticipatoryProceses()
+        s = response_dict["title"]["translation"]
+        dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+        dispatcher.utter_message(text="Si te interesa aqui tienes el enlace")
+        s = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
+        dispatcher.utter_message(attachment=s)
+
+
 
         return []  

@@ -6,3 +6,38 @@
 #    - intent: subscribe
 #    - action: newsletter_form
 #    - active_loop: newsletter_form
+
+
+stories:
+ - story: greet and inform
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: whereami
+   - action: utter_inform
+   - action: utter_discoverabilty
+
+ - story: greet and sign_in
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: whereami
+   - action: utter_inform
+   - action: utter_discoverabilty
+   - intent: sign_in
+   - action: action_go_to_sign_in
+
+ - story: greet and return PP
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: latest_proceso_participativo
+   - action: action_latest_procesos_participativos
+
+
+  # - story: greet and inform
+  #  steps:
+  #  - intent: soy de barcelona
+  #  - action: te interesaria ver meetings de barcelona?
+  #  - intent: si
+  #  - action: aqui tienes 

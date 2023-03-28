@@ -9,6 +9,7 @@ nlu:
     - Hola, podrias ayudarme?
     - Hola, podrias echarme una mano?
     - Hola, que puedo hacer ahora?
+    - Buenas
 
 - intent: farewell
   examples: |
@@ -21,8 +22,17 @@ nlu:
 - intent: sign_in
   examples: |
     - Como puedo registrarme?
+    - Como puedo logearme?
     - No tengo usuario, que hago?
+    - Ya tengo usuario, que hago?
     - Donde me registro?
+    - Donde inicio sesion?
+    - No tengo cuenta
+    - Me puedes decir como registrarme?
+    - Me puedes decir como iniciar sesion?
+    - Iniciar sesion
+    - Sign in
+    - Sign up
 
 - intent: whereami
   examples: |
@@ -61,41 +71,78 @@ nlu:
     - Define comentarios
     - Que son comentarios?
     - Que es un comentario?
+    - Para que sirven los comentarios
+    - No sé que es un comentario
+    - Me prodrias explicar que es un comentario?
+    - Comentarios? Que es eso
+    - No entiendo lo que es un comentario
+
 - intent: consejo_de_barrio
   examples: |
     - Define consejo de barrio
     - Que son consejos de barrio?
     - Que son consejos de barrios?
     - Que es un consejo de barrio?
+    - Para que sirven los consejo de barrio
+    - No sé que es un consejo de barrio
+    - Me prodrias explicar que es un consejo de barrio?
+    - Consejo de barrio? Que es eso
+    - No entiendo lo que es un consejo de barrio
+
 - intent: presupuesto
   examples: |
     - Define presupuesto
     - Que son los presupuestos?
     - Que es un presupuesto?
+    - Para que sirven los presupuestos
+    - No sé que es un presupuesto
+    - Me prodrias explicar que es un presupuesto?
+    - Presupuesto? Que es eso
+    - No entiendo lo que es un presupuesto
   
 - intent: propuestas
   examples: |
     - Define propuestas
     - Que son las propuestas?
     - Que es una propuesta?
+    - Para que sirven las propuesta
+    - No sé que es una propuesta
+    - Me prodrias explicar que es una propuesta?
+    - Propuesta? Que es eso
+    - No entiendo lo que es una propuesta
     
 - intent: encuentros
   examples: |
     - Define encuentros
     - Que son los encuentros?
-    - Que es un encuentros?
+    - Que es un encuentro?
+    - Para que sirven los encuentros
+    - No sé que es un encuentro
+    - Me prodrias explicar que es un encuentro?
+    - Encuentros? Que es eso
+    - No entiendo lo que es un encuentro
     
 - intent: votacion
   examples: |
     - Define votacion
     - Que son las votaciones?
     - Que es una votacion?
+    - Para que sirven las votacion
+    - No sé que es una votacion
+    - Me prodrias explicar que es una votacion?
+    - Votaciones? Que es eso
+    - No entiendo lo que es una votacion
     
 - intent: debate
   examples: |
     - Define debate
     - Que son los debates?
     - Que es un debate?
+    - Para que sirven los debates
+    - No sé que es un debate
+    - Me prodrias explicar que es un debate?
+    - Debate? Que es eso
+    - No entiendo lo que es un debate
     
 - intent: iniciar_sesion
   examples: |
@@ -112,18 +159,44 @@ nlu:
     - Define iniciativas ciudadanas
     - Que son las iniciativas ciudadanas?
     - Que es una iniciativa ciudadana?
+    - Para que sirven las iniciativa ciudadana
+    - No sé que es una iniciativa ciudadana
+    - Me prodrias explicar que es una iniciativa ciudadana?
+    - Iniciativa ciudadana? Que es eso
+    - No entiendo lo que es una iniciativa ciudadana
     
 - intent: organos_de_participacion
   examples: |
     - Define organos de participacion
     - Que son los organos de participacion?
     - Que es un organo de participacion?
+    - Para que sirven los organos de participaciones
+    - No sé que es un organo de participacion
+    - Me prodrias explicar que es un organo de participacion?
+    - Organo de participacion? Que es eso
+    - No entiendo lo que es un organo de participacion
     
 - intent: procesos_participativos
   examples: |
     - Define procesos participativos
-    - Que son los procesos participativos?
     - Que es un proceso participativo?
+    - Para que sirven los procesos participativos
+    - No sé que es un proceso participativo
+    - Me prodrias explicar que es un proceso participativo?
+    - Proceso participativo? Que es eso
+    - No entiendo lo que es un proceso participativo
+
+
+- intent: latest_proceso_participativo
+  examples: |
+    - Me puedes ofrecer algun proceso participativo?
+    - Que hay nuevo en los procesos participativos?
+    - Ha salido algun proceso participativo nuevo?
+    - Hay algun proceso participativo interesante?
+    - Me puedes dar lo ultimo de procesos participativos?
+    - Cual es el ultimo proceso participativo que ha salido?
+
+
     
 
 # - intent: definition

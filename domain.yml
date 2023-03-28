@@ -18,13 +18,14 @@ intents:
 - presupuesto
 - propuestas
 - encuentros
-- votacion
 - debate
-- iniciar_sesion
-- registrar
+# - votacion
+# - iniciar_sesion
+# - registrar
 - iniciativas_ciudadanas
 - organos_de_participacion
 - procesos_participativos
+- latest_proceso_participativo
 
 entities:
 - neighborhood_location
@@ -56,38 +57,64 @@ responses:
   utter_inform:
   - text: |
       Esta es la pagina oficial de Decidim Barcelona, en ella podrás participar en diferentes debates. Te aconsejo que te registres antes de nada.       
-  
-  utter_ask_email:
-  - text: |
-      What is your email address?
 
-  utter_temp:
-  - text: "Today's temperature is {temp} degree Celcius."
+  utter_discoverabilty:
+  - text: "Si necesitas ayuda me puedes preguntar sobre procesos participativos, conceptos de la web que no entiendas, meetings según tu zona de residencia. Estoy a tu disposición!"
 
   utter_procesos_participativos:
-  - text: "Los procesos participativos son una serie de encuentros delimitados en un tiempo concreto para promover el debate y el contraste de argumentos entre la ciudadanía o entre ésta y las personas responsables municipales."
+  # - text: "Los procesos participativos son una serie de encuentros delimitados en un tiempo concreto para promover el debate y el contraste de argumentos entre la ciudadanía o entre ésta y las personas responsables municipales."
+  - text: "Los procesos participativos son una serie de *encuentros* delimitados en un tiempo concreto para promover el debate y el contraste de argumentos."
+    buttons:
+    - title: "Definicion de encuentros"
+      payload: "/encuentros"
+
   utter_organos_de_participacion:
-  - text: "Los órganos de participación son canales de encuentro y de interlocución regulares entre la ciudadanía y el Ayuntamiento para debatir y recoger opiniones y propuestas con el fin de incidir en las políticas municipales. "
+  # - text: "Los órganos de participación son canales de encuentro y de interlocución regulares entre la ciudadanía y el Ayuntamiento para debatir y recoger opiniones y propuestas con el fin de incidir en las políticas municipales. "
+  - text: "Los órganos de participación son canales de encuentro de los *procesos participativos* "
+    buttons:
+    - title: "Definicion de procesos participativos"
+      payload: "/procesos_participativos"
+
   utter_iniciativas_ciudadanas:
-  - text: "La iniciativa ciudadana es el medio que tiene la ciudadanía para promover a través de la recogida de firmas que el Ayuntamiento lleve a cabo una determinada acción de interés colectivo siempre que esté dentro de sus competencias."
-  utter_registrar:
-  - text: "Un registro informático es un tipo o conjunto de datos almacenados en un sistema "
-  utter_iniciar_sesion:
-  - text: "La sesión informática suele incluir el intercambio de paquetes de información entre un usuario y un servidor. Es habitual que el usuario deba ingresar un nombre de usuario y contraseña para iniciar una sesión en un procedimiento conocido como log in o loguearse."
+  - text: "Las iniciativas ciudadanas es el medio que tiene la ciudadanía para promover a través de la recogida de firmas, que el Ayuntamiento lleve a cabo una determinada acción de interés colectivo."
+
+  # utter_registrar:
+  # - text: "Un registro informático es un tipo o conjunto de datos almacenados en un sistema. En este caso son datos "
+  # utter_iniciar_sesion:
+  # - text: "La sesión informática suele incluir el intercambio de paquetes de información entre un usuario y un servidor. Es habitual que el usuario deba ingresar un nombre de usuario y contraseña para iniciar una sesión en un procedimiento conocido como log in o loguearse."
+
   utter_debate:
-  - text: "Espacios digitales para informarte y decidir sobre las propuestas de cada proceso."
-  utter_votacion:
-  - text: "Acción de votar."
+  - text: "Un debate es un espacios digital para informarte y decidir sobre las *propuestas* de cada *proceso participativo*."
+    buttons:
+      - title: "Definicion de propuestas"
+        payload: "/propuestas"
+      - title: "Definicion de procesos participativos"
+        payload: "/procesos_participativos"
+
+  # utter_votacion:
+  # - text: "Acción de votar."
+
   utter_encuentros:
-  - text: "Encuentros cara a cara vinculados a los procesos de cada territorio o ámbito."
+  - text: "Los encuentros son reuniones cara a cara vinculados a los *procesos participativos* de cada territorio o ámbito."
+    buttons:
+      - title: "Definicion de procesos participativos"
+        payload: "/procesos_participativos"
+
   utter_propuestas:
-  - text: "Contribuciones de los participantes que pueden recibir el apoyo de los usuarios con función decisoria."
+  - text: "Las propuestas son contribuciones de los participantes que pueden recibir el apoyo de los usuarios con función decisoria."
   utter_presupuesto:
-  - text: "Cálculo anticipado del coste de una obra o un servicio."
+  - text: "Un presupuesto es un cálculo anticipado del coste de una obra o un servicio."
   utter_consejo_de_barrio:
-  - text: "Los Consejos de Barrio son órganos para la participación de los vecinos en el desarrollo de la ciudad basados en la división territorial del término municipal en barrios."
+  - text: "Los consejos de barrio son *órganos para la participación* de los vecinos en el desarrollo de la ciudad basados en la división territorial del término municipal en barrios."
+    buttons:
+    - title: "Definicion de organos de participacion"
+      payload: "/organos_de_participacion"
+
   utter_comentarios:
-  - text: "Contribuciones de los usuarios al hilo de una propuesta o debate y que pueden recibir una votación negativa o positiva."
+  - text: "Los comentarios son contribuciones de los usuarios al hilo de una *propuesta* o debate y que pueden recibir una votación negativa o positiva."
+    buttons:
+    - title: "Definicion de propuestas"
+      payload: "/propuestas"
 
 
 actions:
@@ -101,9 +128,9 @@ actions:
 - action_yes_no
 - action_picker
 # - action_definition
-- utter_temp
-- action_weather_api
-- action_demo_api
+- action_user_info
+- action_latest_procesos_participativos
+- action_go_to_sign_in
 
 
 
