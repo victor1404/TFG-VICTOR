@@ -17,6 +17,32 @@ stories:
    - action: utter_inform
    - action: utter_discoverabilty
 
+ - story: greet and inform2
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: quien_eres
+   - action: utter_quien_eres
+   - intent: whereami
+   - action: utter_inform
+   - action: utter_discoverabilty
+
+ - story: greet and discoverability
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: discoverabilty
+   - action: utter_discoverabilty
+
+ - story: greet and discoverability2
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: quien_eres
+   - action: utter_quien_eres
+   - intent: discoverabilty
+   - action: utter_discoverabilty
+
  - story: greet and sign_in
    steps:
    - intent: greet
@@ -31,7 +57,30 @@ stories:
    steps:
    - intent: greet
    - action: utter_greet
-   - intent: latest_proceso_participativo
+   - intent: whereami
+   - action: utter_inform
+   - action: utter_discoverabilty
+   - intent: retrieve_proceso_participativo
+   - action: utter_wait
+   - action: action_latest_procesos_participativos
+
+ - story: greet and return PP 2
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: discoverabilty
+   - action: utter_discoverabilty
+   - intent: retrieve_proceso_participativo
+   - action: utter_wait
+   - action: action_latest_procesos_participativos
+
+
+ - story: greet and return PP 3
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: retrieve_proceso_participativo
+   - action: utter_wait
    - action: action_latest_procesos_participativos
 
 

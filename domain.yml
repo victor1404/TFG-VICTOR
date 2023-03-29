@@ -25,10 +25,13 @@ intents:
 - iniciativas_ciudadanas
 - organos_de_participacion
 - procesos_participativos
-- latest_proceso_participativo
+- retrieve_proceso_participativo
+- discoverabilty
+- quien_eres
 
 entities:
 - neighborhood_location
+- link
 # - concept
 
 slots:
@@ -60,6 +63,21 @@ responses:
 
   utter_discoverabilty:
   - text: "Si necesitas ayuda me puedes preguntar sobre procesos participativos, conceptos de la web que no entiendas, meetings según tu zona de residencia. Estoy a tu disposición!"
+
+  utter_quien_eres:
+  - text: "Me llamo Sara, soy una IA a tu servicio. Te ayudaré en lo que necesites en Decidim Barcelona"
+
+  utter_wait:
+  - text: "Por favor espere un segundo"
+  - text: "Un momento, por favor"
+  - text: "Claro, un segundo"
+  - text: "Claro, un momento"
+
+
+  utter_give_link:
+  - text: "Si te interesa aqui tienes el enlace: {link}"
+  - text: "Aqui tienes el enlace: {link}"
+  - text: "Si clicas en el siguiente enlace te llevará donde quieres: {link}"
 
   utter_procesos_participativos:
   # - text: "Los procesos participativos son una serie de encuentros delimitados en un tiempo concreto para promover el debate y el contraste de argumentos entre la ciudadanía o entre ésta y las personas responsables municipales."

@@ -48,21 +48,6 @@ class ActionDevolverDebates(Action):
 
         return []
 
-
-class ActionGoToPage(Action):
-
-    def name(self) -> Text:
-        return "action_go_to_page"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        
-        dispatcher.utter_message(attachment="urldestion.com")
-
-        return []
-
 class ActionGoToSignIn(Action):
 
     def name(self) -> Text:
@@ -155,9 +140,13 @@ class ActionAPI_Latest_PP(Action):
         response_dict = querys.query_latest_ParticipatoryProceses()
         s = response_dict["title"]["translation"]
         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-        dispatcher.utter_message(text="Si te interesa aqui tienes el enlace")
-        s = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
-        dispatcher.utter_message(attachment=s)
+
+        l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
+        dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+        # dispatcher.utter_message(text="Si te interesa aqui tienes el enlace")
+        # l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
+        # dispatcher.utter_message(attachment=s)
 
 
 

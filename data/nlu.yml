@@ -6,8 +6,6 @@ nlu:
     - Holaa
     - Hey
     - Heey
-    - Hola, podrias ayudarme?
-    - Hola, podrias echarme una mano?
     - Hola, que puedo hacer ahora?
     - Buenas
 
@@ -56,6 +54,7 @@ nlu:
 - intent: demo
   examples: |
     - demo
+    - Demo
 
 - intent: give_neighborhood
   examples: |
@@ -187,7 +186,7 @@ nlu:
     - No entiendo lo que es un proceso participativo
 
 
-- intent: latest_proceso_participativo
+- intent: retrieve_proceso_participativo
   examples: |
     - Me puedes ofrecer algun proceso participativo?
     - Que hay nuevo en los procesos participativos?
@@ -195,6 +194,38 @@ nlu:
     - Hay algun proceso participativo interesante?
     - Me puedes dar lo ultimo de procesos participativos?
     - Cual es el ultimo proceso participativo que ha salido?
+    - Quiero ver algun proceso participativo, que me recomiendas?
+    - No sé que procesos participativos hay.
+    - No sé que procesos participativos hay, dame alguno. 
+    - Me puedes ayudar a escoger un proceso participativo?
+    - Hay algun proceso participativo nuevo?
+
+- intent: discoverabilty
+  examples: |
+    - En que me puedes ayudar?
+    - Hola, podrias ayudarme?
+    - Hola, podrias echarme una mano?
+    - Necesito ayuda?
+    - Que te puedo preguntar?
+    - Cual es tu utilidad?
+    - Para que sirves?
+    - Que haces?
+
+- intent: discoverabilty_conceptos
+  examples: |
+    - A que te refieres con conceptos de la web?
+    - Sobre que conceptos te puedo preguntar?
+    - A que conceptos te refieres?
+    - 
+
+
+- intent: quien_eres
+  examples: |
+    - Que eres?
+    - Como te llamas?
+    - Quien eres?
+    - Porque sales en mi ordenador?
+    - Cual es tu nombre?
 
 
     
