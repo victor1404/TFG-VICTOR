@@ -9,10 +9,10 @@ rules:
    - intent: farewell
    - action: utter_farewell
 
- - rule: neighborhood
-   steps: 
-   - intent: give_neighborhood
-   - action: action_return_debates
+#  - rule: neighborhood
+#    steps: 
+#    - intent: give_neighborhood
+#    - action: action_return_debates
 
  - rule: define_comentarios
    steps: 
@@ -63,9 +63,48 @@ rules:
    steps: 
    - intent: procesos_participativos
    - action: utter_procesos_participativos
+  
 
+ - rule: Activate Location Form
+   steps:
+   - intent: ofrecer_location
+   - action: simple_location_form
+   - active_loop: simple_location_form
 
+ - rule: Submit Location Form
+   condition:
+   - active_loop: simple_location_form
+   steps:
+   - action: simple_location_form
+   - active_loop: null
+   - slot_was_set:
+     - requested_slot: null
+   - action: utter_submit
+   - action: utter_neighborhood_location_slots
 
+ - rule: PP with location
+   steps:
+   - intent: retrieve_proceso_participativo_location
+   - action: action_procesos_participativos_location
+ - rule: Debate with location
+   steps:
+   - intent: retrieve_debates_location
+   - action: action_debate_location
+ - rule: Survey with location
+   steps:
+   - intent: retrieve_surveys_location
+   - action: action_surveys_location
+ - rule: Budget with location
+   steps:
+   - intent: retrieve_budgets_location
+   - action: action_budget_location
+ - rule: Proposal with location
+   steps:
+   - intent: retrieve_proposals_location
+   - action: action_proposal_location
+   
+   
+   
  - rule: demo
    steps: 
    - intent: demo
@@ -73,3 +112,6 @@ rules:
    - action: "action_go_to_page"
 #    - action: "action_picker"
 #    - action: "action_yes_no"
+
+
+

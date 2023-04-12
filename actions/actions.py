@@ -9,8 +9,10 @@
 
 from typing import Any, Text, Dict, List
 
-from rasa_sdk import Action, Tracker
+from rasa_sdk import Action, Tracker, FormValidationAction
+from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.types import DomainDict
 import querys
 
 definiciones = {
@@ -129,25 +131,273 @@ class ActionAPIDemo(Action):
         return []  
 
 
-class ActionAPI_Latest_PP(Action):
+# QUERYS SIN LOCATION
+
+    class ActionAPI_Latest_PP(Action):
+    
+        def name(self) -> Text:
+            return "action_latest_procesos_participativos"
+
+        def run(self, dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            response_dict = querys.query_latest_ParticipatoryProceses()
+            s = response_dict["title"]["translation"]
+            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+            l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
+            dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+            return []  
+
+
+    class ActionAPI_Latest_Debate(Action):
+    
+        def name(self) -> Text:
+            return "action_latest_Debate"
+
+        def run(self, dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            response_dict = querys.query_Debates()
+            s = response_dict["title"]["translation"]
+            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+            l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
+            dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+            return []  
+
+
+    class ActionAPI_Latest_Survey(Action):
+    
+        def name(self) -> Text:
+            return "action_latest_Survey"
+
+        def run(self, dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            response_dict = querys.query_Surveys()
+            s = response_dict["title"]["translation"]
+            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+            l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
+            dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+            return [] 
+
+
+    class ActionAPI_Latest_Budget(Action):
+    
+        def name(self) -> Text:
+            return "action_latest_Budget"
+
+        def run(self, dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            response_dict = querys.query_Budgets()
+            s = response_dict["title"]["translation"]
+            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+            l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
+            dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+            return []  
+
+
+    class ActionAPI_Latest_Proposal(Action):
   
+        def name(self) -> Text:
+            return "action_latest_Proposal"
+
+        def run(self, dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            response_dict = querys.query_Proposals()
+            s = response_dict["title"]["translation"]
+            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+            l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
+            dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+            return []
+
+
+
+# QUERYS CON LOCATION
+
+    class ActionAPI_PP_Location(Action):
+    
+        def name(self) -> Text:
+            return "action_procesos_participativos_location"
+
+        def run(self, dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            ent = tracker.latest_message['entities'][0]['value']   
+            print(ent) 
+            # slot_value = str(tracker.get_slot('neighborhood_location'))
+            response_dict = querys.query_ParticipatoryProceses_location()
+            response = response_dict[0]
+            found = False
+            
+            for d in response_dict:
+                if not found:
+                    if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
+                        found = True
+                        response = d
+                    
+
+            s = response["title"]["translation"]
+            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+            l = "https://www.decidim.barcelona/processes/" + response["slug"]
+            dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+            return [] 
+
+
+    class ActionAPI_Debate_Location(Action):
+    
+        def name(self) -> Text:
+            return "action_debate_location"
+
+        def run(self, dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            ent = tracker.latest_message['entities'][0]['value']    
+            # slot_value = str(tracker.get_slot('neighborhood_location'))
+            response_dict = querys.query_Debate_location()
+            response = response_dict[0]
+            found = False
+            
+            for d in response_dict:
+                if not found:
+                    if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
+                        found = True
+                        response = d
+                    
+
+            s = response["title"]["translation"]
+            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+            l = "https://www.decidim.barcelona/processes/" + response["slug"]
+            dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+            return [] 
+
+
+    class ActionAPI_Surveys_Location(Action):
+    
+        def name(self) -> Text:
+            return "action_surveys_location"
+
+        def run(self, dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            ent = tracker.latest_message['entities'][0]['value']    
+            # slot_value = str(tracker.get_slot('neighborhood_location'))
+            response_dict = querys.query_Surveys_location()
+            response = response_dict[0]
+            found = False
+            
+            for d in response_dict:
+                if not found:
+                    if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
+                        found = True
+                        response = d
+                    
+
+            s = response["title"]["translation"]
+            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+            l = "https://www.decidim.barcelona/processes/" + response["slug"]
+            dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+            return [] 
+
+
+    class ActionAPI_Budget_Location(Action):
+    
+        def name(self) -> Text:
+            return "action_budget_location"
+
+        def run(self, dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            ent = tracker.latest_message['entities'][0]['value']    
+            # slot_value = str(tracker.get_slot('neighborhood_location'))
+            response_dict = querys.query_Budget_location()
+            response = response_dict[0]
+            found = False
+            
+            for d in response_dict:
+                if not found:
+                    if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
+                        found = True
+                        response = d
+                    
+
+            s = response["title"]["translation"]
+            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+            l = "https://www.decidim.barcelona/processes/" + response["slug"]
+            dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+            return [] 
+
+
+    class ActionAPI_Proposal_Location(Action):
+  
+        def name(self) -> Text:
+            return "action_proposal_location"
+
+        def run(self, dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            ent = tracker.latest_message['entities'][0]['value']    
+            # slot_value = str(tracker.get_slot('neighborhood_location'))
+            response_dict = querys.query_Proposal_location()
+            response = response_dict[0]
+            found = False
+            
+            for d in response_dict:
+                if not found:
+                    if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
+                        found = True
+                        response = d
+                    
+
+            s = response["title"]["translation"]
+            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+            l = "https://www.decidim.barcelona/processes/" + response["slug"]
+            dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+            return [] 
+
+
+
+
+class ValidateSimpleLocationForm(FormValidationAction):
+    ALLOWED_LOCATIONS = ["horta", "gracia"]
+
     def name(self) -> Text:
-        return "action_latest_procesos_participativos"
+        return "validate_simple_location_form"
 
-    def run(self, dispatcher: CollectingDispatcher,
-    tracker: Tracker,
-    domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        response_dict = querys.query_latest_ParticipatoryProceses()
-        s = response_dict["title"]["translation"]
-        dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+    def validate_neighborhood_location(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `neighborhood_location` value."""
 
-        l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
-        dispatcher.utter_template("utter_give_link", tracker, link=l)
+        if slot_value.lower() not in ALLOWED_LOCATIONS:
+            dispatcher.utter_message(text=f"Esa localizacion no sirve. Debe ser Horta o Gracia.")
+            return {"neighborhood_location": None}
+        dispatcher.utter_message(text=f"OK! guardamos el valor {slot_value}.")
+        return {"neighborhood_location": slot_value}
 
-        # dispatcher.utter_message(text="Si te interesa aqui tienes el enlace")
-        # l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
-        # dispatcher.utter_message(attachment=s)
-
-
-
-        return []  
+        

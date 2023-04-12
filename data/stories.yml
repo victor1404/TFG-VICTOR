@@ -9,6 +9,8 @@
 
 
 stories:
+
+# GREET
  - story: greet and inform
    steps:
    - intent: greet
@@ -53,6 +55,7 @@ stories:
    - intent: sign_in
    - action: action_go_to_sign_in
 
+# STORIES PP
  - story: greet and return PP
    steps:
    - intent: greet
@@ -74,7 +77,6 @@ stories:
    - action: utter_wait
    - action: action_latest_procesos_participativos
 
-
  - story: greet and return PP 3
    steps:
    - intent: greet
@@ -83,6 +85,130 @@ stories:
    - action: utter_wait
    - action: action_latest_procesos_participativos
 
+# STORIES DEBATE
+ - story: greet and return debate
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: whereami
+   - action: utter_inform
+   - action: utter_discoverabilty
+   - intent: retrieve_debates
+   - action: utter_wait
+   - action: action_latest_Debate
+
+   
+ - story: greet and return debate 2
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: discoverabilty
+   - action: utter_discoverabilty
+   - intent: retrieve_debates
+   - action: utter_wait
+   - action: action_latest_Debate
+
+   
+ - story: greet and return debate 3
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: retrieve_debates
+   - action: utter_wait
+   - action: action_latest_Debate
+
+# STORIES SURVEY
+ - story: greet and return survey
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: whereami
+   - action: utter_inform
+   - action: utter_discoverabilty
+   - intent: retrieve_surveys
+   - action: utter_wait
+   - action: action_latest_Survey
+
+ - story: greet and return survey 2
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: discoverabilty
+   - action: utter_discoverabilty
+   - intent: retrieve_surveys
+   - action: utter_wait
+   - action: action_latest_Survey
+
+ - story: greet and return survey 3
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: retrieve_surveys
+   - action: utter_wait
+   - action: action_latest_Survey
+
+# STORIES BUDGET
+ - story: greet and return budget
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: whereami
+   - action: utter_inform
+   - action: utter_discoverabilty
+   - intent: retrieve_budgets
+   - action: utter_wait
+   - action: action_latest_Budget
+   
+ - story: greet and return budget 2
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: discoverabilty
+   - action: utter_discoverabilty
+   - intent: retrieve_budgets
+   - action: utter_wait
+   - action: action_latest_Budget
+   
+ - story: greet and return budget 3
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: retrieve_budgets
+   - action: utter_wait
+   - action: action_latest_Budget
+
+# STORIES PROPOSAL
+ - story: greet and return proposal
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: whereami
+   - action: utter_inform
+   - action: utter_discoverabilty
+   - intent: retrieve_proposals
+   - action: utter_wait
+   - action: action_latest_Proposal
+   
+ - story: greet and return proposal 2
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: discoverabilty
+   - action: utter_discoverabilty
+   - intent: retrieve_proposals
+   - action: utter_wait
+   - action: action_latest_Proposal
+   
+ - story: greet and return proposal 3
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: retrieve_proposals
+   - action: utter_wait
+   - action: action_latest_Proposal
+
+
+
 
   # - story: greet and inform
   #  steps:
@@ -90,3 +216,52 @@ stories:
   #  - action: te interesaria ver meetings de barcelona?
   #  - intent: si
   #  - action: aqui tienes 
+
+
+
+  # pide un proceso/debate/survey etc..
+  # miro si tiene el neighbour en not null
+  #   - si no es null busco de esa zona
+
+  #   - si es null
+  #     - le pregunto si me quiere dar el barrio
+  #       - me dice que si 
+  #         - entro en un form para pedir el barrio
+  #         - le doy un PP de esa zona si hay
+  #       - me dice que no
+  #         - busco de una zona cualquiera 
+
+# pide un debate sin localizacion
+# - le pregunto si quiere localizacion 
+#   - si dice que si abro form, pido localizacion, seteo el neighbor y busco en la query
+#   - si dice que no pillo el primero de la query
+
+# pide un debate con localizacion
+#  - busco con esa localizacion
+
+
+
+# - story: interactive_story_1
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - intent: ofrecer_location
+#   - action: simple_location_form
+#   - active_loop: simple_location_form
+#   - slot_was_set:
+#     - requested_slot: neighborhood_location
+#   - slot_was_set:
+#     - neighborhood_location: Sants
+#   - slot_was_set:
+#     - neighborhood_location: null
+#   - slot_was_set:
+#     - requested_slot: neighborhood_location
+#   - slot_was_set:
+#     - neighborhood_location: Horta
+#   - slot_was_set:
+#     - neighborhood_location: Horta
+#   - slot_was_set:
+#     - requested_slot: null
+#   - active_loop: null
+#   - action: utter_submit
+#   - action: utter_neighborhood_location_slots
