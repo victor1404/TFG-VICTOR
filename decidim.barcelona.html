@@ -2461,6 +2461,37 @@ $( document ).ready(function() {
 
   <body>
     
+    <style>
+      .rw-conversation-container .rw-header {background-color: blueviolet;}
+      .rw-conversation-container .rw-messages-container .rw-client{background-color:rgb(127, 214, 255)}
+      .rw-launcher {background-color: blueviolet;}
+
+    </style>
+
+      <script>!(function () {
+          let e = document.createElement("script"),
+            t = document.head || document.getElementsByTagName("head")[0];
+          (e.src =
+            "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
+            // Replace 1.x.x with the version that you want
+            (e.async = !0),
+            (e.onload = () => {
+              window.WebChat.default(
+                {
+                  customData: { language: "es" },
+                  socketUrl: "http://localhost:5005",
+                  // add other props here
+                  title: 'Rasa bot',
+                  subtitle: 'Say hi to Sara',
+                },
+                null
+              );
+            }),
+            t.insertBefore(e, t.firstChild);
+        })();
+        localStorage.clear();
+        </script>
+
       <div class="cookie-warning" role="region">
     Este sitio web utiliza cookies propias y de terceros para mejorar la experiencia de navegación, y ofrecer contenidos y servicios de interés. Al continuar la navegación entendemos que aceptas nuestra política de cookies. Para más información consulta <a title="aquí" target="_blank" href="https://www.decidim.barcelona/pages/terms-and-conditions?locale=es" class="external-link-container">aquí&nbsp;<span class="external-link-indicator"><svg class="icon icon--external-link" role="img" aria-hidden="true"><title>external-link</title><use href="/decidim-packs/media/images/icons-c4fd0f43651700b0c768.svg#icon-external-link"></use></svg><span class="show-for-sr">(Link externo)</span></span></a>.
     <div class="cookie-warning__action">
@@ -2554,7 +2585,7 @@ $( document ).ready(function() {
             
           <div class="navbar js-append">
               <div class="row column">
-                <nav class="main-nav" aria-label="Menú principal"><ul><li class="main-nav__link"><a href="https://www.decidim.barcelona/?locale=es">Inicio</a></li><li class="main-nav__link"><a href="https://www.decidim.barcelona/processes?locale=es">Procesos participativos</a></li><li class="main-nav__link"><a href="https://www.decidim.barcelona/assemblies?locale=es">Órganos de participación</a></li><li class="main-nav__link"><a href="https://www.decidim.barcelona/initiatives?locale=es">Iniciativas ciudadanas</a></li><li class="main-nav__link"><a href="https://www.decidim.barcelona/pages?locale=es">Ayuda</a></li></ul></nav>
+                <nav class="main-nav" aria-label="Menú principal"><ul><li class="main-nav__link"><a href="https://www.decidim.barcelona/?locale=es">Inicio</a></li><li class="main-nav__link"><a href="Procesos participativos - decidim.barcelona.html">Procesos participativos</a></li><li class="main-nav__link"><a href="https://www.decidim.barcelona/assemblies?locale=es">Órganos de participación</a></li><li class="main-nav__link"><a href="https://www.decidim.barcelona/initiatives?locale=es">Iniciativas ciudadanas</a></li><li class="main-nav__link"><a href="https://www.decidim.barcelona/pages?locale=es">Ayuda</a></li></ul></nav>
               </div>
             </div></div>
         </div>
