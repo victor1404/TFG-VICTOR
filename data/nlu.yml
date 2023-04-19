@@ -1,359 +1,409 @@
 version: "3.1"
+
 nlu:
-- intent: greet
-  examples: |
-    - Hola
-    - Hoola
-    - Holaa
-    - Hey
-    - Heey
-    - Hola, que puedo hacer ahora?
-    - Buenas
-    - hola
 
-- intent: farewell
-  examples: |
-    - Deu
-    - Adeu
-    - Adios, gracias
-    - Adeu, gracies
-    - Gracies, adeu
+# SINONIMOS
 
-- intent: sign_in
-  examples: |
-    - Como puedo registrarme?
-    - Como puedo logearme?
-    - No tengo usuario, que hago?
-    - Ya tengo usuario, que hago?
-    - Donde me registro?
-    - Donde inicio sesion?
-    - No tengo cuenta
-    - Me puedes decir como registrarme?
-    - Me puedes decir como iniciar sesion?
-    - Iniciar sesion
-    - Sign in
-    - Sign up
+  # - synonym: registrarme
+  #   examples: |
+  #     - sign up
+  #     - registrarme
+  #     - inscribirme
+  # - synonym: iniciar_sesion
+  #   examples: |
+  #     - log in
+  #     - sign in
+  #     - iniciar sesion
+  #     - logearme
 
-- intent: whereami
-  examples: |
-    - Que es esto?
-    - Donde estoy?
-    - Que hago ahora?
-    - No sé que hacer.
 
-- intent: affirm
-  examples: |
-    - Si
-    - S
+# LOOKUP TABLES
+  - lookup: neighborhood_location
+    examples: |
+      - Horta
+      - Sants
+      - Virrei Amat
+      - Virrei
+      - Guinardó
+      - Eixample
+      - Ciutat Vella
+      - Sarria
+      - Les Corts
+      - Gracia
+      - Nou Barris
+      - Sant Andreu
+      - Sant Marti
+      - Carmel
+      - Sant Pau
+      - Clot
+      - Sagrera
+      - Congrés
+      - Navas
+      - Sant Gervasi
+      - Poblenou
 
-- intent: deny
-  examples: |
-    - No
-    - N
+# BASICS
 
-- intent: demo
-  examples: |
-    - demo
-    - Demo
+  - intent: greet
+    examples: |
+      - Hola
+      - Hey
+      - Buenas
+      - Buenos dias
 
-- intent: comentarios
-  examples: |
-    - Define comentarios
-    - Que son comentarios?
-    - Que es un comentario?
-    - Para que sirven los comentarios
-    - No sé que es un comentario
-    - Me prodrias explicar que es un comentario?
-    - Comentarios? Que es eso
-    - No entiendo lo que es un comentario
+  - intent: farewell
+    examples: |
+      - Adeu
+      - Adios
+      - Hasta otra!
 
-- intent: consejo_de_barrio
-  examples: |
-    - Define consejo de barrio
-    - Que son consejos de barrio?
-    - Que son consejos de barrios?
-    - Que es un consejo de barrio?
-    - Para que sirven los consejo de barrio
-    - No sé que es un consejo de barrio
-    - Me prodrias explicar que es un consejo de barrio?
-    - Consejo de barrio? Que es eso
-    - No entiendo lo que es un consejo de barrio
+  - intent: thanks
+    examples: |
+      - Gracias
+      - Muchas gracias
+      - Te lo agradezco
 
-- intent: presupuesto
-  examples: |
-    - Define presupuesto
-    - Que son los presupuestos?
-    - Que es un presupuesto?
-    - Para que sirven los presupuestos
-    - No sé que es un presupuesto
-    - Me prodrias explicar que es un presupuesto?
-    - Presupuesto? Que es eso
-    - No entiendo lo que es un presupuesto
+  - intent: whereami
+    examples: |
+      - Que es esto?
+      - Donde estoy?
+      - Que hago ahora?
+      - No sé que hacer.
 
-- intent: propuestas
-  examples: |
-    - Define propuestas
-    - Que son las propuestas?
-    - Que es una propuesta?
-    - Para que sirven las propuesta
-    - No sé que es una propuesta
-    - Me prodrias explicar que es una propuesta?
-    - Propuesta? Que es eso
-    - No entiendo lo que es una propuesta
+  - intent: affirm
+    examples: |
+      - Si
+      - S
+      - Yes
 
-- intent: encuentros
-  examples: |
-    - Define encuentros
-    - Que son los encuentros?
-    - Que es un encuentro?
-    - Para que sirven los encuentros
-    - No sé que es un encuentro
-    - Me prodrias explicar que es un encuentro?
-    - Encuentros? Que es eso
-    - No entiendo lo que es un encuentro
+  - intent: deny
+    examples: |
+      - No
+      - N
 
-- intent: votacion
-  examples: |
-    - Define votacion
-    - Que son las votaciones?
-    - Que es una votacion?
-    - Para que sirven las votacion
-    - No sé que es una votacion
-    - Me prodrias explicar que es una votacion?
-    - Votaciones? Que es eso
-    - No entiendo lo que es una votacion
+  - intent: demo
+    examples: |
+      - demo
+      - Demo
 
-- intent: debate
-  examples: |
-    - Define debate
-    - Que son los debates?
-    - Que es un debate?
-    - Para que sirven los debates
-    - No sé que es un debate
-    - Me prodrias explicar que es un debate?
-    - Debate? Que es eso
-    - No entiendo lo que es un debate
+# DEFINICIONES
+  - intent: comentarios
+    examples: |
+      - Define comentarios
+      - Que son comentarios?
+  #     - Que es un comentario?
+  #     - Para que sirven los comentarios
+  #     - No sé que es un comentario
+  #     - Me prodrias explicar que es un comentario?
+  #     - Comentarios? Que es eso
+  #     - No entiendo lo que es un comentario
 
-- intent: iniciar_sesion
-  examples: |
-    - Define inicar sesion
-    - Que es inicar sesion?
+  - intent: consejo_de_barrio
+    examples: |
+      - Define consejo de barrio
+      - Que son consejos de barrio?
+  #     - Que son consejos de barrios?
+  #     - Que es un consejo de barrio?
+  #     - Para que sirven los consejo de barrio
+  #     - No sé que es un consejo de barrio
+  #     - Me prodrias explicar que es un consejo de barrio?
+  #     - Consejo de barrio? Que es eso
+  #     - No entiendo lo que es un consejo de barrio
 
-- intent: registrar
-  examples: |
-    - Define registrar
-    - Que es registrar?
+  - intent: presupuesto
+    examples: |
+      - Define presupuesto
+      - Que son los presupuestos?
+  #     - Que es un presupuesto?
+  #     - Para que sirven los presupuestos
+  #     - No sé que es un presupuesto
+  #     - Me prodrias explicar que es un presupuesto?
+  #     - Presupuesto? Que es eso
+  #     - No entiendo lo que es un presupuesto
 
-- intent: iniciativas_ciudadanas
-  examples: |
-    - Define iniciativas ciudadanas
-    - Que son las iniciativas ciudadanas?
-    - Que es una iniciativa ciudadana?
-    - Para que sirven las iniciativa ciudadana
-    - No sé que es una iniciativa ciudadana
-    - Me prodrias explicar que es una iniciativa ciudadana?
-    - Iniciativa ciudadana? Que es eso
-    - No entiendo lo que es una iniciativa ciudadana
+  - intent: propuestas
+    examples: |
+      - Define propuestas
+      - Que son las propuestas?
+  #     - Que es una propuesta?
+  #     - Para que sirven las propuesta
+  #     - No sé que es una propuesta
+  #     - Me prodrias explicar que es una propuesta?
+  #     - Propuesta? Que es eso
+  #     - No entiendo lo que es una propuesta
 
-- intent: organos_de_participacion
-  examples: |
-    - Define organos de participacion
-    - Que son los organos de participacion?
-    - Que es un organo de participacion?
-    - Para que sirven los organos de participaciones
-    - No sé que es un organo de participacion
-    - Me prodrias explicar que es un organo de participacion?
-    - Organo de participacion? Que es eso
-    - No entiendo lo que es un organo de participacion
+  - intent: encuentros
+    examples: |
+      - Define encuentros
+      - Que son los encuentros?
+  #     - Que es un encuentro?
+  #     - Para que sirven los encuentros
+  #     - No sé que es un encuentro
+  #     - Me prodrias explicar que es un encuentro?
+  #     - Encuentros? Que es eso
+  #     - No entiendo lo que es un encuentro
 
-- intent: procesos_participativos
-  examples: |
-    - Define procesos participativos
-    - Que es un proceso participativo?
-    - Para que sirven los procesos participativos
-    - No sé que es un proceso participativo
-    - Me prodrias explicar que es un proceso participativo?
-    - Proceso participativo? Que es eso
-    - No entiendo lo que es un proceso participativo
+  - intent: votacion
+    examples: |
+      - Define votacion
+      - Que son las votaciones?
+  #     - Que es una votacion?
+  #     - Para que sirven las votacion
+  #     - No sé que es una votacion
+  #     - Me prodrias explicar que es una votacion?
+  #     - Votaciones? Que es eso
+  #     - No entiendo lo que es una votacion
 
-- intent: retrieve_proceso_participativo
-  examples: |
-    - Me puedes ofrecer algun proceso participativo?
-    - Que hay nuevo en los procesos participativos?
-    - Ha salido algun proceso participativo nuevo?
-    - Hay algun proceso participativo interesante?
-    - Me puedes dar lo ultimo de procesos participativos?
-    - Cual es el ultimo proceso participativo que ha salido?
-    - Quiero ver algun proceso participativo, que me recomiendas?
-    - No sé que procesos participativos hay.
-    - No sé que procesos participativos hay, dame alguno.
-    - Me puedes ayudar a escoger un proceso participativo?
-    - Hay algun proceso participativo nuevo?
-- intent: retrieve_proceso_participativo_location
-  examples: |
-    - Me puedes ofrecer algun proceso participativo, en [Horta](neighborhood_location)?
-    - Me puedes ofrecer algun proceso participativo, cerca de [Sants](neighborhood_location)?
-    - Me puedes ofrecer algun proceso participativo, en la zona de [Guinardó](neighborhood_location)?
-    - Que hay nuevo en los procesos participativos, en la zona de [Virrei Amat](neighborhood_location)?
-    - Ha salido algun proceso participativo nuevo, cerca de [horta](neighborhood_location)?
-    - Hay algun proceso participativo interesante, en [guinardo](neighborhood_location)?
-    - Me puedes dar lo ultimo de procesos participativos, en la zona de [virrei](neighborhood_location)?
-    - Cual es el ultimo proceso participativo que ha salido, cerca de [virrei amat](neighborhood_location)?
-    - Quiero ver algun proceso participativo, que me recomiendas, en [sants](neighborhood_location)?
-    - No sé que procesos participativos hay, en la zona de [sarria](neighborhood_location).
-    - No sé que procesos participativos hay, dame alguno, cerca de [Sarria](neighborhood_location).
-    - Me puedes ayudar a escoger un proceso participativo, en [Horta](neighborhood_location)?
-    - Hay algun proceso participativo nuevo, en la zona de [Virrei](neighborhood_location)?
+  - intent: debate
+    examples: |
+      - Define debate
+      - Que es un debate?
 
-- intent: retrieve_debates
-  examples: |
-    - Me puedes ofrecer algun debate, en [Horta](neighborhood_location)?
-    - Que hay nuevo en los debates, cerca de [Sants](neighborhood_location)?
-    - Ha salido algun debate nuevo, en la zona de [Guinardó](neighborhood_location)?
-    - Hay algun debate interesante, en [Horta](neighborhood_location)?
-    - Me puedes dar lo ultimo de debates, cerca de [Sants](neighborhood_location)?
-    - Cual es el ultimo debate que ha salido, en la zona de [Guinardó](neighborhood_location)?
-    - Quiero ver algun debate, que me recomiendas, en [Horta](neighborhood_location)?
-    - No sé que debates hay, cerca de [Sants](neighborhood_location).
-    - No sé que debates hay, dame alguno, en la zona de [Guinardó](neighborhood_location).
-    - Me puedes ayudar a escoger un debate, en [Horta](neighborhood_location)?
-    - Hay algun debate nuevo, en la zona de [Guinardó](neighborhood_location)?
-- intent: retrieve_debates_location
-  examples: |
-    - Me puedes ofrecer algun debate, en [Horta](neighborhood_location)?
-    - Que hay nuevo en los debates, en la zona de [Guinardó](neighborhood_location)?
-    - Ha salido algun debate nuevo, cerca de [Sants](neighborhood_location)?
-    - Hay algun debate interesante, en la zona de [Guinardó](neighborhood_location)?
-    - Me puedes dar lo ultimo de debates, cerca de [Sants](neighborhood_location)?
-    - Cual es el ultimo debate que ha salido, en [Horta](neighborhood_location)?
-    - Quiero ver algun debate, que me recomiendas, cerca de [Sants](neighborhood_location)?
-    - No sé que debates hay, en la zona de [Guinardó](neighborhood_location).
-    - No sé que debates hay, dame alguno, cerca de [Sants](neighborhood_location).
-    - Me puedes ayudar a escoger un debate, en [Horta](neighborhood_location)?
-    - Hay algun debate nuevo, en la zona de [Guinardó](neighborhood_location)?
+  - intent: iniciativas_ciudadanas
+    examples: |
+      - Define iniciativas ciudadanas
+      - Que son las iniciativas ciudadanas?
+  #     - Que es una iniciativa ciudadana?
+  #     - Para que sirven las iniciativa ciudadana
+  #     - No sé que es una iniciativa ciudadana
+  #     - Me prodrias explicar que es una iniciativa ciudadana?
+  #     - Iniciativa ciudadana? Que es eso
+  #     - No entiendo lo que es una iniciativa ciudadana
 
-- intent: retrieve_surveys
-  examples: |
-    - Me puedes ofrecer alguna encuesta?
-    - Que hay nuevo en las encuestas?
-    - Ha salido alguna encuesta nueva?
-    - Hay alguna encuesta interesante?
-    - Me puedes dar lo ultimo de encuestas?
-    - Cual es la ultima encuesta que ha salido?
-    - Quiero ver alguna encuesta, que me recomiendas?
-    - No sé que encuesta hay.
-    - No sé que encuesta hay, dame alguna.
-    - Me puedes ayudar a escoger una encuesta?
-    - Hay alguna encuesta nueva?
-- intent: retrieve_surveys_location
-  examples: |
-    - Me puedes ofrecer alguna encuesta, en la zona de [Guinardó](neighborhood_location)?
-    - Que hay nuevo en las encuestas, en [Horta](neighborhood_location)?
-    - Ha salido alguna encuesta nueva, cerca de [Sants](neighborhood_location)?
-    - Hay alguna encuesta interesante, en [Horta](neighborhood_location)?
-    - Me puedes dar lo ultimo de encuestas, en la zona de [Guinardó](neighborhood_location)?
-    - Cual es la ultima encuesta que ha salido, cerca de [Sants](neighborhood_location)?
-    - Quiero ver alguna encuesta, que me recomiendas, en la zona de [Guinardó](neighborhood_location)?
-    - No sé que encuesta hay, en [Horta](neighborhood_location).
-    - No sé que encuesta hay, dame alguna, cerca de [Sants](neighborhood_location).
-    - Me puedes ayudar a escoger una encuesta, en la zona de [Guinardó](neighborhood_location)?
-    - Hay alguna encuesta nueva, en [Horta](neighborhood_location)?
+  - intent: organos_de_participacion
+    examples: |
+      - Define organos de participacion
+      - Que son los organos de participacion?
+  #     - Que es un organo de participacion?
+  #     - Para que sirven los organos de participaciones
+  #     - No sé que es un organo de participacion
+  #     - Me prodrias explicar que es un organo de participacion?
+  #     - Organo de participacion? Que es eso
+  #     - No entiendo lo que es un organo de participacion
 
-- intent: retrieve_budgets
-  examples: |
-    - Me puedes ofrecer algun presupuesto?
-    - Que hay nuevo en los presupuestos?
-    - Ha salido algun presupuesto nuevo?
-    - Hay algun presupuesto interesante?
-    - Me puedes dar lo ultimo de presupuestos?
-    - Cual es el ultimo presupuesto que ha salido?
-    - Quiero ver algun presupuesto, que me recomiendas?
-    - No sé que presupuestos hay.
-    - No sé que presupuestos hay, dame alguno.
-    - Me puedes ayudar a escoger un presupuesto?
-    - Hay algun presupuesto nuevo?
-- intent: retrieve_budgets_location
-  examples: |
-    - Me puedes ofrecer algun presupuesto, en [Horta](neighborhood_location)?
-    - Que hay nuevo en los presupuestos, cerca de [Sants](neighborhood_location)?
-    - Ha salido algun presupuesto nuevo, en la zona de [Guinardó](neighborhood_location)?
-    - Hay algun presupuesto interesante, en [Horta](neighborhood_location)?
-    - Me puedes dar lo ultimo de presupuestos, cerca de [Sants](neighborhood_location)?
-    - Cual es el ultimo presupuesto que ha salido, en la zona de [Guinardó](neighborhood_location)?
-    - Quiero ver algun presupuesto, que me recomiendas, en [Horta](neighborhood_location)?
-    - No sé que presupuestos hay, cerca de [Sants](neighborhood_location).
-    - No sé que presupuestos hay, dame alguno, en la zona de [Guinardó](neighborhood_location).
-    - Me puedes ayudar a escoger un presupuesto, en [Horta](neighborhood_location), en [Horta](neighborhood_location)?
-    - Hay algun presupuesto nuevo, en la zona de [Guinardó](neighborhood_location)?
+  - intent: procesos_participativos
+    examples: |
+      - Define procesos participativos
+      - Que es un proceso participativo?
 
-- intent: retrieve_proposals
-  examples: |
-    - Me puedes ofrecer alguna propuesta?
-    - Que hay nuevo en las propuestas?
-    - Ha salido alguna propuesta nueva?
-    - Hay alguna propuesta interesante?
-    - Me puedes dar lo ultimo de propuestas?
-    - Cual es la ultima propuesta que ha salido?
-    - Quiero ver alguna propuesta, que me recomiendas?
-    - No sé que propuesta hay.
-    - No sé que propuesta hay, dame alguna.
-    - Me puedes ayudar a escoger una propuesta?
-    - Hay alguna propuesta nueva?
-- intent: retrieve_proposals_location
-  examples: |
-    - Me puedes ofrecer alguna propuesta, cerca de [Sants](neighborhood_location)?
-    - Que hay nuevo en las propuestas, en [Horta](neighborhood_location)?
-    - Ha salido alguna propuesta nueva, en la zona de [Guinardó](neighborhood_location)?
-    - Hay alguna propuesta interesante, cerca de [Sants](neighborhood_location)?
-    - Me puedes dar lo ultimo de propuestas, en [Horta](neighborhood_location)?
-    - Cual es la ultima propuesta que ha salido, en la zona de [Guinardó](neighborhood_location)?
-    - Quiero ver alguna propuesta, que me recomiendas, cerca de [Sants](neighborhood_location)?
-    - No sé que propuesta hay, en [Horta](neighborhood_location).
-    - No sé que propuesta hay, dame alguna, en [Horta](neighborhood_location).
-    - Me puedes ayudar a escoger una propuesta, en la zona de [Guinardó](neighborhood_location)?
-    - Hay alguna propuesta nueva, en [Horta](neighborhood_location)?
+# RELACIONADO CON PROCESOS PARTICIPATIVOS
+  - intent: retrieve_proceso_participativo
+    examples: |
+      - Me puedes ofrecer algun proceso participativo, en [Horta](neighborhood_location)?
+      - Que hay nuevo en los procesos participativos, en la zona de [Virrei Amat](neighborhood_location)?
+      - Ha salido algun proceso participativo nuevo, cerca de [horta](neighborhood_location)?
+      - Cual es el ultimo proceso participativo que ha salido, cerca de [virrei amat](neighborhood_location)?
+      - Que proceso participativo me recomiendas, en [sants](neighborhood_location)?
+      - No sé que procesos participativos hay, en la zona de [sarria](neighborhood_location).
+      - Me puedes ayudar a escoger un proceso participativo, en [Horta](neighborhood_location)?
+      - De acuerdo, me puedes dar uno de [Horta](neighborhood_location)?
+      - Dame un proceso participativo de [Horta](neighborhood_location), por favor
+      - Hay algun proceso participativo en [sants](neighborhood_location)?
 
-- intent: discoverabilty
-  examples: |
-    - En que me puedes ayudar?
-    - Hola, podrias ayudarme?
-    - Hola, podrias echarme una mano?
-    - Necesito ayuda?
-    - Que te puedo preguntar?
-    - Cual es tu utilidad?
-    - Para que sirves?
-    - Que haces?
-    - Que puedes hacer?
+  - intent: debate_in_participatory_process
+    examples: |
+      - Este proceso tiene debates?
+      - Hay algun debate en ese proceso participativo?
+      - El ultimo proceso participativo tenia algun debate?   
+      - Tiene debates?    
+  - intent: meeting_in_participatory_process
+    examples: |
+      - Este proceso tiene encuentros?
+      - Hay algun encuentro en ese proceso participativo?
+      - El ultimo proceso participativo tenia algun encuentro?  
+      - Tiene encuentros?     
+  - intent: proposals_in_participatory_process
+    examples: |
+      - Este proceso tiene propuestas?
+      - Hay alguna propuesta en ese proceso participativo?
+      - El ultimo proceso participativo tenia alguna propuesta?  
+      - Tiene propuestas?  
+  - intent: budgets_in_participatory_process
+    examples: |
+      - Este proceso tiene presupuestos?
+      - Hay algun presupuesto en ese proceso participativo?
+      - El ultimo proceso participativo tenia algun presupuesto?    
+      - Tiene presupuestos?
 
-- intent: discoverabilty_conceptos
-  examples: |
-    - A que te refieres con conceptos de la web?
-    - Sobre que conceptos te puedo preguntar?
-    - A que conceptos te refieres?
+# HOW CAN I
 
-- intent: quien_eres
-  examples: |
-    - Que eres?
-    - Como te llamas?
-    - Quien eres?
-    - Porque sales en mi ordenador?
-    - Cual es tu nombre?
 
-- intent: ofrecer_location
-  examples: |
-    - quiero decir un lugar
-    - quiero dar una localizacion
+# OTHERS
 
-- intent: give_neighborhood
-  examples: |
-    - Soy de [Horta](neighborhood_location)
-    - Soy de [Sants](neighborhood_location)
-    - Soy del barrio [Nou Barris](neighborhood_location)
-    - Resido en [sants](neighborhood_location)
-    - Resido en el barrio [Sant Andreu](neighborhood_location)
-    - Me interesa el barrio [Les Corts](neighborhood_location)
-    - Me interesan debates sobre [Eixample](neighborhood_location)
-    - [Horta](neighborhood_location)
-    - [Sants](neighborhood_location)
-    - [Guinardó](neighborhood_location)
-    - soy de [virrei amat](neighborhood_location)
+  - intent: discoverabilty
+    examples: |
+      - En que me puedes ayudar?
+      - Hola, podrias ayudarme?
+      - Hola, podrias echarme una mano?
+      - Necesito ayuda
+      - Que te puedo preguntar?
+      - Cual es tu utilidad?
+      - Para que sirves?
+      - Que puedes hacer?
+
+  - intent: discoverabilty_conceptos
+    examples: |
+      - A que te refieres con conceptos de la web?
+      - Sobre que conceptos te puedo preguntar?
+
+  - intent: quien_eres
+    examples: |
+      - Que eres?
+      - Como te llamas?
+      - Quien eres?
+      - Porque sales en mi ordenador?
+      - Cual es tu nombre?
+
+  - intent: ofrecer_location
+    examples: |
+      - quiero decir un lugar
+      - quiero dar una localizacion
+
+  - intent: give_neighborhood
+    examples: |
+      - Soy de [Horta](neighborhood_location)
+      - Soy del barrio de [Nou Barris](neighborhood_location)
+      - Resido en [sants](neighborhood_location)
+      - Resido en el barrio [Sant Andreu](neighborhood_location)
+      - Me interesa el barrio [Les Corts](neighborhood_location)
+      - Estoy interesado en [Guinardó] (neighborhood_location)
+      - soy de [virrei amat](neighborhood_location)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# - intent: retrieve_debates
+#   examples: |
+#     - Me puedes ofrecer algun debate, en [Horta](neighborhood_location)?
+#     - Que hay nuevo en los debates, cerca de [Sants](neighborhood_location)?
+#     - Ha salido algun debate nuevo, en la zona de [Guinardó](neighborhood_location)?
+#     - Hay algun debate interesante, en [Horta](neighborhood_location)?
+#     - Me puedes dar lo ultimo de debates, cerca de [Sants](neighborhood_location)?
+#     - Cual es el ultimo debate que ha salido, en la zona de [Guinardó](neighborhood_location)?
+#     - Quiero ver algun debate, que me recomiendas, en [Horta](neighborhood_location)?
+#     - No sé que debates hay, cerca de [Sants](neighborhood_location).
+#     - No sé que debates hay, dame alguno, en la zona de [Guinardó](neighborhood_location).
+#     - Me puedes ayudar a escoger un debate, en [Horta](neighborhood_location)?
+#     - Hay algun debate nuevo, en la zona de [Guinardó](neighborhood_location)?
+# - intent: retrieve_debates_location
+#   examples: |
+#     - Me puedes ofrecer algun debate, en [Horta](neighborhood_location)?
+#     - Que hay nuevo en los debates, en la zona de [Guinardó](neighborhood_location)?
+#     - Ha salido algun debate nuevo, cerca de [Sants](neighborhood_location)?
+#     - Hay algun debate interesante, en la zona de [Guinardó](neighborhood_location)?
+#     - Me puedes dar lo ultimo de debates, cerca de [Sants](neighborhood_location)?
+#     - Cual es el ultimo debate que ha salido, en [Horta](neighborhood_location)?
+#     - Quiero ver algun debate, que me recomiendas, cerca de [Sants](neighborhood_location)?
+#     - No sé que debates hay, en la zona de [Guinardó](neighborhood_location).
+#     - No sé que debates hay, dame alguno, cerca de [Sants](neighborhood_location).
+#     - Me puedes ayudar a escoger un debate, en [Horta](neighborhood_location)?
+#     - Hay algun debate nuevo, en la zona de [Guinardó](neighborhood_location)?
+
+# - intent: retrieve_surveys
+#   examples: |
+#     - Me puedes ofrecer alguna encuesta?
+#     - Que hay nuevo en las encuestas?
+#     - Ha salido alguna encuesta nueva?
+#     - Hay alguna encuesta interesante?
+#     - Me puedes dar lo ultimo de encuestas?
+#     - Cual es la ultima encuesta que ha salido?
+#     - Quiero ver alguna encuesta, que me recomiendas?
+#     - No sé que encuesta hay.
+#     - No sé que encuesta hay, dame alguna.
+#     - Me puedes ayudar a escoger una encuesta?
+#     - Hay alguna encuesta nueva?
+# - intent: retrieve_surveys_location
+#   examples: |
+#     - Me puedes ofrecer alguna encuesta, en la zona de [Guinardó](neighborhood_location)?
+#     - Que hay nuevo en las encuestas, en [Horta](neighborhood_location)?
+#     - Ha salido alguna encuesta nueva, cerca de [Sants](neighborhood_location)?
+#     - Hay alguna encuesta interesante, en [Horta](neighborhood_location)?
+#     - Me puedes dar lo ultimo de encuestas, en la zona de [Guinardó](neighborhood_location)?
+#     - Cual es la ultima encuesta que ha salido, cerca de [Sants](neighborhood_location)?
+#     - Quiero ver alguna encuesta, que me recomiendas, en la zona de [Guinardó](neighborhood_location)?
+#     - No sé que encuesta hay, en [Horta](neighborhood_location).
+#     - No sé que encuesta hay, dame alguna, cerca de [Sants](neighborhood_location).
+#     - Me puedes ayudar a escoger una encuesta, en la zona de [Guinardó](neighborhood_location)?
+#     - Hay alguna encuesta nueva, en [Horta](neighborhood_location)?
+
+# - intent: retrieve_budgets
+#   examples: |
+#     - Me puedes ofrecer algun presupuesto?
+#     - Que hay nuevo en los presupuestos?
+#     - Ha salido algun presupuesto nuevo?
+#     - Hay algun presupuesto interesante?
+#     - Me puedes dar lo ultimo de presupuestos?
+#     - Cual es el ultimo presupuesto que ha salido?
+#     - Quiero ver algun presupuesto, que me recomiendas?
+#     - No sé que presupuestos hay.
+#     - No sé que presupuestos hay, dame alguno.
+#     - Me puedes ayudar a escoger un presupuesto?
+#     - Hay algun presupuesto nuevo?
+# - intent: retrieve_budgets_location
+#   examples: |
+#     - Me puedes ofrecer algun presupuesto, en [Horta](neighborhood_location)?
+#     - Que hay nuevo en los presupuestos, cerca de [Sants](neighborhood_location)?
+#     - Ha salido algun presupuesto nuevo, en la zona de [Guinardó](neighborhood_location)?
+#     - Hay algun presupuesto interesante, en [Horta](neighborhood_location)?
+#     - Me puedes dar lo ultimo de presupuestos, cerca de [Sants](neighborhood_location)?
+#     - Cual es el ultimo presupuesto que ha salido, en la zona de [Guinardó](neighborhood_location)?
+#     - Quiero ver algun presupuesto, que me recomiendas, en [Horta](neighborhood_location)?
+#     - No sé que presupuestos hay, cerca de [Sants](neighborhood_location).
+#     - No sé que presupuestos hay, dame alguno, en la zona de [Guinardó](neighborhood_location).
+#     - Me puedes ayudar a escoger un presupuesto, en [Horta](neighborhood_location), en [Horta](neighborhood_location)?
+#     - Hay algun presupuesto nuevo, en la zona de [Guinardó](neighborhood_location)?
+
+# - intent: retrieve_proposals
+#   examples: |
+#     - Me puedes ofrecer alguna propuesta?
+#     - Que hay nuevo en las propuestas?
+#     - Ha salido alguna propuesta nueva?
+#     - Hay alguna propuesta interesante?
+#     - Me puedes dar lo ultimo de propuestas?
+#     - Cual es la ultima propuesta que ha salido?
+#     - Quiero ver alguna propuesta, que me recomiendas?
+#     - No sé que propuesta hay.
+#     - No sé que propuesta hay, dame alguna.
+#     - Me puedes ayudar a escoger una propuesta?
+#     - Hay alguna propuesta nueva?
+# - intent: retrieve_proposals_location
+#   examples: |
+#     - Me puedes ofrecer alguna propuesta, cerca de [Sants](neighborhood_location)?
+#     - Que hay nuevo en las propuestas, en [Horta](neighborhood_location)?
+#     - Ha salido alguna propuesta nueva, en la zona de [Guinardó](neighborhood_location)?
+#     - Hay alguna propuesta interesante, cerca de [Sants](neighborhood_location)?
+#     - Me puedes dar lo ultimo de propuestas, en [Horta](neighborhood_location)?
+#     - Cual es la ultima propuesta que ha salido, en la zona de [Guinardó](neighborhood_location)?
+#     - Quiero ver alguna propuesta, que me recomiendas, cerca de [Sants](neighborhood_location)?
+#     - No sé que propuesta hay, en [Horta](neighborhood_location).
+#     - No sé que propuesta hay, dame alguna, en [Horta](neighborhood_location).
+#     - Me puedes ayudar a escoger una propuesta, en la zona de [Guinardó](neighborhood_location)?
+#     - Hay alguna propuesta nueva, en [Horta](neighborhood_location)?
+

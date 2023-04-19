@@ -1,3 +1,5 @@
+version: '3.1'
+
 rules:
  - rule: welcome
    steps:
@@ -8,6 +10,11 @@ rules:
    steps:
    - intent: farewell
    - action: utter_farewell
+
+ - rule: thank u
+   steps:
+   - intent: thanks
+   - action: utter_yourwelcome
 
 #  - rule: neighborhood
 #    steps: 
@@ -63,45 +70,70 @@ rules:
    steps: 
    - intent: procesos_participativos
    - action: utter_procesos_participativos
-  
 
- - rule: Activate Location Form
-   steps:
-   - intent: ofrecer_location
-   - action: simple_location_form
-   - active_loop: simple_location_form
+ - rule: location and validation
+   steps: 
+   - intent: give_neighborhood
+   - action: action_validar_neighbor
 
- - rule: Submit Location Form
-   condition:
-   - active_loop: simple_location_form
-   steps:
-   - action: simple_location_form
-   - active_loop: null
-   - slot_was_set:
-     - requested_slot: null
-   - action: utter_submit
-   - action: utter_neighborhood_location_slots
 
- - rule: PP with location
+ - rule: devolver proceso participativo
    steps:
-   - intent: retrieve_proceso_participativo_location
-   - action: action_procesos_participativos_location
- - rule: Debate with location
+   - intent: retrieve_proceso_participativo
+   - action: action_procesos_participativos
+
+ - rule: debate in participative process
    steps:
-   - intent: retrieve_debates_location
-   - action: action_debate_location
- - rule: Survey with location
+   - intent: debate_in_participatory_process
+   - action: action_mirar_en_proceso_participativo
+
+ - rule: ask for components in participative process
    steps:
-   - intent: retrieve_surveys_location
-   - action: action_surveys_location
- - rule: Budget with location
-   steps:
-   - intent: retrieve_budgets_location
-   - action: action_budget_location
- - rule: Proposal with location
-   steps:
-   - intent: retrieve_proposals_location
-   - action: action_proposal_location
+   - or:
+     - intent: debate_in_participatory_process
+     - intent: meeting_in_participatory_process
+     - intent: proposals_in_participatory_process
+     - intent: budgets_in_participatory_process
+   - action: action_mirar_en_proceso_participativo
+
+
+#  - rule: Activate Location Form
+#    steps:
+#    - intent: give_neighborhood
+#    - action: simple_location_form
+#    - active_loop: simple_location_form
+
+#  - rule: Submit Location Form
+#    condition:
+#    - active_loop: simple_location_form
+#    steps:
+#    - action: simple_location_form
+#    - active_loop: null
+#    - slot_was_set:
+#      - requested_slot: null
+#    - action: utter_submit
+#    - action: utter_neighborhood_location_slots
+
+#  - rule: PP with location
+#    steps:
+#    - intent: retrieve_proceso_participativo_location
+#    - action: action_procesos_participativos_location
+#  - rule: Debate with location
+#    steps:
+#    - intent: retrieve_debates_location
+#    - action: action_debate_location
+#  - rule: Survey with location
+#    steps:
+#    - intent: retrieve_surveys_location
+#    - action: action_surveys_location
+#  - rule: Budget with location
+#    steps:
+#    - intent: retrieve_budgets_location
+#    - action: action_budget_location
+#  - rule: Proposal with location
+#    steps:
+#    - intent: retrieve_proposals_location
+#    - action: action_proposal_location
    
    
    

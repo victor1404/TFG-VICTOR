@@ -1,0 +1,6 @@
+[
+  {
+    "name": "neighborhood_location",
+    "pattern": "(\\bHorta\\b|\\bSants\\b|\\bVirrei\\ Amat\\b|\\bVirrei\\b|\\bGuinardó\\b|\\bEixample\\b|\\bCiutat\\ Vella\\b|\\bSarria\\b|\\bLes\\ Corts\\b|\\bGracia\\b|\\bNou\\ Barris\\b|\\bSant\\ Andreu\\b|\\bSant\\ Marti\\b|\\bCarmel\\b|\\bSant\\ Pau\\b|\\bClot\\b|\\bSagrera\\b|\\bCongrés\\b|\\bNavas\\b|\\bSant\\ Gervasi\\b|\\bPoblenou\\b)"
+  }
+]

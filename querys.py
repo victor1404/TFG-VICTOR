@@ -1,6 +1,7 @@
 import requests
 import json
 import pandas as pd
+from datetime import datetime
 
 
 def query_decidim():
@@ -48,6 +49,7 @@ def query_latest_ParticipatoryProceses():
                         slug
                         id
                         publishedAt
+                        endDate
                         attachments {
                         url
                         thumbnail
@@ -75,145 +77,28 @@ def query_latest_ParticipatoryProceses():
     r = requests.post(url, json={'query': query})
     print(r.status_code)
     # print(r.text)
-    json_data = json.loads(r.text)
-    print(json_data["data"]["participatoryProcesses"][0])
-    return json_data["data"]["participatoryProcesses"][0]
+    json_data = json.loads(r.text)["data"]["participatoryProcesses"]
+    # print(json_data["data"]["participatoryProcesses"][0])
+    # return json_data["data"]["participatoryProcesses"][0]
 
-def query_Debates():
-    query = ("""query {
-                    participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
-                        slug
-                        title {
-                        translation(locale: "es")
-                        }
-                        components {
-                        ... on Meetings {
-                            id
-                            __typename
-                            participatorySpace{
-                            id
-                            title {
-                                translation (locale: "es")
-                            }
-                            }
-                        }
-                        }
-                    }
-                    }""")
+    response = json_data[0]
+    found = False
+    today = datetime.today().strftime('%Y-%m-%d')
 
-    print(query)
-
-    url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
-    print(r.status_code)
-    # print(r.text)
-    json_data = json.loads(r.text)
-    print(json_data["data"]["participatoryProcesses"][0])
-    return json_data["data"]["participatoryProcesses"][0]
-
-def query_Surveys():
-    query = ("""query {
-                    participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
-                        slug
-                        title {
-                        translation(locale: "es")
-                        }
-                        components {
-                        ... on Surveys {
-                            id
-                            __typename
-                            participatorySpace{
-                            id
-                            title {
-                                translation (locale: "es")
-                            }
-                            }
-                        }
-                        }
-                    }
-                    }""")
-
-    print(query)
-
-    url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
-    print(r.status_code)
-    # print(r.text)
-    json_data = json.loads(r.text)
-    print(json_data["data"]["participatoryProcesses"][0])
-    return json_data["data"]["participatoryProcesses"][0]
-
-def query_Budgets():
-    query = ("""query {
-                    participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
-                        slug
-                        title {
-                        translation(locale: "es")
-                        }
-                        components {
-                        ... on Budgets {
-                            id
-                            __typename
-                            participatorySpace{
-                            id
-                            title {
-                                translation (locale: "es")
-                            }
-                            }
-                        }
-                        }
-                    }
-                    }""")
-
-    print(query)
-
-    url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
-    print(r.status_code)
-    # print(r.text)
-    json_data = json.loads(r.text)
-    print(json_data["data"]["participatoryProcesses"][0])
-    return json_data["data"]["participatoryProcesses"][0]
-     
-def query_Proposals():
-    query = ("""query {
-                    participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
-                        slug
-                        title {
-                        translation(locale: "es")
-                        }
-                        components {
-                        ... on Proposals {
-                            id
-                            __typename
-                            participatorySpace{
-                            id
-                            title {
-                                translation (locale: "es")
-                            }
-                            }
-                        }
-                        }
-                    }
-                    }""")
-
-    print(query)
-
-    url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
-    print(r.status_code)
-    # print(r.text)
-    json_data = json.loads(r.text)
-    print(json_data["data"]["participatoryProcesses"][0])
-    return json_data["data"]["participatoryProcesses"][0]
+    for process in json_data:
+        if not found:
+            if process["endDate"] >= today:
+                found = True
+                response = process
+    return response
 
 
-
-def query_ParticipatoryProceses_location():
+def query_ParticipatoryProceses_location(location):
     query = ("""query {
                     participatoryProcesses(order: {publishedAt: "desc"}) {
                         slug
                         id
+                        endDate
                         publishedAt
                         attachments {
                         url
@@ -242,37 +127,32 @@ def query_ParticipatoryProceses_location():
     r = requests.post(url, json={'query': query})
     print(r.status_code)
     # print(r.text)
-    json_data = json.loads(r.text)
-    # print(json_data["data"]["participatoryProcesses"])
-    return json_data["data"]["participatoryProcesses"]
+    json_data = json.loads(r.text)["data"]["participatoryProcesses"]
 
-def query_Debate_location():
+    response = json_data[0]
+    found = False
+    today = datetime.today().strftime('%Y-%m-%d')
+
+    for process in json_data:
+        if not found:
+            if process["endDate"] >= today:
+                if location in process["title"]["translation"] or location in process["description"]["translation"] or location in process["localArea"]["translation"]:
+                    found = True
+                    response = process
+    return response
+
+
+
+def query_Components_ParticipatoryProceses(slug):
     query = ("""query {
-                    participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
-                        slug
-                        title {
-                        translation(locale: "es")
-                        }
-                        localArea {
-                        translation(locale: "es")
-                        }
-                        description {
-                        translation(locale: "es")
-                        }
-                        components {
-                        ... on Debates {
-                            id
-                            __typename
-                            participatorySpace{
-                            id
-                            title {
-                                translation (locale: "es")
-                            }
-                            }
-                        }
+                    participatoryProcess(slug: """ + '"' + f"{slug}" + '"' +  """) {
+                        id
+                        components{
+                        id
+                        __typename
                         }
                     }
-                    }""")
+                }""")
 
     print(query)
 
@@ -280,88 +160,270 @@ def query_Debate_location():
     r = requests.post(url, json={'query': query})
     print(r.status_code)
     # print(r.text)
-    json_data = json.loads(r.text)
-    # print(json_data["data"]["participatoryProcesses"])
-    return json_data["data"]["participatoryProcesses"]
+    json_data = json.loads(r.text)["data"]["participatoryProcess"]["components"]
+    print(json_data)
 
-def query_Surveys_location():
-    query = ("""query {
-                    participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
-                        slug
-                        title {
-                        translation(locale: "es")
-                        }
-                        localArea {
-                        translation(locale: "es")
-                        }
-                        description {
-                        translation(locale: "es")
-                        }
-                        components {
-                        ... on Surveys {
-                            id
-                            __typename
-                            participatorySpace{
-                            id
+    return json_data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# QUERYS SIN USO
+    def query_Debates():
+        query = ("""query {
+                        participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
+                            slug
                             title {
-                                translation (locale: "es")
+                            translation(locale: "es")
+                            }
+                            components {
+                            ... on Meetings {
+                                id
+                                __typename
+                                participatorySpace{
+                                id
+                                title {
+                                    translation (locale: "es")
+                                }
+                                }
                             }
                             }
                         }
-                        }
-                    }
-                    }""")
+                        }""")
 
-    print(query)
+        print(query)
 
-    url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
-    print(r.status_code)
-    # print(r.text)
-    json_data = json.loads(r.text)
-    # print(json_data["data"]["participatoryProcesses"])
-    return json_data["data"]["participatoryProcesses"]
+        url = 'https://www.decidim.barcelona/api/'
+        r = requests.post(url, json={'query': query})
+        print(r.status_code)
+        # print(r.text)
+        json_data = json.loads(r.text)
+        print(json_data["data"]["participatoryProcesses"][0])
+        return json_data["data"]["participatoryProcesses"][0]
 
-def query_Budget_location():
-    query = ("""query {
-                    participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
-                        slug
-                        title {
-                        translation(locale: "es")
-                        }
-                        localArea {
-                        translation(locale: "es")
-                        }
-                        description {
-                        translation(locale: "es")
-                        }
-                        components {
-                        ... on Budgets {
-                            id
-                            __typename
-                            participatorySpace{
-                            id
+    def query_Surveys():
+        query = ("""query {
+                        participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
+                            slug
                             title {
-                                translation (locale: "es")
+                            translation(locale: "es")
+                            }
+                            components {
+                            ... on Surveys {
+                                id
+                                __typename
+                                participatorySpace{
+                                id
+                                title {
+                                    translation (locale: "es")
+                                }
+                                }
                             }
                             }
                         }
+                        }""")
+
+        print(query)
+
+        url = 'https://www.decidim.barcelona/api/'
+        r = requests.post(url, json={'query': query})
+        print(r.status_code)
+        # print(r.text)
+        json_data = json.loads(r.text)
+        print(json_data["data"]["participatoryProcesses"][0])
+        return json_data["data"]["participatoryProcesses"][0]
+
+    def query_Budgets():
+        query = ("""query {
+                        participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
+                            slug
+                            title {
+                            translation(locale: "es")
+                            }
+                            components {
+                            ... on Budgets {
+                                id
+                                __typename
+                                participatorySpace{
+                                id
+                                title {
+                                    translation (locale: "es")
+                                }
+                                }
+                            }
+                            }
                         }
-                    }
-                    }""")
+                        }""")
 
-    print(query)
+        print(query)
 
-    url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
-    print(r.status_code)
-    # print(r.text)
-    json_data = json.loads(r.text)
-    # print(json_data["data"]["participatoryProcesses"])
-    return json_data["data"]["participatoryProcesses"]
+        url = 'https://www.decidim.barcelona/api/'
+        r = requests.post(url, json={'query': query})
+        print(r.status_code)
+        # print(r.text)
+        json_data = json.loads(r.text)
+        print(json_data["data"]["participatoryProcesses"][0])
+        return json_data["data"]["participatoryProcesses"][0]
+        
+    def query_Proposals():
+        query = ("""query {
+                        participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
+                            slug
+                            title {
+                            translation(locale: "es")
+                            }
+                            components {
+                            ... on Proposals {
+                                id
+                                __typename
+                                participatorySpace{
+                                id
+                                title {
+                                    translation (locale: "es")
+                                }
+                                }
+                            }
+                            }
+                        }
+                        }""")
 
-def query_Proposal_location():
-    query = ("""query {
+        print(query)
+
+        url = 'https://www.decidim.barcelona/api/'
+        r = requests.post(url, json={'query': query})
+        print(r.status_code)
+        # print(r.text)
+        json_data = json.loads(r.text)
+        print(json_data["data"]["participatoryProcesses"][0])
+        return json_data["data"]["participatoryProcesses"][0]
+
+
+    def query_Debate_location():
+        query = ("""query {
+                        participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
+                            slug
+                            title {
+                            translation(locale: "es")
+                            }
+                            localArea {
+                            translation(locale: "es")
+                            }
+                            description {
+                            translation(locale: "es")
+                            }
+                            components {
+                            ... on Debates {
+                                id
+                                __typename
+                                participatorySpace{
+                                id
+                                title {
+                                    translation (locale: "es")
+                                }
+                                }
+                            }
+                            }
+                        }
+                        }""")
+
+        print(query)
+
+        url = 'https://www.decidim.barcelona/api/'
+        r = requests.post(url, json={'query': query})
+        print(r.status_code)
+        # print(r.text)
+        json_data = json.loads(r.text)
+        # print(json_data["data"]["participatoryProcesses"])
+        return json_data["data"]["participatoryProcesses"]
+
+    def query_Surveys_location():
+        query = ("""query {
+                        participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
+                            slug
+                            title {
+                            translation(locale: "es")
+                            }
+                            localArea {
+                            translation(locale: "es")
+                            }
+                            description {
+                            translation(locale: "es")
+                            }
+                            components {
+                            ... on Surveys {
+                                id
+                                __typename
+                                participatorySpace{
+                                id
+                                title {
+                                    translation (locale: "es")
+                                }
+                                }
+                            }
+                            }
+                        }
+                        }""")
+
+        print(query)
+
+        url = 'https://www.decidim.barcelona/api/'
+        r = requests.post(url, json={'query': query})
+        print(r.status_code)
+        # print(r.text)
+        json_data = json.loads(r.text)
+        # print(json_data["data"]["participatoryProcesses"])
+        return json_data["data"]["participatoryProcesses"]
+
+    def query_Budget_location():
+        query = ("""query {
+                        participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
+                            slug
+                            title {
+                            translation(locale: "es")
+                            }
+                            localArea {
+                            translation(locale: "es")
+                            }
+                            description {
+                            translation(locale: "es")
+                            }
+                            components {
+                            ... on Budgets {
+                                id
+                                __typename
+                                participatorySpace{
+                                id
+                                title {
+                                    translation (locale: "es")
+                                }
+                                }
+                            }
+                            }
+                        }
+                        }""")
+
+        print(query)
+
+        url = 'https://www.decidim.barcelona/api/'
+        r = requests.post(url, json={'query': query})
+        print(r.status_code)
+        # print(r.text)
+        json_data = json.loads(r.text)
+        # print(json_data["data"]["participatoryProcesses"])
+        return json_data["data"]["participatoryProcesses"]
+
+    def query_Proposal_location():
+        query = ("""query {
                     participatoryProcesses(filter: {publishedSince: "2022-01-01"}) {
                         slug
                         title {
@@ -388,12 +450,12 @@ def query_Proposal_location():
                     }
                     }""")
 
-    print(query)
+        print(query)
 
-    url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
-    print(r.status_code)
-    # print(r.text)
-    json_data = json.loads(r.text)
-    # print(json_data["data"]["participatoryProcesses"])
-    return json_data["data"]["participatoryProcesses"]
+        url = 'https://www.decidim.barcelona/api/'
+        r = requests.post(url, json={'query': query})
+        print(r.status_code)
+        # print(r.text)
+        json_data = json.loads(r.text)
+        # print(json_data["data"]["participatoryProcesses"])
+        return json_data["data"]["participatoryProcesses"]
