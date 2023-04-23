@@ -158,12 +158,16 @@ responses:
   - text: Que localizacion te interesa?
 
   utter_change_location:
-  - text: Pensaba que estabas interesado en {neighborhood_location}, cambiar de barrio?.
+  - text: Pensaba que te interesaba {neighborhood_location}, prefieres el último que mencionaste? {new_neighborhood_location}.
     buttons:
     - title: "Si"
       payload: /affirm
     - title: "No"
       payload: /deny
+
+  utter_default:
+  - text: "Lo siento. No te he entendido"
+  
 
 
 actions:

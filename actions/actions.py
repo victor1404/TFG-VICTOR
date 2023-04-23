@@ -156,12 +156,11 @@ class ActionGET_ParticipatoryeProcess(Action):
             # no nos ha proporcionado un lugar. 
             response_dict = querys.query_latest_ParticipatoryProceses()
             title = response_dict["title"]["translation"]
-            dispatcher.utter_message(text=f"Te recomiendo el proceso: {title}")
+            dispatcher.utter_message(text=f"Te recomiendo el proceso: **{title}**")               
 
             slug = response_dict["slug"]
             l = "https://www.decidim.barcelona/processes/" + slug
             dispatcher.utter_template("utter_give_link", tracker, link=l)
-
             return [SlotSet("actual_slug_PP", slug)]
 
         else:
@@ -178,6 +177,9 @@ class ActionGET_ParticipatoryeProcess(Action):
 
             slug = response_dict["slug"]
             l = "https://www.decidim.barcelona/processes/" + slug
+            
+            if title == "Reurbanización de los interiores de manzana de la Guineueta":
+                l = "Reurbanización de los interiores de manzana de la Guineueta - decidim.barcelona.html"
             dispatcher.utter_template("utter_give_link", tracker, link=l)
 
             return [SlotSet("actual_slug_PP", slug)]
