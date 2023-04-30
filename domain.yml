@@ -41,9 +41,15 @@ intents:
 - meeting_in_participatory_process
 - proposals_in_participatory_process
 - budgets_in_participatory_process
+- inciate_conv
+- give_name
+- quien_puede_participar
+- como_puedo_participar
+- decidim
 
 entities:
 - neighborhood_location
+- user_name
 - link:
     influence_conversation: false
 
@@ -53,17 +59,18 @@ slots:
     type: text
     influence_conversation: true
     mappings:
-     - type: custom
+    - type: from_entity
+      entity: neighborhood_location
 
-  new_neighborhood_location:
-    type: text
-    influence_conversation: true
-    mappings:
-     - type: custom
+  # new_neighborhood_location:
+  #   type: text
+  #   influence_conversation: true
+  #   mappings:
+  #    - type: custom
 
   actual_slug_PP:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
      - type: custom
 
@@ -73,10 +80,17 @@ slots:
     mappings:
      - type: custom
 
-forms:
-  simple_location_form:
-    required_slots:
-    - neighborhood_location
+  user_name:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: user_name
+
+# forms:
+#   simple_location_form:
+#     required_slots:
+#     - neighborhood_location
 
 responses:
   utter_greet:
@@ -97,11 +111,14 @@ responses:
   - text: No hay problema!
   utter_inform:
   - text: |
-      Esta es la pagina oficial de Decidim Barcelona, en ella podrás participar en diferentes debates. Te aconsejo que te registres antes de nada.       
+      Esta es la pagina oficial de Decidim Barcelona, en ella podrás ver los diferentes procesos que se están llevando acabo, participar en diferentes debates, ver presupuestos... Te aconsejo que te registres antes de nada.       
   utter_discoverabilty:
-  - text: Si necesitas ayuda me puedes preguntar sobre procesos participativos, conceptos de la web que no entiendas, meetings según tu zona de residencia. Estoy a tu disposición!
+  - text: Holaa! Si necesitas ayuda me puedes preguntar sobre procesos participativos, conceptos de la web que no entiendas... Y más cosas! Estoy a tu disposición!
   utter_quien_eres:
   - text: Me llamo Sara, soy una IA a tu servicio. Te ayudaré en lo que necesites en Decidim Barcelona
+  utter_greet_and_ask_name:
+  - text: Hola, Soy Sara, el chatbot de Decidim BCN. Estoy aquí para ayudarte en el ambito de los procesos participativos. Comó te llamas?
+
   utter_wait:
   - text: Por favor espere un segundo
   - text: Un momento, por favor
@@ -110,6 +127,8 @@ responses:
   utter_give_link:
   - text: 'Si te interesa aqui tienes el enlace: {link}'
   - text: 'Aqui tienes el enlace: {link}'
+  utter_decidim:
+  - text: Decidim es...
   utter_procesos_participativos:
   - text: Los procesos participativos son una serie de *encuentros* delimitados en un tiempo concreto para promover el debate y el contraste de argumentos.
     buttons:
@@ -148,6 +167,13 @@ responses:
     buttons:
     - title: Definicion de propuestas
       payload: /propuestas
+
+  utter_quien_puede_participar:
+  - text: Pueden participar...
+  utter_como_puedo_participar:
+  - text: Puedes participar..
+
+
   utter_submit:
   - text: Recordaré esa localizacion
   utter_neighborhood_location_slots:
@@ -157,17 +183,45 @@ responses:
   utter_ask_neighborhood_location:
   - text: Que localizacion te interesa?
 
-  utter_change_location:
-  - text: Pensaba que te interesaba {neighborhood_location}, prefieres el último que mencionaste? {new_neighborhood_location}.
+  # utter_change_location:
+  # - text: Pensaba que te interesaba {neighborhood_location}, prefieres el último que mencionaste? {new_neighborhood_location}.
+  #   buttons:
+  #   - title: "Si"
+  #     payload: /affirm
+  #   - title: "No"
+  #     payload: /deny
+
+  utter_discoverability:
+  - text: "Hola {user_name}, puedes preguntarme, entre otras cosas sobre:"
+    buttons:
+    - title: "Qué es decidim?"
+      payload: /decidim
+    - title: "Quien puede participar en los procesos participativos?"
+      payload: /quien_puede_participar
+    - title: "Cómo se participa?"
+      payload: /como_puedo_participar
+  
+  utter_offer_proceso_participativo:
+  - text: Quieres que te busque algun proceso participativo interesante?
     buttons:
     - title: "Si"
       payload: /affirm
     - title: "No"
       payload: /deny
+      
+  utter_suggest_location:
+  - text: Tambien me puedes pedir procesos de un lugar en concreto. O dime que barrio te interesa e intentaré buscar para la proxima.
+  # - text: "Escoge:"
+  #   buttons:
+  #   - title: "Sants"
+  #     payload: '/give_neighborhood{{"neighborhood_location":"Sants"}}'
+  #   - title: "Horta"
+  #     payload: '/give_neighborhood{{"neighborhood_location":"Horta"}}'
+
 
   utter_default:
-  - text: "Lo siento. No te he entendido"
-  
+  - text: "Lo siento. No te he entendido.. Intenta reformular la frase. Tambien puedes visitar el link https://www.decidim.barcelona/pages?locale=es"
+ 
 
 
 actions:
@@ -183,7 +237,7 @@ actions:
 - utter_inform
 - utter_neighborhood_location_slots
 - utter_submit
-- utter_subscribed
+# - utter_subscribed
 - action_latest_procesos_participativos
 - action_latest_Debate
 - action_latest_Survey
@@ -199,3 +253,5 @@ actions:
 - action_change_neighbor
 - action_procesos_participativos
 - action_mirar_en_proceso_participativo
+- utter_greet_and_ask_name
+- utter_suggest_location

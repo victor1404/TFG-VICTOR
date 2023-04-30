@@ -3,24 +3,6 @@ version: '3.1'
 stories:
 
 # GREET
- - story: greet and inform
-   steps:
-   - intent: greet
-   - action: utter_greet
-   - intent: whereami
-   - action: utter_inform
-   - action: utter_discoverabilty
-
- - story: greet and inform2
-   steps:
-   - intent: greet
-   - action: utter_greet
-   - intent: quien_eres
-   - action: utter_quien_eres
-   - intent: whereami
-   - action: utter_inform
-   - action: utter_discoverabilty
-
  - story: greet and discoverability
    steps:
    - intent: greet
@@ -241,45 +223,134 @@ stories:
      - neighborhood_location: Horta
 
 
- - story: change neighbor
+
+
+# OTHERS
+ - story: First message and discoverability path 1
    steps:
-   - intent: greet
-   - action: utter_greet
-   - intent: give_neighborhood
-     entities:
-     - neighborhood_location: Horta
-   - action: action_validar_neighbor
+   - intent: inciate_conv
+   - action: utter_greet_and_ask_name
+   - intent: give_name
    - slot_was_set:
-     - neighborhood_location: Horta
-   - intent: give_neighborhood
-     entities:
-     - neighborhood_location: Sants
-   - action: action_validar_neighbor
-   - slot_was_set:
-     - new_neighborhood_location: Sants
+     - user_name: Victor
+   - action: utter_discoverability
+   - intent: quien_puede_participar
+   - action: utter_quien_puede_participar
+   - action: utter_offer_proceso_participativo
    - intent: affirm
-   - action: action_change_neighbor
-   - slot_was_set:
-     - neighborhood_location: Sants
+  #  - action: utter_suggest_location
+  #  - intent: give_neighborhood
+   - action: action_procesos_participativos
 
-
- - story: dont change neighbor
+ - story: First message and discoverability path 2
    steps:
-   - intent: greet
-   - action: utter_greet
-   - intent: give_neighborhood
-     entities:
-     - neighborhood_location: Horta
-   - action: action_validar_neighbor
+   - intent: inciate_conv
+   - action: utter_greet_and_ask_name
+   - intent: give_name
    - slot_was_set:
-     - neighborhood_location: Horta
-   - intent: give_neighborhood
-     entities:
-     - neighborhood_location: Sants
-   - action: action_validar_neighbor
+     - user_name: Victor
+   - action: utter_discoverability
+   - intent: como_puedo_participar
+   - action: utter_como_puedo_participar
+   - action: utter_offer_proceso_participativo
+   - intent: affirm
+   - action: action_procesos_participativos
+
+   
+ - story: First message and discoverability path 3
+   steps:
+   - intent: inciate_conv
+   - action: utter_greet_and_ask_name
+   - intent: give_name
    - slot_was_set:
-     - new_neighborhood_location: Sants
-   - intent: deny
+     - user_name: Victor
+   - action: utter_discoverability
+   - intent: decidim
+   - action: utter_decidim
+
+
+
+#  - story: First message and discoverability
+#    steps:
+#    - intent: inciate_conv
+#    - action: utter_greet_and_ask_name
+#    - intent: give_name
+#    - slot_was_set:
+#      - user_name: Victor
+#    - action: utter_discoverability
+#    - checkpoint: check_utter_discoverability
+
+   
+#  - story: Discoverability path 1
+#    steps:
+#    - checkpoint: check_utter_discoverability
+#    - intent: quien_puede_participar
+#    - action: utter_quien_puede_participar
+#    - action: utter_offer_proceso_participativo
+#    - intent: affirm
+#    - action: action_procesos_participativos
+
+      
+#  - story: Discoverability path 2
+#    steps:
+#    - checkpoint: check_utter_discoverability
+#    - intent: como_puedo_participar
+#    - action: utter_como_puedo_participar
+#    - action: utter_offer_proceso_participativo
+#    - intent: affirm
+#    - action: action_procesos_participativos
+
+      
+#  - story: Discoverability path 3
+#    steps:
+#    - checkpoint: check_utter_discoverability
+#    - intent: decidim
+#    - action: utter_decidim
+
+
+
+
+
+
+#  - story: change neighbor
+#    steps:
+#    - intent: greet
+#    - action: utter_greet
+#    - intent: give_neighborhood
+#      entities:
+#      - neighborhood_location: Horta
+#    - action: action_validar_neighbor
+#    - slot_was_set:
+#      - neighborhood_location: Horta
+#    - intent: give_neighborhood
+#      entities:
+#      - neighborhood_location: Sants
+#    - action: action_validar_neighbor
+#    - slot_was_set:
+#      - new_neighborhood_location: Sants
+#    - intent: affirm
+#    - action: action_change_neighbor
+#    - slot_was_set:
+#      - neighborhood_location: Sants
+
+
+#  - story: dont change neighbor
+#    steps:
+#    - intent: greet
+#    - action: utter_greet
+#    - intent: give_neighborhood
+#      entities:
+#      - neighborhood_location: Horta
+#    - action: action_validar_neighbor
+#    - slot_was_set:
+#      - neighborhood_location: Horta
+#    - intent: give_neighborhood
+#      entities:
+#      - neighborhood_location: Sants
+#    - action: action_validar_neighbor
+#    - slot_was_set:
+#      - new_neighborhood_location: Sants
+#    - intent: deny
 
 # STORES PARTICIPATIVE PROCESS
  - story: ask for PP
@@ -287,8 +358,8 @@ stories:
    - intent: greet
    - action: utter_greet
    - intent: retrieve_proceso_participativo
-     entities:
-     - neighborhood_location: Horta
+   - slot_was_set:
+     - actual_slug_PP: neighborhood_location
    - action: action_procesos_participativos
    - slot_was_set:
      - actual_slug_PP: cuidemhortaguinardo
@@ -329,53 +400,3 @@ stories:
    - action: action_mirar_en_proceso_participativo
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# pide un debate sin localizacion
-# - le pregunto si quiere localizacion 
-#   - si dice que si abro form, pido localizacion, seteo el neighbor y busco en la query
-#   - si dice que no pillo el primero de la query
-
-# pide un debate con localizacion
-#  - busco con esa localizacion
-
-
-
-# - story: interactive_story_1
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - intent: ofrecer_location
-#   - action: simple_location_form
-#   - active_loop: simple_location_form
-#   - slot_was_set:
-#     - requested_slot: neighborhood_location
-#   - slot_was_set:
-#     - neighborhood_location: Sants
-#   - slot_was_set:
-#     - neighborhood_location: null
-#   - slot_was_set:
-#     - requested_slot: neighborhood_location
-#   - slot_was_set:
-#     - neighborhood_location: Horta
-#   - slot_was_set:
-#     - neighborhood_location: Horta
-#   - slot_was_set:
-#     - requested_slot: null
-#   - active_loop: null
-#   - action: utter_submit
-#   - action: utter_neighborhood_location_slots

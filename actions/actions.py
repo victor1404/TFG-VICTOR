@@ -34,24 +34,25 @@ definiciones = {
 
 ALLOWED_LOCATIONS = ["Ciutat Vella", "Eixample", "Sants", "Sarria", "Sant Gervasi", "Les Corts", "Gracia", "Horta", "Guinardó", "Nou Barris", "Sant Andreu", "Sant Martí"]
 
-class ActionDevolverDebates(Action):
+# class ActionDevolverDebates(Action):
 
-    def name(self) -> Text:
-        return "action_return_debates"
+#     def name(self) -> Text:
+#         return "action_return_debates"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        neighborhood = tracker.get_slot("neighborhood")
-        dispatcher.utter_message(text=f"Estos son los debates en {neighborhood}a los que te puedes unir:")
+#         neighborhood = tracker.get_slot("neighborhood")
+#         dispatcher.utter_message(text=f"Estos son los debates en {neighborhood}a los que te puedes unir:")
         
-        if not neighborhood:
-            dispatcher.utter_message(text=f"No sabemos en que zona estás mas interesada. Igualmente estos son los debates mas populares:")
-        else:
-            dispatcher.utter_message(text=f"Estos son los debates en {neighborhood} a los que te puedes unir:")
+#         if not neighborhood:
+#             dispatcher.utter_message(text=f"No sabemos en que zona estás mas interesada. Igualmente estos son los debates mas populares:")
+#         else:
+#             dispatcher.utter_message(text=f"Estos son los debates en {neighborhood} a los que te puedes unir:")
 
-        return []
+#         return []
+
 
 class ActionGoToSignIn(Action):
 
@@ -69,69 +70,41 @@ class ActionGoToSignIn(Action):
 
         return []
 
-class ActionDisplayButtons(Action):
 
-    def name(self) -> Text:
-        return "action_yes_no"
+# class ActionPicker(Action):
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#     def name(self) -> Text:
+#         return "action_picker"
 
-        dispatcher.utter_message(buttons = [
-                {"payload": "/affirm", "title": "Yes"},
-                {"payload": "/deny", "title": "No"},
-            ])
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        return []
+#         date_picker = {
+#             "blocks":[
+#                 {
+#                 "type": "section",
+#                 "text":{
+#                     "text": "Make a bet on when the world will end:",
+#                     "type": "mrkdwn"
+#                 },
+#                 "accessory":
+#                 {
+#                     "type": "datepicker",
+#                     "initial_date": "2019-05-21",
+#                     "placeholder":
+#                     {
+#                     "type": "plain_text",
+#                     "text": "Select a date"
+#                     }
+#                 }
+#                 }
+#             ]
+#             }
+#         dispatcher.utter_message(json_message = date_picker)
 
+#         return []
 
-
-class ActionPicker(Action):
-
-    def name(self) -> Text:
-        return "action_picker"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        date_picker = {
-            "blocks":[
-                {
-                "type": "section",
-                "text":{
-                    "text": "Make a bet on when the world will end:",
-                    "type": "mrkdwn"
-                },
-                "accessory":
-                {
-                    "type": "datepicker",
-                    "initial_date": "2019-05-21",
-                    "placeholder":
-                    {
-                    "type": "plain_text",
-                    "text": "Select a date"
-                    }
-                }
-                }
-            ]
-            }
-        dispatcher.utter_message(json_message = date_picker)
-
-        return []
-
-class ActionAPIDemo(Action):
-  
-    def name(self) -> Text:
-        return "action_user_info"
-
-    def run(self, dispatcher: CollectingDispatcher,
-    tracker: Tracker,
-    domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        querys.query_user_information("Victor Llinares")
-
-        return []  
 
 
 class ActionGET_ParticipatoryeProcess(Action):
@@ -142,14 +115,7 @@ class ActionGET_ParticipatoryeProcess(Action):
     def run(self, dispatcher: CollectingDispatcher,
     tracker: Tracker,
     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        # response_dict = querys.query_latest_ParticipatoryProceses()
-        # s = response_dict["title"]["translation"]
-        # dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
 
-        # l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
-        # dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-        # return [] 
         neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None) 
 
         if neighborhood is None:
@@ -165,10 +131,10 @@ class ActionGET_ParticipatoryeProcess(Action):
 
         else:
 
-            if neighborhood.title() not in ALLOWED_LOCATIONS:
-                dispatcher.utter_message("Eso no sirve, la localizacion debe ser :")
-                dispatcher.utter_message("Ciutat Vella, Eixample, Sants, Sarria, Sant Gervasi, Les Corts, Gracia, Horta, Guinardó, Nou Barris, Sant Andreu o Sant Martí.")
-                return []
+            # if neighborhood.title() not in ALLOWED_LOCATIONS:
+            #     dispatcher.utter_message("Eso no sirve, la localizacion debe ser :")
+            #     dispatcher.utter_message("Ciutat Vella, Eixample, Sants, Sarria, Sant Gervasi, Les Corts, Gracia, Horta, Guinardó, Nou Barris, Sant Andreu o Sant Martí.")
+            #     return []
 
             response_dict = querys.query_ParticipatoryProceses_location(neighborhood)
             title = response_dict["title"]["translation"]
@@ -352,193 +318,193 @@ class ActionLOOK_ParticipatoryeProcess(Action):
 
 # QUERYS CON LOCATION
 
-    class ActionAPI_Debate_Location(Action):
+    # class ActionAPI_Debate_Location(Action):
     
-        def name(self) -> Text:
-            return "action_debate_location"
+    #     def name(self) -> Text:
+    #         return "action_debate_location"
 
-        def run(self, dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            ent = tracker.latest_message['entities'][0]['value']    
-            # slot_value = str(tracker.get_slot('neighborhood_location'))
-            response_dict = querys.query_Debate_location()
-            response = response_dict[0]
-            found = False
+    #     def run(self, dispatcher: CollectingDispatcher,
+    #     tracker: Tracker,
+    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    #         ent = tracker.latest_message['entities'][0]['value']    
+    #         # slot_value = str(tracker.get_slot('neighborhood_location'))
+    #         response_dict = querys.query_Debate_location()
+    #         response = response_dict[0]
+    #         found = False
             
-            for d in response_dict:
-                if not found:
-                    if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
-                        found = True
-                        response = d
+    #         for d in response_dict:
+    #             if not found:
+    #                 if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
+    #                     found = True
+    #                     response = d
                     
 
-            s = response["title"]["translation"]
-            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+    #         s = response["title"]["translation"]
+    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
 
-            l = "https://www.decidim.barcelona/processes/" + response["slug"]
-            dispatcher.utter_template("utter_give_link", tracker, link=l)
+    #         l = "https://www.decidim.barcelona/processes/" + response["slug"]
+    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
 
-            return [] 
+    #         return [] 
 
 
-    class ActionAPI_Surveys_Location(Action):
+    # class ActionAPI_Surveys_Location(Action):
     
-        def name(self) -> Text:
-            return "action_surveys_location"
+    #     def name(self) -> Text:
+    #         return "action_surveys_location"
 
-        def run(self, dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            ent = tracker.latest_message['entities'][0]['value']    
-            # slot_value = str(tracker.get_slot('neighborhood_location'))
-            response_dict = querys.query_Surveys_location()
-            response = response_dict[0]
-            found = False
+    #     def run(self, dispatcher: CollectingDispatcher,
+    #     tracker: Tracker,
+    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    #         ent = tracker.latest_message['entities'][0]['value']    
+    #         # slot_value = str(tracker.get_slot('neighborhood_location'))
+    #         response_dict = querys.query_Surveys_location()
+    #         response = response_dict[0]
+    #         found = False
             
-            for d in response_dict:
-                if not found:
-                    if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
-                        found = True
-                        response = d
+    #         for d in response_dict:
+    #             if not found:
+    #                 if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
+    #                     found = True
+    #                     response = d
                     
 
-            s = response["title"]["translation"]
-            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+    #         s = response["title"]["translation"]
+    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
 
-            l = "https://www.decidim.barcelona/processes/" + response["slug"]
-            dispatcher.utter_template("utter_give_link", tracker, link=l)
+    #         l = "https://www.decidim.barcelona/processes/" + response["slug"]
+    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
 
-            return [] 
+    #         return [] 
 
 
-    class ActionAPI_Budget_Location(Action):
+    # class ActionAPI_Budget_Location(Action):
     
-        def name(self) -> Text:
-            return "action_budget_location"
+    #     def name(self) -> Text:
+    #         return "action_budget_location"
 
-        def run(self, dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            ent = tracker.latest_message['entities'][0]['value']    
-            # slot_value = str(tracker.get_slot('neighborhood_location'))
-            response_dict = querys.query_Budget_location()
-            response = response_dict[0]
-            found = False
+    #     def run(self, dispatcher: CollectingDispatcher,
+    #     tracker: Tracker,
+    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    #         ent = tracker.latest_message['entities'][0]['value']    
+    #         # slot_value = str(tracker.get_slot('neighborhood_location'))
+    #         response_dict = querys.query_Budget_location()
+    #         response = response_dict[0]
+    #         found = False
             
-            for d in response_dict:
-                if not found:
-                    if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
-                        found = True
-                        response = d
+    #         for d in response_dict:
+    #             if not found:
+    #                 if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
+    #                     found = True
+    #                     response = d
                     
 
-            s = response["title"]["translation"]
-            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+    #         s = response["title"]["translation"]
+    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
 
-            l = "https://www.decidim.barcelona/processes/" + response["slug"]
-            dispatcher.utter_template("utter_give_link", tracker, link=l)
+    #         l = "https://www.decidim.barcelona/processes/" + response["slug"]
+    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
 
-            return [] 
+    #         return [] 
 
 
-    class ActionAPI_Proposal_Location(Action):
+    # class ActionAPI_Proposal_Location(Action):
   
-        def name(self) -> Text:
-            return "action_proposal_location"
+    #     def name(self) -> Text:
+    #         return "action_proposal_location"
 
-        def run(self, dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            ent = tracker.latest_message['entities'][0]['value']    
-            # slot_value = str(tracker.get_slot('neighborhood_location'))
-            response_dict = querys.query_Proposal_location()
-            response = response_dict[0]
-            found = False
+    #     def run(self, dispatcher: CollectingDispatcher,
+    #     tracker: Tracker,
+    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    #         ent = tracker.latest_message['entities'][0]['value']    
+    #         # slot_value = str(tracker.get_slot('neighborhood_location'))
+    #         response_dict = querys.query_Proposal_location()
+    #         response = response_dict[0]
+    #         found = False
             
-            for d in response_dict:
-                if not found:
-                    if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
-                        found = True
-                        response = d
+    #         for d in response_dict:
+    #             if not found:
+    #                 if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
+    #                     found = True
+    #                     response = d
                     
 
-            s = response["title"]["translation"]
-            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+    #         s = response["title"]["translation"]
+    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
 
-            l = "https://www.decidim.barcelona/processes/" + response["slug"]
-            dispatcher.utter_template("utter_give_link", tracker, link=l)
+    #         l = "https://www.decidim.barcelona/processes/" + response["slug"]
+    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
 
-            return [] 
-
-
+    #         return [] 
 
 
-class ValidateSimpleLocationForm(FormValidationAction):
-
-    def name(self) -> Text:
-        return "validate_simple_location_form"
-
-    def validate_neighborhood_location(
-        self,
-        slot_value: Any,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: DomainDict,
-    ) -> Dict[Text, Any]:
-        """Validate `neighborhood_location` value."""
-
-        print(slot_value)
-
-        if slot_value.lower() not in ALLOWED_LOCATIONS:
-            dispatcher.utter_message(text=f"Esa localizacion no sirve. Debe ser Horta o Gracia.")
-            return {"neighborhood_location": None}
-        dispatcher.utter_message(text=f"OK! guardamos el valor {slot_value}.")
-        return {"neighborhood_location": slot_value}
-
-class ActionValidarNeighbor(Action):
-
-    def name(self) -> Text:
-        return "action_validar_neighbor"
-
-    def run(self, dispatcher: CollectingDispatcher,
-    tracker: Tracker,
-    domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
-        slot = tracker.get_slot("neighborhood_location")
-        print("\nSlot:")
-        print(slot)
-        print("neighbor:")
-        print(neighborhood)
-        if slot is not None:
-            dispatcher.utter_template("utter_change_location", tracker, neighborhood_location=slot)
-            return [SlotSet("new_neighborhood_location", neighborhood)]
 
 
-        if neighborhood.title() not in ALLOWED_LOCATIONS:
-            dispatcher.utter_message("Eso no sirve, la localizacion debe ser :")
-            dispatcher.utter_message("Ciutat Vella, Eixample, Sants, Sarria, Sant Gervasi, Les Corts, Gracia, Horta, Guinardó, Nou Barris, Sant Andreu o Sant Martí.")
-            return []
-        else:
-            dispatcher.utter_message(text=f"Me acordaré que te interesa {neighborhood}.")
-            return [SlotSet("neighborhood_location", neighborhood)]
+# class ValidateSimpleLocationForm(FormValidationAction):
 
-class ActionChangeNeighbor(Action):
+#     def name(self) -> Text:
+#         return "validate_simple_location_form"
 
-    def name(self) -> Text:
-        return "action_change_neighbor"
+#     def validate_neighborhood_location(
+#         self,
+#         slot_value: Any,
+#         dispatcher: CollectingDispatcher,
+#         tracker: Tracker,
+#         domain: DomainDict,
+#     ) -> Dict[Text, Any]:
+#         """Validate `neighborhood_location` value."""
 
-    def run(self, dispatcher: CollectingDispatcher,
-    tracker: Tracker,
-    domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#         print(slot_value)
 
-        neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
-        print("\nEntity:")
-        print(neighborhood)
-        if neighborhood is None:
-            slot = tracker.get_slot("new_neighborhood_location")
-            print("Slot:")
-            print(slot)
-            return [SlotSet("neighborhood_location", slot)]
-        return [SlotSet("neighborhood_location", neighborhood)]
+#         if slot_value.lower() not in ALLOWED_LOCATIONS:
+#             dispatcher.utter_message(text=f"Esa localizacion no sirve. Debe ser Horta o Gracia.")
+#             return {"neighborhood_location": None}
+#         dispatcher.utter_message(text=f"OK! guardamos el valor {slot_value}.")
+#         return {"neighborhood_location": slot_value}
+
+# class ActionValidarNeighbor(Action):
+
+#     def name(self) -> Text:
+#         return "action_validar_neighbor"
+
+#     def run(self, dispatcher: CollectingDispatcher,
+#     tracker: Tracker,
+#     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+#         neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
+#         slot = tracker.get_slot("neighborhood_location")
+#         print("\nSlot:")
+#         print(slot)
+#         print("neighbor:")
+#         print(neighborhood)
+#         if slot is not None:
+#             dispatcher.utter_template("utter_change_location", tracker, neighborhood_location=slot)
+#             return [SlotSet("new_neighborhood_location", neighborhood)]
+
+
+#         if neighborhood.title() not in ALLOWED_LOCATIONS:
+#             dispatcher.utter_message("Eso no sirve, la localizacion debe ser :")
+#             dispatcher.utter_message("Ciutat Vella, Eixample, Sants, Sarria, Sant Gervasi, Les Corts, Gracia, Horta, Guinardó, Nou Barris, Sant Andreu o Sant Martí.")
+#             return []
+#         else:
+#             dispatcher.utter_message(text=f"Me acordaré que te interesa {neighborhood}.")
+#             return [SlotSet("neighborhood_location", neighborhood)]
+
+# class ActionChangeNeighbor(Action):
+
+#     def name(self) -> Text:
+#         return "action_change_neighbor"
+
+#     def run(self, dispatcher: CollectingDispatcher,
+#     tracker: Tracker,
+#     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+#         neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
+#         print("\nEntity:")
+#         print(neighborhood)
+#         if neighborhood is None:
+#             slot = tracker.get_slot("new_neighborhood_location")
+#             print("Slot:")
+#             print(slot)
+#             return [SlotSet("neighborhood_location", slot)]
+#         return [SlotSet("neighborhood_location", neighborhood)]

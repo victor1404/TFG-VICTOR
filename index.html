@@ -8,27 +8,30 @@
       </style>
 
         <script>!(function () {
-            let e = document.createElement("script"),
-              t = document.head || document.getElementsByTagName("head")[0];
-            (e.src =
-              "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
-              // Replace 1.x.x with the version that you want
-              (e.async = !0),
-              (e.onload = () => {
-                window.WebChat.default(
-                  {
-                    customData: { language: "es" },
-                    socketUrl: "http://localhost:5005",
-                    // add other props here
-                    title: 'Rasa bot',
-                    subtitle: 'Say hi to Sara',
-                  },
-                  null
-                );
-              }),
-              t.insertBefore(e, t.firstChild);
-          })();
-          localStorage.clear();
-          </script>
+          let e = document.createElement("script"),
+            t = document.head || document.getElementsByTagName("head")[0];
+          (e.src =
+            "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
+            // Replace 1.x.x with the version that you want
+            (e.async = !0),
+            (e.onload = () => {
+              window.WebChat.default(
+                {
+                  customData: { language: "es" },
+                  socketUrl: "http://localhost:5005",
+                  initPayload: "/inciate_conv",
+                  title: 'Hola! Soy Sara',
+                  subtitle: 'Pregúntame cualquier cosa!',
+                  profileAvatar: 'img/female-call-center-operator.gif',
+                  inputTextFieldHint: 'Escribe algo..'
+                  // openLauncherImage: 'img/UP.gif'
+                },
+                null
+              );
+            }),
+            t.insertBefore(e, t.firstChild);
+        })();
+        localStorage.clear();
+        </script>
     </body>
 </html>

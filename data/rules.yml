@@ -1,6 +1,11 @@
 version: '3.1'
 
 rules:
+ - rule: NLU FALLBACK
+   steps:
+   - intent: nlu_fallback
+   - action: utter_default
+
  - rule: welcome
    steps:
    - intent: greet
@@ -16,6 +21,12 @@ rules:
    - intent: thanks
    - action: utter_yourwelcome
 
+ - rule: the user doesnt know what decidim is
+   steps:
+   - intent: whereami
+   - action: utter_inform
+   - action: utter_discoverabilty
+
 #  - rule: neighborhood
 #    steps: 
 #    - intent: give_neighborhood
@@ -25,6 +36,17 @@ rules:
    steps: 
    - intent: comentarios
    - action: utter_comentarios
+
+#  - rule: quien_puede_participar
+#    steps: 
+#    - intent: quien_puede_participar
+#    - action: utter_quien_puede_participar
+
+#  - rule: como_puedo_participar
+#    steps: 
+#    - intent: como_puedo_participar
+#    - action: utter_como_puedo_participar
+
  - rule: define_consejo_de_barrio
    steps: 
    - intent: consejo_de_barrio
@@ -71,16 +93,15 @@ rules:
    - intent: procesos_participativos
    - action: utter_procesos_participativos
 
- - rule: location and validation
-   steps: 
-   - intent: give_neighborhood
-   - action: action_validar_neighbor
+#  - rule: location and validation
+#    steps: 
+#    - intent: give_neighborhood
+#    - action: action_validar_neighbor
 
-
- - rule: devolver proceso participativo
-   steps:
-   - intent: retrieve_proceso_participativo
-   - action: action_procesos_participativos
+#  - rule: devolver proceso participativo
+#    steps:
+#    - intent: retrieve_proceso_participativo
+#    - action: action_procesos_participativos
 
  - rule: debate in participative process
    steps:

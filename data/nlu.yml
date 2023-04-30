@@ -20,27 +20,28 @@ nlu:
 # LOOKUP TABLES
   - lookup: neighborhood_location
     examples: |
-      - Horta
-      - Sants
-      - Virrei Amat
-      - Virrei
-      - Guinardó
-      - Eixample
       - Ciutat Vella
-      - Sarria
+      - Eixample
+      - Sants
+      - Montjuic
       - Les Corts
+      - Sarria
+      - Sant Gervasi
       - Gracia
+      - Horta
+      - Guinardó
       - Nou Barris
       - Sant Andreu
       - Sant Marti
-      - Carmel
-      - Sant Pau
-      - Clot
-      - Sagrera
-      - Congrés
-      - Navas
-      - Sant Gervasi
-      - Poblenou
+#       - Virrei Amat
+#       - Virrei
+#       - Carmel
+#       - Sant Pau
+#       - Clot
+#       - Sagrera
+#       - Congrés
+#       - Navas
+#       - Poblenou
 
 # BASICS
 
@@ -86,7 +87,21 @@ nlu:
       - demo
       - Demo
 
+  - intent: give_name
+    examples: |
+      - Mi nombre es [Antonio](user_name)
+      - Me llamo [Victor](user_name)
+      - Soy [Juan](user_name)
+      - [Juan Sebastian](user_name)
+
+
 # DEFINICIONES
+
+  - intent: decidim
+    examples: |
+      - Define decidim
+      - Qué es decidim
+
   - intent: comentarios
     examples: |
       - Define comentarios
@@ -227,6 +242,15 @@ nlu:
 
 # HOW CAN I
 
+  - intent: quien_puede_participar
+    examples: |
+      - Quien puede participar
+      - Que personas pueden participar en un proceso participativo?
+      
+  - intent: como_puedo_participar
+    examples: |
+      - Como puedo participar
+      - De que forma se participa?
 
 # OTHERS
 
@@ -241,10 +265,10 @@ nlu:
       - Para que sirves?
       - Que puedes hacer?
 
-  - intent: discoverabilty_conceptos
-    examples: |
-      - A que te refieres con conceptos de la web?
-      - Sobre que conceptos te puedo preguntar?
+  # - intent: discoverabilty_conceptos
+  #   examples: |
+  #     - A que te refieres con conceptos de la web?
+  #     - Sobre que conceptos te puedo preguntar?
 
   - intent: quien_eres
     examples: |
@@ -254,10 +278,10 @@ nlu:
       - Porque sales en mi ordenador?
       - Cual es tu nombre?
 
-  - intent: ofrecer_location
-    examples: |
-      - quiero decir un lugar
-      - quiero dar una localizacion
+  # - intent: ofrecer_location
+  #   examples: |
+  #     - quiero decir un lugar
+  #     - quiero dar una localizacion
 
   - intent: give_neighborhood
     examples: |
@@ -268,6 +292,7 @@ nlu:
       - Me interesa el barrio [Les Corts](neighborhood_location)
       - Estoy interesado en [Guinardó] (neighborhood_location)
       - soy de [virrei amat](neighborhood_location)
+      - De [Horta]
 
 
 
