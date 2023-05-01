@@ -2467,7 +2467,32 @@ $( document ).ready(function() {
       .rw-launcher {background-color: blueviolet;}
     </style>
 
-      <script>!(function () {
+      <script>
+      var url = 'http://localhost:5005/conversations/user123/trigger_intent?output_channel=latest';
+        var data = {"name": "change_context", "entities": {"context": "PAGINA PRINCIPAL"}};
+          fetch(url, {
+            body: JSON.stringify(data),
+            headers: {
+              'dataType': 'json',
+              'content-type': 'application/json'
+            },
+            method: 'POST',
+            redirect: 'follow'
+          })
+          .then(response => {
+            if (response.status === 200) {
+              console.log(response.text());
+          } else {
+          throw new Error('Something went wrong on api server!');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+
+
+        !(function () {
           let e = document.createElement("script"),
             t = document.head || document.getElementsByTagName("head")[0];
           (e.src =
@@ -2479,12 +2504,11 @@ $( document ).ready(function() {
                 {
                   customData: { language: "es" },
                   socketUrl: "http://localhost:5005",
-                  initPayload: "/needHelp",
+                  initPayload: "/inciate_conv",
                   title: 'Hola! Soy Sara',
                   subtitle: 'Pregúntame cualquier cosa!',
                   profileAvatar: 'img/female-call-center-operator.gif',
                   inputTextFieldHint: 'Escribe algo..'
-                  // openLauncherImage: 'img/UP.gif'
                 },
                 null
               );
@@ -2492,7 +2516,9 @@ $( document ).ready(function() {
             t.insertBefore(e, t.firstChild);
         })();
         localStorage.clear();
-        </script>
+
+
+      </script>
 
       <div class="cookie-warning" role="region">
     Este sitio web utiliza cookies propias y de terceros para mejorar la experiencia de navegación, y ofrecer contenidos y servicios de interés. Al continuar la navegación entendemos que aceptas nuestra política de cookies. Para más información consulta <a title="aquí" target="_blank" href="https://www.decidim.barcelona/pages/terms-and-conditions?locale=es" class="external-link-container">aquí&nbsp;<span class="external-link-indicator"><svg class="icon icon--external-link" role="img" aria-hidden="true"><title>external-link</title><use href="/decidim-packs/media/images/icons-c4fd0f43651700b0c768.svg#icon-external-link"></use></svg><span class="show-for-sr">(Link externo)</span></span></a>.

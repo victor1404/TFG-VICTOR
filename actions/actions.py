@@ -316,6 +316,24 @@ class ActionLOOK_ParticipatoryeProcess(Action):
 
 
 
+class ActionGET_ID(Action):
+
+    def name(self) -> Text:
+        return "action_show_context"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        id = tracker.sender_id 
+        print(id)
+
+        context = str(tracker.get_slot('context'))
+        print(context)
+        # dispatcher.utter_message(text=f"El id de este sesion es: {id}")
+
+        return []
+
 # QUERYS CON LOCATION
 
     # class ActionAPI_Debate_Location(Action):

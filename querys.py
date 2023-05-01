@@ -168,6 +168,23 @@ def query_Components_ParticipatoryProceses(slug):
 
 
 
+# def iniciate_conv(){
+#     session_id = "89fuf9j2fe92jicdhf2920efjdkflf2020"
+#     # url = 'http://localhost:5005/conversations/' + session_id + '/trigger_intent?token=DataVisualizationInLinguisticsSecretToken&include_events=NONE&output_channel=socketio'
+#     url = 'http://localhost:5005/conversations/' + session_id + '/trigger_intent?output_channel=socketio'
+#     json_msg = {
+#         "name": "change_context",
+#         "entities": {
+#             "context": "PAGINA PRINCIPAL"
+#         }
+#     }
+#     requests.post(url, json=json_msg)
+# }
+
+
+
+
+
 
 
 

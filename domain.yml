@@ -46,10 +46,12 @@ intents:
 - quien_puede_participar
 - como_puedo_participar
 - decidim
+- change_context
 
 entities:
 - neighborhood_location
 - user_name
+- context
 - link:
     influence_conversation: false
 
@@ -61,6 +63,13 @@ slots:
     mappings:
     - type: from_entity
       entity: neighborhood_location
+
+  context:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: context
 
   # new_neighborhood_location:
   #   type: text
@@ -255,3 +264,4 @@ actions:
 - action_mirar_en_proceso_participativo
 - utter_greet_and_ask_name
 - utter_suggest_location
+- action_show_context

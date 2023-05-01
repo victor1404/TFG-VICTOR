@@ -7,7 +7,34 @@
 
       </style>
 
-        <script>!(function () {
+        <script>
+        // curl -H "Content-Type: application/json" -X POST -d '{"name": "change_context", "entities": {"context": "PAGINA PRINCIPAL"}}' "http://localhost:5005/conversations/user123/trigger_intent?output_channel=latest";
+      
+        var url = 'http://localhost:5005/conversations/user123/trigger_intent?output_channel=latest';
+        var data = {"name": "change_context", "entities": {"context": "INDEX"}};
+          fetch(url, {
+            body: JSON.stringify(data),
+            headers: {
+              'dataType': 'json',
+              'content-type': 'application/json'
+            },
+            method: 'POST',
+            redirect: 'follow'
+          })
+          .then(response => {
+            if (response.status === 200) {
+              console.log(response.text());
+          } else {
+          throw new Error('Something went wrong on api server!');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+
+
+        !(function () {
           let e = document.createElement("script"),
             t = document.head || document.getElementsByTagName("head")[0];
           (e.src =
