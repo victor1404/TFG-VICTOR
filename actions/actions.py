@@ -34,6 +34,7 @@ definiciones = {
 
 ALLOWED_LOCATIONS = ["Ciutat Vella", "Eixample", "Sants", "Sarria", "Sant Gervasi", "Les Corts", "Gracia", "Horta", "Guinardó", "Nou Barris", "Sant Andreu", "Sant Martí"]
 
+ACTUAL_PP = dict()
 # class ActionDevolverDebates(Action):
 
 #     def name(self) -> Text:
@@ -116,11 +117,14 @@ class ActionGET_ParticipatoryeProcess(Action):
     tracker: Tracker,
     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None) 
+        neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
+
 
         if neighborhood is None:
             # no nos ha proporcionado un lugar. 
             response_dict = querys.query_latest_ParticipatoryProceses()
+            ACTUAL_PP = response_dict
+            print(ACTUAL_PP)
             title = response_dict["title"]["translation"]
             dispatcher.utter_message(text=f"Te recomiendo el proceso: **{title}**")               
 
@@ -137,9 +141,12 @@ class ActionGET_ParticipatoryeProcess(Action):
             #     return []
 
             response_dict = querys.query_ParticipatoryProceses_location(neighborhood)
+            ACTUAL_PP = response_dict
+            print(ACTUAL_PP)
+
             title = response_dict["title"]["translation"]
             dispatcher.utter_message(text=f"He intentado buscar cerca de {neighborhood}")
-            dispatcher.utter_message(text=f"He encontrado esto: {title}")
+            dispatcher.utter_message(text=f"He encontrado esto: **{title}**")
 
             slug = response_dict["slug"]
             l = "https://www.decidim.barcelona/processes/" + slug
@@ -151,7 +158,7 @@ class ActionGET_ParticipatoryeProcess(Action):
             return [SlotSet("actual_slug_PP", slug)]
 
 
-class ActionLOOK_ParticipatoryeProcess(Action):
+class ActionLOOK_ParticipatoryProcess(Action):
 
     def name(self) -> Text:
         return "action_mirar_en_proceso_participativo"
@@ -163,6 +170,7 @@ class ActionLOOK_ParticipatoryeProcess(Action):
         slug = tracker.get_slot("actual_slug_PP") 
         print(intent)
         print(tracker.latest_message['entities'])
+        print(ACTUAL_PP)
         if slug is None:
             dispatcher.utter_message("No sé a que proceso participativo te refieres")
             return []
@@ -233,93 +241,10 @@ class ActionLOOK_ParticipatoryeProcess(Action):
 
 
 
-    
-    
-
-
-
-
-
-
-
-
-    class ActionAPI_Latest_Debate(Action):
-    
-        def name(self) -> Text:
-            return "action_latest_Debate"
-
-        def run(self, dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            response_dict = querys.query_Debates()
-            s = response_dict["title"]["translation"]
-            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-
-            l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
-            dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-            return []  
-
-
-    class ActionAPI_Latest_Survey(Action):
-    
-        def name(self) -> Text:
-            return "action_latest_Survey"
-
-        def run(self, dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            response_dict = querys.query_Surveys()
-            s = response_dict["title"]["translation"]
-            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-
-            l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
-            dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-            return [] 
-
-
-    class ActionAPI_Latest_Budget(Action):
-    
-        def name(self) -> Text:
-            return "action_latest_Budget"
-
-        def run(self, dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            response_dict = querys.query_Budgets()
-            s = response_dict["title"]["translation"]
-            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-
-            l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
-            dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-            return []  
-
-
-    class ActionAPI_Latest_Proposal(Action):
-  
-        def name(self) -> Text:
-            return "action_latest_Proposal"
-
-        def run(self, dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            response_dict = querys.query_Proposals()
-            s = response_dict["title"]["translation"]
-            dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-
-            l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
-            dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-            return []
-
-
-
-class ActionGET_ID(Action):
+class ActionGET_CONTEXT_AND_ID(Action):
 
     def name(self) -> Text:
-        return "action_show_context"
+        return "action_show_context_and_id"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -329,10 +254,130 @@ class ActionGET_ID(Action):
         print(id)
 
         context = str(tracker.get_slot('context'))
+        SlotSet("context", context)
         print(context)
-        # dispatcher.utter_message(text=f"El id de este sesion es: {id}")
+        
+
 
         return []
+
+
+class ActionValidarNeighbor(Action):
+
+    def name(self) -> Text:
+        return "action_validar_neighbor"
+
+    def run(self, dispatcher: CollectingDispatcher,
+    tracker: Tracker,
+    domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
+        if neighborhood is not None:
+            if neighborhood.title() in ALLOWED_LOCATIONS:
+                dispatcher.utter_message("Genial. Recordaré ese barrio")
+                return []
+
+        dispatcher.utter_message("Puedes indicarme uno de estos barrios y recordaré que te interesa:")
+        dispatcher.utter_message("Ciutat Vella, Eixample, Sants, Sarria, Sant Gervasi, Les Corts, Gracia, Horta, Guinardó, Nou Barris, Sant Andreu o Sant Martí.")
+        return []
+
+        
+
+
+        # neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
+        # slot = tracker.get_slot("neighborhood_location")
+        # print("\nSlot:")
+        # print(slot)
+        # print("neighbor:")
+        # print(neighborhood)
+        # if slot is not None:
+        #     dispatcher.utter_template("utter_change_location", tracker, neighborhood_location=slot)
+        #     return [SlotSet("new_neighborhood_location", neighborhood)]
+
+
+        # if neighborhood.title() not in ALLOWED_LOCATIONS:
+        #     dispatcher.utter_message("Eso no sirve, la localizacion debe ser :")
+        #     dispatcher.utter_message("Ciutat Vella, Eixample, Sants, Sarria, Sant Gervasi, Les Corts, Gracia, Horta, Guinardó, Nou Barris, Sant Andreu o Sant Martí.")
+        #     return []
+        # else:
+        #     dispatcher.utter_message(text=f"Me acordaré que te interesa {neighborhood}.")
+        #     return [SlotSet("neighborhood_location", neighborhood)]
+
+
+
+#QUERYS_ANTIGUAS
+
+    # class ActionAPI_Latest_Debate(Action):
+    
+    #     def name(self) -> Text:
+    #         return "action_latest_Debate"
+
+    #     def run(self, dispatcher: CollectingDispatcher,
+    #     tracker: Tracker,
+    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    #         response_dict = querys.query_Debates()
+    #         s = response_dict["title"]["translation"]
+    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+    #         l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
+    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+    #         return []  
+
+
+    # class ActionAPI_Latest_Survey(Action):
+    
+    #     def name(self) -> Text:
+    #         return "action_latest_Survey"
+
+    #     def run(self, dispatcher: CollectingDispatcher,
+    #     tracker: Tracker,
+    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    #         response_dict = querys.query_Surveys()
+    #         s = response_dict["title"]["translation"]
+    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+    #         l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
+    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+    #         return [] 
+
+
+    # class ActionAPI_Latest_Budget(Action):
+    
+    #     def name(self) -> Text:
+    #         return "action_latest_Budget"
+
+    #     def run(self, dispatcher: CollectingDispatcher,
+    #     tracker: Tracker,
+    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    #         response_dict = querys.query_Budgets()
+    #         s = response_dict["title"]["translation"]
+    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+    #         l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
+    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+    #         return []  
+
+
+    # class ActionAPI_Latest_Proposal(Action):
+  
+    #     def name(self) -> Text:
+    #         return "action_latest_Proposal"
+
+    #     def run(self, dispatcher: CollectingDispatcher,
+    #     tracker: Tracker,
+    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    #         response_dict = querys.query_Proposals()
+    #         s = response_dict["title"]["translation"]
+    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
+
+    #         l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
+    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+    #         return []
+
 
 # QUERYS CON LOCATION
 
@@ -457,7 +502,6 @@ class ActionGET_ID(Action):
 
 
 
-
 # class ValidateSimpleLocationForm(FormValidationAction):
 
 #     def name(self) -> Text:
@@ -479,34 +523,6 @@ class ActionGET_ID(Action):
 #             return {"neighborhood_location": None}
 #         dispatcher.utter_message(text=f"OK! guardamos el valor {slot_value}.")
 #         return {"neighborhood_location": slot_value}
-
-# class ActionValidarNeighbor(Action):
-
-#     def name(self) -> Text:
-#         return "action_validar_neighbor"
-
-#     def run(self, dispatcher: CollectingDispatcher,
-#     tracker: Tracker,
-#     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-#         neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
-#         slot = tracker.get_slot("neighborhood_location")
-#         print("\nSlot:")
-#         print(slot)
-#         print("neighbor:")
-#         print(neighborhood)
-#         if slot is not None:
-#             dispatcher.utter_template("utter_change_location", tracker, neighborhood_location=slot)
-#             return [SlotSet("new_neighborhood_location", neighborhood)]
-
-
-#         if neighborhood.title() not in ALLOWED_LOCATIONS:
-#             dispatcher.utter_message("Eso no sirve, la localizacion debe ser :")
-#             dispatcher.utter_message("Ciutat Vella, Eixample, Sants, Sarria, Sant Gervasi, Les Corts, Gracia, Horta, Guinardó, Nou Barris, Sant Andreu o Sant Martí.")
-#             return []
-#         else:
-#             dispatcher.utter_message(text=f"Me acordaré que te interesa {neighborhood}.")
-#             return [SlotSet("neighborhood_location", neighborhood)]
 
 # class ActionChangeNeighbor(Action):
 

@@ -9,7 +9,7 @@ rules:
  - rule: give_id
    steps:
    - intent: change_context
-   - action: action_show_context
+   - action: action_show_context_and_id
 
  - rule: welcome
    steps:
@@ -30,7 +30,22 @@ rules:
    steps:
    - intent: whereami
    - action: utter_inform
-   - action: utter_discoverabilty
+   - action: utter_discoverability
+   
+ - rule: discoverability Extended
+   steps:
+   - intent: discoverability_extended
+   - action: utter_discoverability_extended
+
+ - rule: discoverability Conceptos
+   steps:
+   - intent: discoverability_conceptos
+   - action: utter_discoverability_conceptos
+
+ - rule: discoverability signIn
+   steps:
+   - intent: signIn
+   - action: utter_signIn
 
 #  - rule: neighborhood
 #    steps: 
@@ -163,13 +178,13 @@ rules:
    
    
    
- - rule: demo
-   steps: 
-   - intent: demo
-    #  - action: "action_return_debates"
-   - action: "action_go_to_page"
-#    - action: "action_picker"
-#    - action: "action_yes_no"
+#  - rule: demo
+#    steps: 
+#    - intent: demo
+#     #  - action: "action_return_debates"
+#    - action: "action_go_to_page"
+# #    - action: "action_picker"
+# #    - action: "action_yes_no"
 
 
 

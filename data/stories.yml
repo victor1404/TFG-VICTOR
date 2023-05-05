@@ -7,8 +7,8 @@ stories:
    steps:
    - intent: greet
    - action: utter_greet
-   - intent: discoverabilty
-   - action: utter_discoverabilty
+   - intent: discoverability
+   - action: utter_discoverability
 
  - story: greet and discoverability2
    steps:
@@ -16,18 +16,18 @@ stories:
    - action: utter_greet
    - intent: quien_eres
    - action: utter_quien_eres
-   - intent: discoverabilty
-   - action: utter_discoverabilty
+   - intent: discoverability
+   - action: utter_discoverability
 
- - story: greet and sign_in
-   steps:
-   - intent: greet
-   - action: utter_greet
-   - intent: whereami
-   - action: utter_inform
-   - action: utter_discoverabilty
-   - intent: sign_in
-   - action: action_go_to_sign_in
+#  - story: greet and sign_in
+#    steps:
+#    - intent: greet
+#    - action: utter_greet
+#    - intent: whereami
+#    - action: utter_inform
+#    - action: utter_discoverability
+#    - intent: sign_in
+#    - action: action_go_to_sign_in
 
 # # STORIES PP
 #  - story: greet and return PP
@@ -36,7 +36,7 @@ stories:
 #    - action: utter_greet
 #    - intent: whereami
 #    - action: utter_inform
-#    - action: utter_discoverabilty
+#    - action: utter_discoverability
 #    - intent: retrieve_proceso_participativo
 #    - action: utter_wait
 #    - action: action_latest_procesos_participativos
@@ -45,8 +45,8 @@ stories:
 #    steps:
 #    - intent: greet
 #    - action: utter_greet
-#    - intent: discoverabilty
-#    - action: utter_discoverabilty
+#    - intent: discoverability
+#    - action: utter_discoverability
 #    - intent: retrieve_proceso_participativo
 #    - action: utter_wait
 #    - action: action_latest_procesos_participativos
@@ -66,7 +66,7 @@ stories:
 #    - action: utter_greet
 #    - intent: whereami
 #    - action: utter_inform
-#    - action: utter_discoverabilty
+#    - action: utter_discoverability
 #    - intent: retrieve_debates
 #    - action: utter_wait
 #    - action: action_latest_Debate
@@ -76,8 +76,8 @@ stories:
 #    steps:
 #    - intent: greet
 #    - action: utter_greet
-#    - intent: discoverabilty
-#    - action: utter_discoverabilty
+#    - intent: discoverability
+#    - action: utter_discoverability
 #    - intent: retrieve_debates
 #    - action: utter_wait
 #    - action: action_latest_Debate
@@ -98,7 +98,7 @@ stories:
 #    - action: utter_greet
 #    - intent: whereami
 #    - action: utter_inform
-#    - action: utter_discoverabilty
+#    - action: utter_discoverability
 #    - intent: retrieve_surveys
 #    - action: utter_wait
 #    - action: action_latest_Survey
@@ -107,8 +107,8 @@ stories:
 #    steps:
 #    - intent: greet
 #    - action: utter_greet
-#    - intent: discoverabilty
-#    - action: utter_discoverabilty
+#    - intent: discoverability
+#    - action: utter_discoverability
 #    - intent: retrieve_surveys
 #    - action: utter_wait
 #    - action: action_latest_Survey
@@ -128,7 +128,7 @@ stories:
 #    - action: utter_greet
 #    - intent: whereami
 #    - action: utter_inform
-#    - action: utter_discoverabilty
+#    - action: utter_discoverability
 #    - intent: retrieve_budgets
 #    - action: utter_wait
 #    - action: action_latest_Budget
@@ -137,8 +137,8 @@ stories:
 #    steps:
 #    - intent: greet
 #    - action: utter_greet
-#    - intent: discoverabilty
-#    - action: utter_discoverabilty
+#    - intent: discoverability
+#    - action: utter_discoverability
 #    - intent: retrieve_budgets
 #    - action: utter_wait
 #    - action: action_latest_Budget
@@ -158,7 +158,7 @@ stories:
 #    - action: utter_greet
 #    - intent: whereami
 #    - action: utter_inform
-#    - action: utter_discoverabilty
+#    - action: utter_discoverability
 #    - intent: retrieve_proposals
 #    - action: utter_wait
 #    - action: action_latest_Proposal
@@ -167,8 +167,8 @@ stories:
 #    steps:
 #    - intent: greet
 #    - action: utter_greet
-#    - intent: discoverabilty
-#    - action: utter_discoverabilty
+#    - intent: discoverability
+#    - action: utter_discoverability
 #    - intent: retrieve_proposals
 #    - action: utter_wait
 #    - action: action_latest_Proposal
@@ -226,7 +226,7 @@ stories:
 
 
 # OTHERS
- - story: First message and discoverability path 1
+ - story: First message and quien puede participar
    steps:
    - intent: inciate_conv
    - action: utter_greet_and_ask_name
@@ -242,7 +242,7 @@ stories:
   #  - intent: give_neighborhood
    - action: action_procesos_participativos
 
- - story: First message and discoverability path 2
+ - story: First message and como puedo participar
    steps:
    - intent: inciate_conv
    - action: utter_greet_and_ask_name
@@ -254,6 +254,8 @@ stories:
    - action: utter_como_puedo_participar
    - action: utter_offer_proceso_participativo
    - intent: affirm
+  #  - action: utter_suggest_location
+  #  - intent: give_neighborhood
    - action: action_procesos_participativos
 
    
@@ -384,8 +386,8 @@ stories:
    steps:
    - intent: greet
    - action: utter_greet
-   - intent: discoverabilty
-   - action: utter_discoverabilty
+   - intent: discoverability
+   - action: utter_discoverability
    - intent: retrieve_proceso_participativo
      entities:
      - neighborhood_location: Horta
