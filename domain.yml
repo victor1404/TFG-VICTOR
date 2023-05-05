@@ -279,7 +279,8 @@ responses:
 
   utter_default:
   - text: "Lo siento. No te he entendido.. Intenta reformular la frase. Tambien puedes visitar el link https://www.decidim.barcelona/pages?locale=es"
- 
+  utter_ask_rephrase:
+  - text: "No te he entendido, por favor vuelve a escribir la frase de otra forma"
 
 
 actions:
