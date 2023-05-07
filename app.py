@@ -37,8 +37,24 @@ from flask import render_template
 app = Flask(__name__)
 
 @app.route("/")
-def index():  
-    return render_template('index.html')
+def home_page():  
+    # return render_template('index.html')
+    return render_template('decidim.barcelona.html')
+
+@app.route("/procesos")
+def procesos():  
+    # return render_template('index.html')
+    return render_template('Procesos participativos - decidim.barcelona.html')
+
+@app.route("/procesoGuineueta")
+def procesoGuineueta():  
+    # return render_template('index.html')
+    return render_template('ProcesoGuineueta-decidim.barcelona.html')
+
+@app.route("/procesoGuineueta/encuentros")
+def procesoGuineueta_encuentros():  
+    # return render_template('index.html')
+    return render_template('EncuentrosGuineueta-decidim.barcelona.html')
 
 # run the application
 if __name__ == "__main__":  
