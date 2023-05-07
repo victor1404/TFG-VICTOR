@@ -129,7 +129,8 @@ class ActionGET_ParticipatoryeProcess(Action):
             dispatcher.utter_message(text=f"Te recomiendo el proceso: **{title}**")               
 
             slug = response_dict["slug"]
-            l = "https://www.decidim.barcelona/processes/" + slug
+            # l = "https://www.decidim.barcelona/processes/" + slug
+            l = "http://localhost:5000/procesoGuineueta"
             dispatcher.utter_template("utter_give_link", tracker, link=l)
             return [SlotSet("actual_slug_PP", slug)]
 
