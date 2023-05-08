@@ -119,6 +119,13 @@ class ActionGET_ParticipatoryeProcess(Action):
 
         neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
 
+        id = tracker.sender_id 
+        print(id)
+
+        context = str(tracker.get_slot('context'))
+        SlotSet("context", context)
+        print(context)
+
 
         if neighborhood is None:
             # no nos ha proporcionado un lugar. 
@@ -275,7 +282,7 @@ class ActionValidarNeighbor(Action):
         neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
         if neighborhood is not None:
             if neighborhood.title() in ALLOWED_LOCATIONS:
-                dispatcher.utter_message("Genial. Recordaré ese barrio")
+                dispatcher.utter_message(f"Genial. Recordaré ese barrio ({neighborhood})")
                 return []
 
         dispatcher.utter_message("Puedes indicarme uno de estos barrios y recordaré que te interesa:")

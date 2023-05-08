@@ -212,15 +212,12 @@ stories:
    - intent: greet
    - action: utter_greet
    - intent: give_neighborhood
-     entities:
-     - neighborhood_location: Virrei Amat
    - action: action_validar_neighbor
    - intent: give_neighborhood
-     entities:
-     - neighborhood_location: Horta
-   - action: action_validar_neighbor
    - slot_was_set:
      - neighborhood_location: Horta
+   - action: action_validar_neighbor
+
 
 
 
@@ -231,8 +228,8 @@ stories:
    - intent: inciate_conv
    - action: utter_greet_and_ask_name
    - intent: give_name
-   - slot_was_set:
-     - user_name: Victor
+  #  - slot_was_set:
+  #    - user_name: Victor
    - action: utter_discoverability
    - intent: quien_puede_participar
    - action: utter_quien_puede_participar
@@ -247,8 +244,8 @@ stories:
    - intent: inciate_conv
    - action: utter_greet_and_ask_name
    - intent: give_name
-   - slot_was_set:
-     - user_name: Victor
+  #  - slot_was_set:
+  #    - user_name: Victor
    - action: utter_discoverability
    - intent: como_puedo_participar
    - action: utter_como_puedo_participar
@@ -264,8 +261,8 @@ stories:
    - intent: inciate_conv
    - action: utter_greet_and_ask_name
    - intent: give_name
-   - slot_was_set:
-     - user_name: Victor
+  #  - slot_was_set:
+  #    - user_name: Victor
    - action: utter_discoverability
    - intent: decidim
    - action: utter_decidim

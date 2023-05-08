@@ -93,7 +93,7 @@ slots:
 
   user_name:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
     - type: from_entity
       entity: user_name

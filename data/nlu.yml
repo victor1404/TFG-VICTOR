@@ -33,15 +33,207 @@ nlu:
       - Nou Barris
       - Sant Andreu
       - Sant Marti
-#       - Virrei Amat
-#       - Virrei
-#       - Carmel
-#       - Sant Pau
-#       - Clot
-#       - Sagrera
-#       - Congrés
-#       - Navas
-#       - Poblenou
+
+  - lookup: user_name
+    examples: |
+      - JOSE
+      - ANTONIO
+      - JUAN
+      - MANUEL
+      - FRANCISCO
+      - LUIS
+      - JAVIER
+      - MIGUEL
+      - CARLOS
+      - ANGEL
+      - JESUS
+      - DAVID
+      - DANIEL
+      - PEDRO
+      - ALEJANDRO
+      - MARIA
+      - ALBERTO
+      - PABLO
+      - RAFAEL
+      - FERNANDO
+      - JORGE
+      - RAMON
+      - SERGIO
+      - ENRIQUE
+      - ANDRES
+      - DIEGO
+      - VICENTE
+      - ADRIAN
+      - VICTOR
+      - ALVARO
+      - IGNACIO
+      - RAUL
+      - EDUARDO
+      - IVAN
+      - OSCAR
+      - RUBEN
+      - JOAQUIN
+      - SANTIAGO
+      - MARIO
+      - ROBERTO
+      - GABRIEL
+      - ALFONSO
+      - MARCOS
+      - JAIME
+      - RICARDO
+      - JULIO
+      - EMILIO
+      - HUGO
+      - SALVADOR
+      - MARTIN
+      - GUILLERMO
+      - MOHAMED
+      - TOMAS
+      - NICOLAS
+      - JULIAN
+      - JORDI
+      - GONZALO
+      - AGUSTIN
+      - CRISTIAN
+      - CESAR
+      - FELIX
+      - MARC
+      - JOAN
+      - JOSEP
+      - SAMUEL
+      - SEBASTIAN
+      - LUCAS
+      - FELIPE
+      - HECTOR
+      - ISMAEL
+      - ALFREDO
+      - DOMINGO
+      - AITOR
+      - MARIANO
+      - ALEX
+      - RODRIGO
+      - IKER
+      - ALEXANDER
+      - MATEO
+      - XAVIER
+      - ESTEBAN
+      - MARCO
+      - ARTURO
+      - GREGORIO
+      - LORENZO
+      - BORJA
+      - ALBERT
+      - AARON
+      - DARIO
+      - JOEL
+      - EUGENIO
+      - CRISTOBAL
+      - ISAAC
+      - JONATHAN
+      - CHRISTIAN
+      - ERIC
+      - GERMAN
+      - PAU
+      - MOHAMMED
+      - ADOLFO
+      - CARMEN
+      - ANA
+      - ISABEL
+      - DOLORES
+      - PILAR
+      - TERESA
+      - ROSA
+      - JOSEFA
+      - CRISTINA
+      - ANGELES
+      - LAURA
+      - ANTONIA
+      - ELENA
+      - MARTA
+      - LUCIA
+      - FRANCISCA
+      - MERCEDES
+      - LUISA
+      - CONCEPCION
+      - ROSARIO
+      - JOSE
+      - PAULA
+      - SARA
+      - RAQUEL
+      - ROCIO
+      - EVA
+      - JUANA
+      - PATRICIA
+      - BEATRIZ
+      - MANUELA
+      - VICTORIA
+      - JULIA
+      - ANDREA
+      - BELEN
+      - ALBA
+      - SILVIA
+      - ESTHER
+      - ENCARNACION
+      - NURIA
+      - IRENE
+      - MONTSERRAT
+      - ANGELA
+      - SANDRA
+      - MONICA
+      - INMACULADA
+      - ALICIA
+      - YOLANDA
+      - MAR
+      - SONIA
+      - MARINA
+      - SUSANA
+      - SOFIA
+      - MARGARITA
+      - NATALIA
+      - CLAUDIA
+      - CAROLINA
+      - INES
+      - ALEJANDRA
+      - AMPARO
+      - GLORIA
+      - CARLA
+      - VERONICA
+      - DANIELA
+      - NIEVES
+      - LOURDES
+      - SOLEDAD
+      - LUZ
+      - NOELIA
+      - LORENA
+      - FATIMA
+      - BEGOÑA
+      - BLANCA
+      - OLGA
+      - NEREA
+      - MIRIAM
+      - CONSUELO
+      - ASUNCION
+      - CLARA
+      - MILAGROS
+      - ESPERANZA
+      - LIDIA
+      - CATALINA
+      - MARTINA
+      - CELIA
+      - ADRIANA
+      - ANNA
+      - AURORA
+      - MAGDALENA
+      - EMILIA
+      - ELISA
+      - VANESA
+      - VIRGINIA
+      - EUGENIA
+      - AINHOA
+      - GEMA
+      - DIANA
+      - JOSEFINA
+      - ALEXANDRA
 
 # BASICS
 
@@ -89,10 +281,12 @@ nlu:
 
   - intent: give_name
     examples: |
-      - Mi nombre es [Antonio](user_name)
+      - Mi nombre es [Jose](user_name)
       - Me llamo [Victor](user_name)
-      - Soy [Juan](user_name)
-      - [Juan Sebastian](user_name)
+      - Me llamo [Isaac](user_name)
+      - Soy [Marta](user_name)
+      - [Inmaculada](user_name)
+      - [Maite](user_name) es mi nombre
 
 
 # DEFINICIONES
@@ -205,15 +399,15 @@ nlu:
   - intent: retrieve_proceso_participativo
     examples: |
       - Me puedes ofrecer algun proceso participativo, en [Horta](neighborhood_location)?
-      - Que hay nuevo en los procesos participativos, en la zona de [Virrei Amat](neighborhood_location)?
-      - Ha salido algun proceso participativo nuevo, cerca de [horta](neighborhood_location)?
-      - Cual es el ultimo proceso participativo que ha salido, cerca de [virrei amat](neighborhood_location)?
-      - Que proceso participativo me recomiendas, en [sants](neighborhood_location)?
-      - No sé que procesos participativos hay, en la zona de [sarria](neighborhood_location).
-      - Me puedes ayudar a escoger un proceso participativo, en [Horta](neighborhood_location)?
-      - De acuerdo, me puedes dar uno de [Horta](neighborhood_location)?
-      - Dame un proceso participativo de [Horta](neighborhood_location), por favor
-      - Hay algun proceso participativo en [sants](neighborhood_location)?
+      - Que hay nuevo en los procesos participativos, en la zona de [Sants](neighborhood_location)?
+      - Ha salido algun proceso participativo nuevo, cerca de [Montjuic](neighborhood_location)?
+      - Cual es el ultimo proceso participativo que ha salido, cerca de [Guinardó](neighborhood_location)?
+      - Que proceso participativo me recomiendas, en [Gracia](neighborhood_location)?
+      - No sé que procesos participativos hay, en la zona de [Nou Barris](neighborhood_location).
+      - Me puedes ayudar a escoger un proceso participativo, en [Sant Andreu](neighborhood_location)?
+      - De acuerdo, me puedes dar uno de [Les Corts](neighborhood_location)?
+      - Dame un proceso participativo de [Eixample](neighborhood_location), por favor
+      - Hay algun proceso participativo en [Ciutat Vella](neighborhood_location)?
 
   - intent: debate_in_participatory_process
     examples: |
@@ -285,14 +479,13 @@ nlu:
 
   - intent: give_neighborhood
     examples: |
-      - Soy de [Horta](neighborhood_location)
+      - Soy de [Montjuic](neighborhood_location)
       - Soy del barrio de [Nou Barris](neighborhood_location)
-      - Resido en [sants](neighborhood_location)
+      - Resido en [Sants](neighborhood_location)
       - Resido en el barrio [Sant Andreu](neighborhood_location)
       - Me interesa el barrio [Les Corts](neighborhood_location)
-      - Estoy interesado en [Guinardó] (neighborhood_location)
-      - soy de [virrei amat](neighborhood_location)
-      - De [Horta]
+      - Estoy interesado en [Guinardó](neighborhood_location)
+      - De [Horta](neighborhood_location)
 
 
 

@@ -48,7 +48,6 @@ rules:
    - intent: signIn
    - action: utter_signIn
 
-
  - rule: quien_puede_participar
    steps:
    - intent: quien_puede_participar
@@ -60,6 +59,11 @@ rules:
    - intent: como_puedo_participar
    - action: utter_como_puedo_participar
    - action: utter_offer_proceso_participativo
+
+ - rule: give_neighborhood
+   steps:
+   - intent: give_neighborhood
+   - action: action_validar_neighbor
 
 
 
@@ -153,6 +157,8 @@ rules:
      - intent: proposals_in_participatory_process
      - intent: budgets_in_participatory_process
    - action: action_mirar_en_proceso_participativo
+
+
 
 
 #  - rule: Activate Location Form
