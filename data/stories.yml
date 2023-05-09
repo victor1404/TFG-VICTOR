@@ -223,9 +223,22 @@ stories:
 
 
 # OTHERS
+
+
+ - story: User not logged
+   steps:
+   - intent: inciate_conv
+   - slot_was_set:
+     - user_logged: LOGGED
+   - action: utter_welcome_back
+
+
+
  - story: First message and quien puede participar
    steps:
    - intent: inciate_conv
+   - slot_was_set:
+     - user_logged: NOT_LOGGED
    - action: utter_greet_and_ask_name
    - intent: give_name
   #  - slot_was_set:
@@ -239,9 +252,25 @@ stories:
   #  - intent: give_neighborhood
    - action: action_procesos_participativos
 
+#  - story: First message and quien puede participar SAD PATH
+#    steps:
+#    - intent: inciate_conv
+#    - slot_was_set:
+#      - user_logged: LOGGED
+#    - action: utter_greet_and_ask_name
+#    - intent: give_name
+#    - action: utter_discoverability
+#    - intent: quien_puede_participar
+#    - action: utter_quien_puede_participar
+#    - action: utter_offer_proceso_participativo
+#    - intent: deny
+#    - action: utter_farewell
+
  - story: First message and como puedo participar
    steps:
    - intent: inciate_conv
+   - slot_was_set:
+     - user_logged: NOT_LOGGED
    - action: utter_greet_and_ask_name
    - intent: give_name
   #  - slot_was_set:
@@ -255,10 +284,28 @@ stories:
   #  - intent: give_neighborhood
    - action: action_procesos_participativos
 
+#  - story: First message and como puedo participar SAD PATH
+#    steps:
+#    - intent: inciate_conv
+#    - slot_was_set:
+#      - user_logged: LOGGED
+#    - action: utter_greet_and_ask_name
+#    - intent: give_name
+#   #  - slot_was_set:
+#   #    - user_name: Victor
+#    - action: utter_discoverability
+#    - intent: como_puedo_participar
+#    - action: utter_como_puedo_participar
+#    - action: utter_offer_proceso_participativo
+#    - intent: deny
+#    - action: utter_farewell
+
    
  - story: First message and discoverability path 3
    steps:
    - intent: inciate_conv
+   - slot_was_set:
+     - user_logged: NOT_LOGGED
    - action: utter_greet_and_ask_name
    - intent: give_name
   #  - slot_was_set:

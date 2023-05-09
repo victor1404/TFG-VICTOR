@@ -54,6 +54,7 @@ entities:
 - neighborhood_location
 - user_name
 - context
+- user_logged
 - link:
     influence_conversation: false
 
@@ -98,6 +99,16 @@ slots:
     - type: from_entity
       entity: user_name
 
+  user_logged:
+    type: categorical
+    values:
+      - LOGGED
+      - NOT_LOGGED
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: user_logged
+
 # forms:
 #   simple_location_form:
 #     required_slots:
@@ -131,6 +142,8 @@ responses:
 
   utter_greet_and_ask_name:
   - text: "Hola, Soy Sara, el chatbot de Decidim BCN. Estoy aquí para ayudarte en el ambito de los procesos participativos. Comó te llamas?"
+  utter_welcome_back:
+  - text: "Hola, de nuevo!"
 
 
   utter_wait:
