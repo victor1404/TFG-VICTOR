@@ -2471,27 +2471,27 @@ $( document ).ready(function() {
 
       <script>
       
-      var url = 'http://localhost:5005/conversations/user123/trigger_intent?output_channel=latest';
-        var data = {"name": "change_context", "entities": {"context": "PAGINA PROCESOS"}};
-          fetch(url, {
-            body: JSON.stringify(data),
-            headers: {
-              'dataType': 'json',
-              'content-type': 'application/json'
-            },
-            method: 'POST',
-            redirect: 'follow'
-          })
-          .then(response => {
-            if (response.status === 200) {
-              console.log(response.text());
-          } else {
-          throw new Error('Something went wrong on api server!');
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      // var url = 'http://localhost:5005/conversations/user123/trigger_intent?output_channel=latest';
+      //   var data = {"name": "change_context", "entities": {"context": "PAGINA PROCESOS"}};
+      //     fetch(url, {
+      //       body: JSON.stringify(data),
+      //       headers: {
+      //         'dataType': 'json',
+      //         'content-type': 'application/json'
+      //       },
+      //       method: 'POST',
+      //       redirect: 'follow'
+      //     })
+      //     .then(response => {
+      //       if (response.status === 200) {
+      //         console.log(response.text());
+      //     } else {
+      //     throw new Error('Something went wrong on api server!');
+      //     }
+      //   })
+      //   .catch(error => {
+      //     console.error(error);
+      //   });
 
 
 
@@ -2507,6 +2507,7 @@ $( document ).ready(function() {
                 {
                   customData: { language: "es" },
                   socketUrl: "http://localhost:5005",
+                    initPayload: '/change_context{"context": "PAGINA PROCESOS"}',
                   title: 'Hola! Soy Sara',
                   subtitle: 'Pregúntame cualquier cosa!',
                   profileAvatar: '/static/female-call-center-operator.gif',
@@ -2518,6 +2519,7 @@ $( document ).ready(function() {
             }),
             t.insertBefore(e, t.firstChild);
         })();
+        localStorage.clear();
 
         </script>
     

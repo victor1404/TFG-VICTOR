@@ -264,6 +264,8 @@ class ActionGET_CONTEXT_AND_ID(Action):
         context = str(tracker.get_slot('context'))
         SlotSet("context", context)
         print(context)
+        dispatcher.utter_template("utter_change_page", tracker)
+
         
 
 
@@ -279,6 +281,13 @@ class ActionValidarNeighbor(Action):
     tracker: Tracker,
     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
+        id = tracker.sender_id 
+        print(id)
+
+        context = str(tracker.get_slot('context'))
+        SlotSet("context", context)
+        print(context)
+        
         neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
         if neighborhood is not None:
             if neighborhood.title() in ALLOWED_LOCATIONS:

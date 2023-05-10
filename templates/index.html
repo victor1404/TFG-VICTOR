@@ -7,59 +7,101 @@
 
       </style>
 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"
+      integrity="sha512-PU5S6BA03fRv1Q5fpwXjg5nlRrgdoguZ74urFInkbABMCENyx5oP3hrDzYMMPh3qdLdknIvrGj3yqZ4JuU7Nag=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"></script>
+
+
         <script>
         // curl -H "Content-Type: application/json" -X POST -d '{"name": "change_context", "entities": {"context": "PAGINA PRINCIPAL"}}' "http://localhost:5005/conversations/user123/trigger_intent?output_channel=latest";
       
-        var url = 'http://localhost:5005/conversations/user123/trigger_intent?output_channel=latest';
-        var data = {"name": "change_context", "entities": {"context": "INDEX"}};
-          fetch(url, {
-            body: JSON.stringify(data),
-            headers: {
-              'dataType': 'json',
-              'content-type': 'application/json'
-            },
-            method: 'POST',
-            redirect: 'follow'
-          })
-          .then(response => {
-            if (response.status === 200) {
-              console.log(response.text());
-          } else {
-          throw new Error('Something went wrong on api server!');
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        });
+        // var url = 'http://localhost:5005/conversations/user123/trigger_intent?output_channel=latest';
+        // var data = {"name": "change_context", "entities": {"context": "INDEX"}};
+        //   fetch(url, {
+        //     body: JSON.stringify(data),
+        //     headers: {
+        //       'dataType': 'json',
+        //       'content-type': 'application/json'
+        //     },
+        //     method: 'POST',
+        //     redirect: 'follow'
+        //   })
+        //   .then(response => {
+        //     if (response.status === 200) {
+        //       console.log(response.text());
+        //   } else {
+        //   throw new Error('Something went wrong on api server!');
+        //   }
+        // })
+        // .catch(error => {
+        //   console.error(error);
+        // });
 
 
+        // const socket = io("http://localhost:5005");
+
+        // socket.on('connect', function () {
+        //  console.log("Connected to Socket.io server");
+        //  console.log(socket.id);
+        // //  console.log(socket.id);
+        // //  console.log(socket.id);
+        // //  console.log(this.socket.sessionId);
+        // });
+
+        // function printLogs(p1, p2) {
+        //   console.log('Connected at:');
+        //   console.log(socket.id);
+        // }
 
         !(function () {
           let e = document.createElement("script"),
             t = document.head || document.getElementsByTagName("head")[0];
           (e.src =
-            "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
+            // "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
+            "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.js"),
+
             // Replace 1.x.x with the version that you want
             (e.async = !0),
             (e.onload = () => {
               window.WebChat.default(
                 {
-                  customData: { language: "es" },
+                  customData: { language: "es"},
                   socketUrl: "http://localhost:5005",
+                  socketPath: "/socket.io/",
                   initPayload: '/inciate_conv{"user_logged": "LOGGED"}',
                   title: 'Hola! Soy Sara',
                   subtitle: 'Pregúntame cualquier cosa!',
                   profileAvatar: '/static/female-call-center-operator.gif',
                   // profileAvatar: "C:/Users/vicll/OneDrive/Escritorio/UNI 2022-2023/TFG/PROYECTOS/project/img/user.png",
-                  inputTextFieldHint: 'Escribe algo..'
+                  inputTextFieldHint: 'Escribe algo..',
+                  // onSocketEvent: {
+                  // 'bot_uttered': () => console.log('the bot said something'),
+                  // 'connect': () => printLogs(),
+                  // 'disconnect': () => doSomeCleanup(),      
+                  // },
                   // openLauncherImage: 'img/UP.gif'
+                  // params: {storage: "session"},
                 },
                 null
               );
             }),
             t.insertBefore(e, t.firstChild);
         })();
-        localStorage.clear();
+        // console.log("session")
+        // console.log(sessionStorage.length);
+        // console.log(sessionStorage.key(0));
+        // console.log(sessionStorage.getItem("chat_session"));
+        // console.log("local")
+        // console.log(localStorage.length);
+        // console.log(localStorage.key(0));
+        // console.log(localStorage.getItem("debug"));
+        // console.log(localStorage.key(1));
+        // console.log(localStorage.getItem("chat_session"));
+        // console.log(socket.sessionId);
+        // console.log(socket.id);
+        // localStorage.clear();
         </script>
     </body>
 </html>

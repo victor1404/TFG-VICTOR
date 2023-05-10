@@ -68,7 +68,11 @@ slots:
       entity: neighborhood_location
 
   context:
-    type: text
+    type: categorical
+    values:
+      - PAGINA PROCESOS
+      - REURBANIZACION GUINEUETA 
+      - REURBANIZACION GUINEUETA ENCUENTROS
     influence_conversation: true
     mappings:
     - type: from_entity
@@ -204,9 +208,11 @@ responses:
 
 
   utter_quien_puede_participar:
-  - text: Pueden participar...
+  - text: "Cualquier persona sin necesidad de estar empadronado puede participar en los debates presenciales, y también es posible lanzar una propuesta o comentar las propuestas existentes a la plataforma. Sólo los apoyos a las propuestas se limitan a la gente empadronada"
+  # - text: Pueden participar...
   utter_como_puedo_participar:
-  - text: Puedes participar..
+  - text: "Regístrate para entrar en los procesos participativos, para añadir propuestas, compartir ideas en los debates o hacer comentarios. Si eres un ciudadano de Barcelona empadronado podrás, además, apoyar las propuestas."
+  # - text: Puedes participar..
 
 
   utter_remember_location:
@@ -288,6 +294,27 @@ responses:
   #     payload: '/give_neighborhood{{"neighborhood_location":"Sants"}}'
   #   - title: "Horta"
   #     payload: '/give_neighborhood{{"neighborhood_location":"Horta"}}'
+  
+  utter_change_page:
+  - condition:
+      - type: slot
+        name: context
+        value: PAGINA PROCESOS
+    text: "Desde aqui podrás ver todos los procesos que existen. Te animo a que cliques en alguno!"
+  - condition:
+      - type: slot
+        name: context
+        value: REURBANIZACION GUINEUETA
+    text: |
+     Esta es la pagina principal de este proceso. Desde aqui puedes ver de que trata el proceso y en que fase se encuentra. Si quieres mas informacion de las fases clica en 'Ver las fases'
+     Algunos procesos tienen *encuentros*, *debates*, *propuestas*, y más. Te animo a clicar en ellos!
+    # text: "Esta es la pagina principal de este proceso. Desde aqui puedes ver de que trata el proceso y en que fase se encuentra. Si quieres mas informacion de las fases clica en 'Ver las fases'"
+  - condition:
+      - type: slot
+        name: context
+        value: REURBANIZACION GUINEUETA ENCUENTROS
+    text: "Estas en la pagina de encuentros de este proyecto. Desde aqui puedes ver los diferentes debates o encuentros que hay disponibles. "
+
 
 
   utter_default:
