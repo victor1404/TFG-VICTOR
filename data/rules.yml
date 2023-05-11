@@ -60,10 +60,10 @@ rules:
    - action: utter_como_puedo_participar
    - action: utter_offer_proceso_participativo
 
- - rule: give_neighborhood
-   steps:
-   - intent: give_neighborhood
-   - action: action_validar_neighbor
+#  - rule: give_neighborhood
+#    steps:
+#    - intent: give_neighborhood
+#    - action: action_validar_neighbor
 
 
 

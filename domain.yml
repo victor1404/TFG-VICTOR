@@ -17,25 +17,13 @@ intents:
 - give_neighborhood
 - greet
 - iniciativas_ciudadanas
-# - ofrecer_location
 - organos_de_participacion
 - presupuesto
 - procesos_participativos
 - propuestas
 - quien_eres
-# - sign_in
 - whereami
-# - request_location_form
 - retrieve_proceso_participativo
-# - retrieve_debates
-# - retrieve_budgets
-# - retrieve_surveys
-# - retrieve_proposals
-# - retrieve_proceso_participativo_location
-# - retrieve_debates_location
-# - retrieve_budgets_location
-# - retrieve_surveys_location
-# - retrieve_proposals_location
 - debate_in_participatory_process
 - meeting_in_participatory_process
 - proposals_in_participatory_process
@@ -78,12 +66,6 @@ slots:
     - type: from_entity
       entity: context
 
-  # new_neighborhood_location:
-  #   type: text
-  #   influence_conversation: true
-  #   mappings:
-  #    - type: custom
-
   actual_slug_PP:
     type: text
     influence_conversation: false
@@ -113,39 +95,34 @@ slots:
     - type: from_entity
       entity: user_logged
 
-# forms:
-#   simple_location_form:
-#     required_slots:
-#     - neighborhood_location
-
 responses:
   utter_greet:
-  - text: |
-      Hola, como puedo ayudarte?
+  - text: Hola, como puedo ayudarte?
   - text: Hola, en que puedo ayudarte?
   - text: Hola!
   - text: Holaa!
   utter_farewell:
-  - text: |
-      Adeu!
+  - text: Adeu!
   - text: Adios! Hasta la proxima!
   - text: Genial. Cualquier cosa estoy por aqui!
   - text: Nos vemoos! No dudes en preguntarme.
   utter_yourwelcome:
-  - text: |
-      De nada!
+  - text: De nada!
   - text: No hay problema!
 
   utter_inform:
   - text: |
-      Esta es la pagina oficial de Decidim Barcelona, en ella podrás ver los diferentes procesos que se están llevando acabo, participar en diferentes debates, ver presupuestos... Te aconsejo que te registres antes de nada.       
-  # utter_discoverability:
-  # - text: Holaa! Si necesitas ayuda me puedes preguntar sobre procesos participativos, conceptos de la web que no entiendas... Y más cosas! Estoy a tu disposición!
+      Esta es la pagina oficial de Decidim Barcelona, en ella podrás ver los diferentes procesos que se están llevando acabo, participar en diferentes debates, ver presupuestos... 
+      
+      Te aconsejo que te registres antes de nada.       
   utter_quien_eres:
   - text: Me llamo Sara, soy una IA a tu servicio. Te ayudaré en lo que necesites en Decidim Barcelona. 
 
   utter_greet_and_ask_name:
-  - text: "Hola, Soy Sara, el chatbot de Decidim BCN. Estoy aquí para ayudarte en el ambito de los procesos participativos. Comó te llamas?"
+  - text: |
+     Hola, Soy Sara, el chatbot de Decidim BCN. Estoy aquí para ayudarte en el ambito de los procesos participativos. 
+
+     Comó te llamas?
   utter_welcome_back:
   - text: "Hola, de nuevo!"
 
@@ -163,6 +140,7 @@ responses:
   utter_signIn:
   - text: |
      Para registrarte o iniciar sesion haz click en sus respectivos botones en la parte superior de la web
+     
      Posteriormente rellena los datos que te pidan. Te aconsejo iniciar sesion con Google, es mas rapido y cómodo
 
   utter_decidim:
@@ -209,39 +187,17 @@ responses:
 
   utter_quien_puede_participar:
   - text: "Cualquier persona sin necesidad de estar empadronado puede participar en los debates presenciales, y también es posible lanzar una propuesta o comentar las propuestas existentes a la plataforma. Sólo los apoyos a las propuestas se limitan a la gente empadronada"
-  # - text: Pueden participar...
   utter_como_puedo_participar:
   - text: "Regístrate para entrar en los procesos participativos, para añadir propuestas, compartir ideas en los debates o hacer comentarios. Si eres un ciudadano de Barcelona empadronado podrás, además, apoyar las propuestas."
-  # - text: Puedes participar..
 
 
   utter_remember_location:
   - text: "Recordaré ese barrio"
     condition:
         - type: slot
-          name: neighborhood_location
-
-        
+          name: neighborhood_location       
   - text: Recordaré eso
 
-
-
-  # utter_submit:
-  # - text: Recordaré esa localizacion
-  # utter_neighborhood_location_slots:
-  # - text: Te interesa procesos participativos de {neighborhood_location}.
-  # utter_ask_continue:
-  # - text: Seguro que quieres parar?
-  # utter_ask_neighborhood_location:
-  # - text: Que localizacion te interesa?
-
-  # utter_change_location:
-  # - text: Pensaba que te interesaba {neighborhood_location}, prefieres el último que mencionaste? {new_neighborhood_location}.
-  #   buttons:
-  #   - title: "Si"
-  #     payload: /affirm
-  #   - title: "No"
-  #     payload: /deny
 
   utter_discoverability:
   - text: "Hola {user_name}, puedes preguntarme, entre otras cosas sobre:"
@@ -255,20 +211,20 @@ responses:
     - title: "Otros.."
       payload: /discoverability_extended
 
+
   utter_discoverability_extended:
   - text: "Tambien puedes preguntarme sobre:"
     buttons:
-    - title: "Conceptos de la web"
+    - title: "Conceptos de decidim"
       payload: /discoverability_conceptos
     - title: "Cómo me registro?"
       payload: /signIn
-  #  - text: | 
-  #           "Tambien puedes preguntarme sobre:"
-  #           "Conceptos de la web:"
-  #           "Como me registro"
 
   utter_discoverability_conceptos:
-  - text: "Estos son algunos de los conceptos que tal vez no entiendas. Pero puedes preguntarme cualquier otro que veas en la web:"
+  - text: |
+      Estos son algunos de los conceptos que tal vez no entiendas
+      
+      Pero puedes preguntarme cualquier otro que veas en decidim:
     buttons:
     - title: "Organos de Participacion"
       payload: /organos_de_participacion
@@ -279,21 +235,27 @@ responses:
 
 
   utter_offer_proceso_participativo:
-  - text: Quieres que te busque algun proceso participativo interesante?
+  - text: Quieres que te busque algun proceso participativo de ejemplo?
     buttons:
     - title: "Si"
       payload: /affirm
     - title: "No"
       payload: /deny
       
-  # utter_suggest_location:
-  # - text: Tambien me puedes pedir procesos de un lugar en concreto. O dime que barrio te interesa e intentaré buscar para la proxima.
-  # - text: "Escoge:"
-  #   buttons:
-  #   - title: "Sants"
-  #     payload: '/give_neighborhood{{"neighborhood_location":"Sants"}}'
-  #   - title: "Horta"
-  #     payload: '/give_neighborhood{{"neighborhood_location":"Horta"}}'
+  utter_suggest_location:
+  - text: |
+      Tambien me puedes pedir procesos de un lugar en concreto. O dime que barrio te interesa e intentaré buscar para la proxima.
+      
+      Estos son algunos disponibles:
+    buttons:
+    - title: "Sants"
+      payload: '/give_neighborhood{{"neighborhood_location":"Sants"}}'
+    - title: "Horta"
+      payload: '/give_neighborhood{{"neighborhood_location":"Horta"}}'
+    - title: "Guinardó"
+      payload: '/give_neighborhood{{"neighborhood_location":"Guinardó"}}'
+    - title: "Nou Barris"
+      payload: '/give_neighborhood{{"neighborhood_location":"Nou Barris"}}'
   
   utter_change_page:
   - condition:
@@ -307,8 +269,8 @@ responses:
         value: REURBANIZACION GUINEUETA
     text: |
      Esta es la pagina principal de este proceso. Desde aqui puedes ver de que trata el proceso y en que fase se encuentra. Si quieres mas informacion de las fases clica en 'Ver las fases'
+
      Algunos procesos tienen *encuentros*, *debates*, *propuestas*, y más. Te animo a clicar en ellos!
-    # text: "Esta es la pagina principal de este proceso. Desde aqui puedes ver de que trata el proceso y en que fase se encuentra. Si quieres mas informacion de las fases clica en 'Ver las fases'"
   - condition:
       - type: slot
         name: context
