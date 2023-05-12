@@ -17,7 +17,7 @@
         <script>
         // curl -H "Content-Type: application/json" -X POST -d '{"name": "change_context", "entities": {"context": "PAGINA PRINCIPAL"}}' "http://localhost:5005/conversations/user123/trigger_intent?output_channel=latest";
       
-        // var url = 'http://localhost:5005/conversations/user123/trigger_intent?output_channel=latest';
+        // var url = 'http://localhost:5005/conversations/84bb15bc9b0641859f5715d1d3998398/trigger_intent?output_channel=latest';
         // var data = {"name": "change_context", "entities": {"context": "INDEX"}};
         //   fetch(url, {
         //     body: JSON.stringify(data),
@@ -59,8 +59,8 @@
           let e = document.createElement("script"),
             t = document.head || document.getElementsByTagName("head")[0];
           (e.src =
-            // "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
-            "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.js"),
+            "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
+            // "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.js"),
 
             // Replace 1.x.x with the version that you want
             (e.async = !0),
@@ -82,23 +82,33 @@
                   // 'disconnect': () => doSomeCleanup(),      
                   // },
                   // openLauncherImage: 'img/UP.gif'
-                  // params: {storage: "session"},
+                  params: {storage: "local"},
                 },
                 null
               );
             }),
             t.insertBefore(e, t.firstChild);
         })();
+
+        // console.log(localStorage.length);
+        // console.log(localStorage.key(1));
+        // console.log(localStorage.getItem("chat_session"));
+
+        let existing = localStorage.getItem("chat_session");
+        existing = existing ? JSON.parse(existing) : {};
+        console.log("existing:")
+        console.log(existing["session_id"])
+        // localStorage.clear();
         // console.log("session")
         // console.log(sessionStorage.length);
         // console.log(sessionStorage.key(0));
-        // console.log(sessionStorage.getItem("chat_session"));
+        // console.log(sessionStorage.getItem("session_id"));
         // console.log("local")
         // console.log(localStorage.length);
         // console.log(localStorage.key(0));
         // console.log(localStorage.getItem("debug"));
         // console.log(localStorage.key(1));
-        // console.log(localStorage.getItem("chat_session"));
+        // console.log(localStorage.getItem("session_id"));
         // console.log(socket.sessionId);
         // console.log(socket.id);
         // localStorage.clear();

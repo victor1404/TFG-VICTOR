@@ -204,8 +204,8 @@ stories:
   - story: User not logged
     steps:
     - intent: inciate_conv
-    - slot_was_set:
-      - user_logged: LOGGED
+      entities:
+      - user_logged: "LOGGED"
     - action: utter_welcome_back
 
 

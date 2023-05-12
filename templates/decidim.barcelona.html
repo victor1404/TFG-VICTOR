@@ -2468,6 +2468,8 @@ $( document ).ready(function() {
     </style>
 
       <script>
+        
+        localStorage.clear();
       // var url = 'http://localhost:5005/conversations/user123/trigger_intent?output_channel=latest';
       //   var data = {"name": "change_context", "entities": {"context": "PAGINA PRINCIPAL"}};
       //     fetch(url, {
@@ -2504,19 +2506,18 @@ $( document ).ready(function() {
                 {
                   customData: { language: "es" },
                   socketUrl: "http://localhost:5005",
-                  initPayload: '/inciate_conv{"user_logged": "NOT_LOGGED"}',
+                  initPayload: '/inciate_conv{"user_logged": "LOGGED"}',
                   title: 'Hola! Soy Sara',
                   subtitle: 'Pregúntame cualquier cosa!',
                   profileAvatar: '/static/female-call-center-operator.gif',
-                  inputTextFieldHint: 'Escribe algo..'
+                  inputTextFieldHint: 'Escribe algo..',
+                  params: {storage: "local"}
                 },
                 null
               );
             }),
             t.insertBefore(e, t.firstChild);
         })();
-        localStorage.clear();
-
 
       </script>
 

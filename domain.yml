@@ -58,9 +58,10 @@ slots:
   context:
     type: categorical
     values:
-      - PAGINA PROCESOS
-      - REURBANIZACION GUINEUETA 
-      - REURBANIZACION GUINEUETA ENCUENTROS
+      - LISTADO PROCESOS
+      - PROCESO 
+      - PROCESO ENCUENTROS
+      - PROCESO PROPUESTAS
     influence_conversation: true
     mappings:
     - type: from_entity
@@ -261,12 +262,12 @@ responses:
   - condition:
       - type: slot
         name: context
-        value: PAGINA PROCESOS
+        value: LISTADO PROCESOS
     text: "Desde aqui podrás ver todos los procesos que existen. Te animo a que cliques en alguno!"
   - condition:
       - type: slot
         name: context
-        value: REURBANIZACION GUINEUETA
+        value: PROCESO
     text: |
      Esta es la pagina principal de este proceso. Desde aqui puedes ver de que trata el proceso y en que fase se encuentra. Si quieres mas informacion de las fases clica en 'Ver las fases'
 
@@ -274,8 +275,15 @@ responses:
   - condition:
       - type: slot
         name: context
-        value: REURBANIZACION GUINEUETA ENCUENTROS
+        value: PROCESO ENCUENTROS
     text: "Estas en la pagina de encuentros de este proyecto. Desde aqui puedes ver los diferentes debates o encuentros que hay disponibles. "
+  - condition:
+      - type: slot
+        name: context
+        value: PROCESO PROPUESTAS
+    text: "Estas en la pagina de propuestas de este proyecto. Desde aqui puedes ver los diferentes debates o encuentros que hay disponibles. "
+  - text: "Cambio de pagina" 
+
 
 
 
@@ -287,33 +295,11 @@ responses:
 
 actions:
 - '...'
-# - action_go_to_page
-# - action_go_to_sign_in
-# - action_picker
-# - action_return_debates
-# - action_user_info
-# - action_yes_no
 - utter_farewell
 - utter_greet
 - utter_inform
-# - utter_neighborhood_location_slots
-# - utter_submit
-# - utter_subscribed
-# - action_latest_procesos_participativos
-# - action_latest_Debate
-# - action_latest_Survey
-# - action_latest_Budget
-# - action_latest_Proposal
-# - action_procesos_participativos_location
-# - action_debate_location
-# - action_surveys_location
-# - action_budget_location
-# - action_proposal_location
-# - validate_simple_location_form
 - action_validar_neighbor
-# - action_change_neighbor
 - action_procesos_participativos
 - action_mirar_en_proceso_participativo
 - utter_greet_and_ask_name
-# - utter_suggest_location
 - action_show_context_and_id

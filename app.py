@@ -43,32 +43,26 @@ def home_page():
 
 @app.route("/procesos")
 def procesos():  
-    # return render_template('index.html')
     return render_template('Procesos participativos - decidim.barcelona.html')
 
 @app.route("/procesoGuineueta")
 def procesoGuineueta():  
-    # return render_template('index.html')
     return render_template('ProcesoGuineueta-decidim.barcelona.html')
 
 @app.route("/procesoGuineueta/encuentros")
 def procesoGuineueta_encuentros():  
-    # return render_template('index.html')
     return render_template('EncuentrosGuineueta-decidim.barcelona.html')
     
 @app.route("/procesoTallerMasriera")
 def procesoTallerMasriera():  
-    # return render_template('index.html')
     return render_template('ProcesoTallerMasriera-decidim.barcelona.html')
 
 @app.route("/procesoTallerMasriera/encuentros")
 def procesoTallerMasriera_encuentros():  
-    # return render_template('index.html')
     return render_template('EncuentrosTallerMasriera-decidim.barcelona.html')
 
 @app.route("/procesoTallerMasriera/propuestas")
 def procesoTallerMasriera_propuestas():  
-    # return render_template('index.html')
     return render_template('PropuestasTallerMasriera-decidim.barcelona.html')
 
 # run the application

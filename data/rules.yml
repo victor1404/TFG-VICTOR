@@ -201,10 +201,10 @@ rules:
    
    
    
-#  - rule: demo
-#    steps: 
-#    - intent: demo
-#     #  - action: "action_return_debates"
+ - rule: demo
+   steps: 
+   - intent: demo
+   - action: "action_show_context_and_id"
 #    - action: "action_go_to_page"
 # #    - action: "action_picker"
 # #    - action: "action_yes_no"

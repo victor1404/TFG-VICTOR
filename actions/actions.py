@@ -262,8 +262,11 @@ class ActionGET_CONTEXT_AND_ID(Action):
         print(id)
 
         context = str(tracker.get_slot('context'))
-        SlotSet("context", context)
         print(context)
+
+        context = str(tracker.get_slot('user_logged'))
+        print(context)
+
         dispatcher.utter_template("utter_change_page", tracker)
 
         

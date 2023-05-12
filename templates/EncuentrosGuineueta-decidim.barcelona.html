@@ -2473,29 +2473,34 @@ $( document ).ready(function() {
 
       <script>
       
-        // var url = 'http://localhost:5005/conversations/user123/trigger_intent?output_channel=latest';
-        //   var data = {"name": "change_context", "entities": {"context": "REURBANIZACION GUINEUETA ENCUENTROS"}};
-        //     fetch(url, {
-        //       body: JSON.stringify(data),
-        //       headers: {
-        //         'dataType': 'json',
-        //         'content-type': 'application/json'
-        //       },
-        //       method: 'POST',
-        //       redirect: 'follow'
-        //     })
-        //     .then(response => {
-        //       if (response.status === 200) {
-        //         console.log(response.text());
-        //     } else {
-        //     throw new Error('Something went wrong on api server!');
-        //     }
-        //   })
-        //   .catch(error => {
-        //     console.error(error);
-        //   });
+      function sendContext(){
+        let existing = localStorage.getItem("chat_session");
+        existing = existing ? JSON.parse(existing) : {};
+        let local_session = existing["session_id"]
+
+        var url = 'http://localhost:5005/conversations/' + local_session + '/trigger_intent?output_channel=latest';
+            var data = {"name": "change_context", "entities": {"context": "PROCESO ENCUENTROS"}};
+              fetch(url, {
+                body: JSON.stringify(data),
+                headers: {
+                  'dataType': 'json',
+                  'content-type': 'application/json'
+                },
+                method: 'POST',
+                redirect: 'follow'
+              })
+              .then(response => {
+                if (response.status === 200) {
+                  console.log(response.text());
+              } else {
+              throw new Error('Something went wrong on api server!');
+              }
+            })
+            .catch(error => {
+              console.error(error);
+            });
   
-  
+        }
   
           !(function () {
             let e = document.createElement("script"),
@@ -2509,11 +2514,17 @@ $( document ).ready(function() {
                   {
                     customData: { language: "es" },
                     socketUrl: "http://localhost:5005",
-                    initPayload: '/change_context{"context": "REURBANIZACION GUINEUETA ENCUENTROS"}',
+                    initPayload: '/change_context{"context": "PROCESO ENCUENTROS"}',
                     title: 'Hola! Soy Sara',
                     subtitle: 'Pregúntame cualquier cosa!',
                     profileAvatar: '/static/female-call-center-operator.gif',
-                    inputTextFieldHint: 'Escribe algo..'
+                    inputTextFieldHint: 'Escribe algo..',
+                    params: {storage: "local"},
+                    onSocketEvent : {
+                      'bot_uttered': () => console.log('the bot said something'),
+                      'connect': () => sendContext(),
+                      'disconnect': () => doSomeCleanup(),
+                    }
                     // openLauncherImage: 'img/UP.gif'
                   },
                   null
@@ -2521,7 +2532,7 @@ $( document ).ready(function() {
               }),
               t.insertBefore(e, t.firstChild);
           })();
-        localStorage.clear();
+        // localStorage.clear();
         </script>
     
     
