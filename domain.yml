@@ -46,6 +46,7 @@ entities:
 - context
 - user_logged
 - mention
+- actual_slug_PP
 - link:
     influence_conversation: false
 
@@ -74,7 +75,8 @@ slots:
     type: text
     influence_conversation: false
     mappings:
-     - type: custom
+    - type: from_entity
+      entity: actual_slug_PP
 
   list_offered:
     type: list

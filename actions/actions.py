@@ -269,8 +269,11 @@ class ActionGET_CONTEXT_AND_ID(Action):
         context = str(tracker.get_slot('context'))
         print(context)
 
-        context = str(tracker.get_slot('user_logged'))
-        print(context)
+        pp = str(tracker.get_slot('actual_slug_PP'))
+        print(pp)
+
+        state = str(tracker.get_slot('user_logged'))
+        print(state)
 
         dispatcher.utter_template("utter_change_page", tracker)
 
@@ -292,7 +295,7 @@ class ActionOFFER_SUMARIZATION_DEBATES(Action):
 
 
         collection_name = dbname["ProcesosParticipativos"]
-        item_details = collection_name.find({"_id" : "parcoreneta"})
+        item_details = collection_name.find({"_id" : slug})
         
         encuentros = []
         for item in item_details:
@@ -317,6 +320,7 @@ class ActionSumarization(Action):
         
         dbname = get_database()
 
+        slug = str(tracker.get_slot('actual_slug_PP'))
         mention = next(tracker.get_latest_entity_values("mention"), None)
         print(mention)
 
@@ -326,6 +330,9 @@ class ActionSumarization(Action):
             value = int(mention)
             print("es un numero: ", value)
         except:
+            if mention == "unico" or mention == "unica":
+                value = 1
+                print("La unica")
             if mention == "primera" or mention == "primero" or mention == "1o" or mention == "1a":
                 value = 1
                 print("La primera")
@@ -354,7 +361,7 @@ class ActionSumarization(Action):
 
 
         collection_name = dbname["ProcesosParticipativos"]
-        item_details = collection_name.find({"_id" : "parcoreneta"})
+        item_details = collection_name.find({"_id" : slug})
         comentarios=[]
         for item in item_details:
             # print(item)

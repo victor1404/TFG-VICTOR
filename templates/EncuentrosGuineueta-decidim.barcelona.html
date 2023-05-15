@@ -2479,7 +2479,7 @@ $( document ).ready(function() {
         let local_session = existing["session_id"]
 
         var url = 'http://localhost:5005/conversations/' + local_session + '/trigger_intent?output_channel=latest';
-            var data = {"name": "change_context", "entities": {"context": "PROCESO ENCUENTROS"}};
+            var data = {"name": "change_context", "entities": {"context": "PROCESO ENCUENTROS", "actual_slug_PP": "interiorsdillaGuineueta"}};
               fetch(url, {
                 body: JSON.stringify(data),
                 headers: {
@@ -2514,7 +2514,7 @@ $( document ).ready(function() {
                   {
                     customData: { language: "es" },
                     socketUrl: "http://localhost:5005",
-                    initPayload: '/change_context{"context": "PROCESO ENCUENTROS"}',
+                    initPayload: '/change_context{"context": "PROCESO ENCUENTROS", "actual_slug_PP": "interiorsdillaGuineueta"}',
                     title: 'Hola! Soy Sara',
                     subtitle: 'Pregúntame cualquier cosa!',
                     profileAvatar: '/static/female-call-center-operator.gif',
