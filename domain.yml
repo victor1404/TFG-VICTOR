@@ -37,12 +37,15 @@ intents:
 - discoverability_conceptos
 - discoverability_extended
 - signIn
+- sumarization_debates
+- resolve_mention
 
 entities:
 - neighborhood_location
 - user_name
 - context
 - user_logged
+- mention
 - link:
     influence_conversation: false
 
@@ -69,6 +72,12 @@ slots:
 
   actual_slug_PP:
     type: text
+    influence_conversation: false
+    mappings:
+     - type: custom
+
+  list_offered:
+    type: list
     influence_conversation: false
     mappings:
      - type: custom
@@ -303,3 +312,5 @@ actions:
 - action_mirar_en_proceso_participativo
 - utter_greet_and_ask_name
 - action_show_context_and_id
+- action_offer_sumarization_debates
+- action_sumarization

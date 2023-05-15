@@ -6,14 +6,19 @@
 
 
 # This is a simple example for a custom action which utters "Hello World!"
+import requests
 
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker, FormValidationAction
-from rasa_sdk.events import EventType, SlotSet
+from rasa_sdk.events import EventType, SlotSet, FollowupAction
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 import querys
+
+from pymongo_get_database import get_database
+from sumarization import run_summarization
+
 
 definiciones = {
     "procesos participativos" : "Los procesos participativos son una serie de encuentros delimitados en un tiempo concreto para promover el debate y el contraste de argumentos entre la ciudadanía, o entre ésta y las personas responsables municipales."
@@ -269,9 +274,103 @@ class ActionGET_CONTEXT_AND_ID(Action):
 
         dispatcher.utter_template("utter_change_page", tracker)
 
+        return []
+
+class ActionOFFER_SUMARIZATION_DEBATES(Action):
+
+    def name(self) -> Text:
+        return "action_offer_sumarization_debates"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
+        dbname = get_database()
+
+        slug = str(tracker.get_slot('actual_slug_PP'))
+        dispatcher.utter_message(f"Tenemos los siguientes debates para el proceso {slug}:")
 
 
+        collection_name = dbname["ProcesosParticipativos"]
+        item_details = collection_name.find({"_id" : "parcoreneta"})
+        
+        encuentros = []
+        for item in item_details:
+            for encuentro in item["encuentros"]:
+                # SACAR LOS PROCESOS COMO TEXTO O COMO BOTONES CLICABLES
+                nombre = encuentro["nombre"]
+                encuentros.append(nombre)
+                dispatcher.utter_message(f"- {nombre}")
+
+        dispatcher.utter_message("Puedo hacerte un resumen de alguno de ellos si quieres")
+
+        return [SlotSet('list_offered', encuentros)]
+
+class ActionSumarization(Action):
+
+    def name(self) -> Text:
+        return "action_sumarization"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dbname = get_database()
+
+        mention = next(tracker.get_latest_entity_values("mention"), None)
+        print(mention)
+
+        value = 1
+
+        try:
+            value = int(mention)
+            print("es un numero: ", value)
+        except:
+            if mention == "primera" or mention == "primero" or mention == "1o" or mention == "1a":
+                value = 1
+                print("La primera")
+            if mention == "segunda" or mention == "segundo" or mention == "2o" or mention == "2a":
+                value = 2
+                print("La segunda")
+            if mention == "tercera" or mention == "tercero" or mention == "3o" or mention == "3a":
+                value = 3
+                print("La tercera")
+            if mention == "ultima" or mention == "ultimo":
+                value = 0
+                print("La ultima")
+
+        list_offered = tracker.get_slot('list_offered')
+        print(list_offered)
+
+        if value > len(list_offered):
+            dispatcher.utter_message("Escoja una de las que he mencionado por favor")
+            return []
+            
+
+        encuentro = list_offered[value-1]
+        print("Has escogido: " + encuentro)
+        dispatcher.utter_message(f"Te resumiré el encuentro *{encuentro}*:")
+        dispatcher.utter_message("Un momento, por favor")
+
+
+        collection_name = dbname["ProcesosParticipativos"]
+        item_details = collection_name.find({"_id" : "parcoreneta"})
+        comentarios=[]
+        for item in item_details:
+            # print(item)
+            comentarios = item["encuentros"][value-1]["comentarios"]
+
+        print(comentarios)
+
+        text = ''.join(comentarios)
+        threshold = 1.2
+        summary = run_summarization(text, threshold)
+        while summary == "":
+            threshold -= 0.1
+            summary = run_summarization(text, threshold)
+        print(summary)
+
+        dispatcher.utter_message(f"El resumen: {summary}")
         return []
 
 

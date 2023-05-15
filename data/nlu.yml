@@ -434,6 +434,11 @@ nlu:
       - El ultimo proceso participativo tenia algun presupuesto?    
       - Tiene presupuestos?
 
+  - intent: sumarization_debates
+    examples: |
+      - Me puedes resumir los ultimos debates?
+      - Hazme un resumen de este encuentro
+
 # HOW CAN I
 
   - intent: quien_puede_participar
@@ -487,8 +492,16 @@ nlu:
       - Estoy interesado en [Guinardó](neighborhood_location)
       - De [Horta](neighborhood_location)
 
-
-
+  - intent: resolve_mention
+    examples: |
+      - El [1](mention)
+      - De el [2](mention)
+      - Hazme resumen del [3](mention)
+      - De el [primero](mention) por favor
+      - Quiero el [ultimo](mention)
+      - Del [segundo](mention)
+      - Me interesa el [tercero](mention)
+      - [cuarto](mention)
 
 
 

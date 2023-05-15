@@ -7,10 +7,68 @@ rules:
    - action: action_two_stage_fallback
    - active_loop: action_two_stage_fallback
 
- - rule: give_id
+ - rule: show context and id
+   condition:
+   - slot_was_set:
+     - user_logged: "NOT_LOGGED"
    steps:
    - intent: change_context
    - action: action_show_context_and_id
+
+ - rule: no hacer nada
+   condition:
+   - slot_was_set:
+     - user_logged: "LOGGED"
+   - slot_was_set:
+     - context: "LISTADO PROCESOS"
+   steps:
+   - intent: change_context
+   - action: action_listen
+   wait_for_user_input: true
+
+ - rule: no hacer nada 2
+   condition:
+   - slot_was_set:
+     - user_logged: "LOGGED"
+   - slot_was_set:
+     - context: "PROCESO"
+   steps:
+   - intent: change_context
+   - action: action_listen
+   wait_for_user_input: true
+
+ - rule: no hacer nada 3
+   condition:
+   - slot_was_set:
+     - user_logged: "LOGGED"
+   - slot_was_set:
+     - context: "PROCESO PROPUESTAS"
+   steps:
+   - intent: change_context
+   - action: action_listen
+   wait_for_user_input: true
+
+
+# FUNCIONA AUNQUE FUNCIONA EN TODAS LAS PAGINAS 
+# TODO: HACER QUE SOLO APAREZCA EN LA PAGINA DE DEBATES
+ - rule: ofrecer resumen
+   condition:
+   - slot_was_set:
+     - user_logged: "LOGGED"
+   - slot_was_set:
+     - context: "PROCESO ENCUENTROS"
+   steps:
+   - intent: change_context
+   - action: action_offer_sumarization_debates
+   wait_for_user_input: false
+
+# probar a poner varias rules con condition user logged y context = X
+ - rule: hacer resumen
+   steps:
+    - action: action_offer_sumarization_debates
+    - intent: resolve_mention
+    - action: action_sumarization
+
 
  - rule: welcome
    steps:

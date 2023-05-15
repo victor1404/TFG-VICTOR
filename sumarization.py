@@ -94,17 +94,21 @@ def run_summarization(text, threshold=1.3):
 dbname = get_database()
 
 collection_name = dbname["ProcesosParticipativos"]
-item_details = collection_name.find()
-
+item_details = collection_name.find({"_id" : "parcoreneta"})
+encuentros=[]
 for item in item_details:
-    if item["_id"] == "avingudamadrid":
-        comentarios = item["encuentros"][0]["comentarios"]
-        
+    # print(item)
+    for encuentro in item["encuentros"]:
+        encuentros.append(encuentro["nombre"])
+    # print(encuentros)
+#     comentarios = item["encuentros"][0]["comentarios"]
 
-text = ''.join(comentarios)
-threshold = 1.2
-summary = run_summarization(text, threshold)
-while summary == "":
-    threshold -= 0.1
-    summary = run_summarization(text, threshold)
-print(summary)
+print(encuentros)   
+
+# text = ''.join(comentarios)
+# threshold = 1.2
+# summary = run_summarization(text, threshold)
+# while summary == "":
+#     threshold -= 0.1
+#     summary = run_summarization(text, threshold)
+# print(summary)

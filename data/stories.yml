@@ -200,8 +200,8 @@ stories:
 
 
 
-# USER NOT LOGGED
-  - story: User not logged
+# USER LOGGED
+  - story: User not logged HELLO
     steps:
     - intent: inciate_conv
       entities:
@@ -209,7 +209,7 @@ stories:
     - action: utter_welcome_back
 
 
-# USER LOGGED
+# USER NOT LOGGED
 
  # QUIEN PUEDE PARTICIPAR
   - story: First message and quien puede participar HAPPY PATH
