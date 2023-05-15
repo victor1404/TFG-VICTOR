@@ -65,6 +65,22 @@ def procesoTallerMasriera_encuentros():
 def procesoTallerMasriera_propuestas():  
     return render_template('PropuestasTallerMasriera-decidim.barcelona.html')
 
+@app.route("/procesoParcOreneta")
+def procesoParcOreneta():  
+    return render_template('ParcOreneta-decidim.barcelona.html')
+
+@app.route("/procesoParcOreneta/encuentros")
+def procesoParcOreneta_encuentros():  
+    return render_template('EncuentrosParcOreneta-decidim.barcelona.html')
+
+@app.route("/procesoAvenidaMadrid")
+def procesoAvenidaMadrid():  
+    return render_template('ProcesoAvenidaMadrid-decidim.barcelona.html')
+
+@app.route("/procesoAvenidaMadrid/encuentros")
+def procesoAvenidaMadrid_encuentros():  
+    return render_template('EncuentrosAvenidaMadrid-decidim.barcelona.html')
+
 # run the application
 if __name__ == "__main__":  
     app.run(debug=True)
