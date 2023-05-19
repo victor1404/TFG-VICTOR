@@ -19,185 +19,6 @@ stories:
     - intent: discoverability
     - action: utter_discoverability
 
-#  - story: greet and sign_in
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: whereami
-#    - action: utter_inform
-#    - action: utter_discoverability
-#    - intent: sign_in
-#    - action: action_go_to_sign_in
-
-# # STORIES PP
-#  - story: greet and return PP
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: whereami
-#    - action: utter_inform
-#    - action: utter_discoverability
-#    - intent: retrieve_proceso_participativo
-#    - action: utter_wait
-#    - action: action_latest_procesos_participativos
-
-#  - story: greet and return PP 2
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: discoverability
-#    - action: utter_discoverability
-#    - intent: retrieve_proceso_participativo
-#    - action: utter_wait
-#    - action: action_latest_procesos_participativos
-
-#  - story: greet and return PP 3
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: retrieve_proceso_participativo
-#    - action: utter_wait
-#    - action: action_latest_procesos_participativos
-
-# # STORIES DEBATE
-#  - story: greet and return debate
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: whereami
-#    - action: utter_inform
-#    - action: utter_discoverability
-#    - intent: retrieve_debates
-#    - action: utter_wait
-#    - action: action_latest_Debate
-
-   
-#  - story: greet and return debate 2
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: discoverability
-#    - action: utter_discoverability
-#    - intent: retrieve_debates
-#    - action: utter_wait
-#    - action: action_latest_Debate
-
-   
-#  - story: greet and return debate 3
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: retrieve_debates
-#    - action: utter_wait
-#    - action: action_latest_Debate
-
-# # STORIES SURVEY
-#  - story: greet and return survey
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: whereami
-#    - action: utter_inform
-#    - action: utter_discoverability
-#    - intent: retrieve_surveys
-#    - action: utter_wait
-#    - action: action_latest_Survey
-
-#  - story: greet and return survey 2
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: discoverability
-#    - action: utter_discoverability
-#    - intent: retrieve_surveys
-#    - action: utter_wait
-#    - action: action_latest_Survey
-
-#  - story: greet and return survey 3
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: retrieve_surveys
-#    - action: utter_wait
-#    - action: action_latest_Survey
-
-# # STORIES BUDGET
-#  - story: greet and return budget
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: whereami
-#    - action: utter_inform
-#    - action: utter_discoverability
-#    - intent: retrieve_budgets
-#    - action: utter_wait
-#    - action: action_latest_Budget
-   
-#  - story: greet and return budget 2
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: discoverability
-#    - action: utter_discoverability
-#    - intent: retrieve_budgets
-#    - action: utter_wait
-#    - action: action_latest_Budget
-   
-#  - story: greet and return budget 3
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: retrieve_budgets
-#    - action: utter_wait
-#    - action: action_latest_Budget
-
-# # STORIES PROPOSAL
-#  - story: greet and return proposal
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: whereami
-#    - action: utter_inform
-#    - action: utter_discoverability
-#    - intent: retrieve_proposals
-#    - action: utter_wait
-#    - action: action_latest_Proposal
-   
-#  - story: greet and return proposal 2
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: discoverability
-#    - action: utter_discoverability
-#    - intent: retrieve_proposals
-#    - action: utter_wait
-#    - action: action_latest_Proposal
-   
-#  - story: greet and return proposal 3
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: retrieve_proposals
-#    - action: utter_wait
-#    - action: action_latest_Proposal
-
-
-
-# STORIES NEIGHBOR
-  - story: keep neighbor
-    steps:
-    - intent: greet
-    - action: utter_greet
-    - intent: give_neighborhood
-    - action: action_validar_neighbor
-    - intent: give_neighborhood
-    - slot_was_set:
-      - neighborhood_location: Horta
-    - action: action_validar_neighbor
-
-
-
-
 
 
 # USER LOGGED
@@ -210,6 +31,112 @@ stories:
 
 
 # USER NOT LOGGED
+
+ # INICIO DE CONVERSACION
+  - story: First message and give neighbor and ask for pp
+    steps:
+    - intent: inciate_conv
+      entities:
+      - user_logged: "NOT_LOGGED"
+    - action: utter_greet_and_ask_name
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Horta"
+    - action: action_validar_neighbor
+    - intent: retrieve_proceso_participativo
+    - action: action_procesos_participativos
+    - slot_was_set:
+      - actual_slug_PP: cuidemhortaguinardo
+
+  - story: First message and give neighbor and ask for pp SAD PATH
+    steps:
+    - intent: inciate_conv
+      entities:
+      - user_logged: "NOT_LOGGED"
+    - action: utter_greet_and_ask_name
+    - intent: give_neighborhood
+    - action: action_validar_neighbor
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Sants"
+    - action: action_validar_neighbor
+    - intent: retrieve_proceso_participativo
+    - action: action_procesos_participativos
+    - slot_was_set:
+      - actual_slug_PP: cuidemhortaguinardo
+
+  - story: First message and give neighbor and ask for pp 2
+    steps:
+    - intent: inciate_conv
+      entities:
+      - user_logged: "NOT_LOGGED"
+    - action: utter_greet_and_ask_name
+    - intent: give_name
+      entities:
+      - user_name: "Victor"
+    - action: utter_discoverability
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Horta"
+    - action: action_validar_neighbor
+    - intent: retrieve_proceso_participativo
+    - action: action_procesos_participativos
+    - slot_was_set:
+      - actual_slug_PP: cuidemhortaguinardo
+
+
+      
+  - story: First message ask for pp and give neighbor
+    steps:
+    - intent: inciate_conv
+      entities:
+      - user_logged: "NOT_LOGGED"
+    - action: utter_greet_and_ask_name
+    - intent: retrieve_proceso_participativo
+    - action: action_procesos_participativos
+    - slot_was_set:
+      - actual_slug_PP: cuidemhortaguinardo
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Horta"
+    - action: action_validar_neighbor
+      
+  - story: First message ask for pp and give neighbor SAD PATH
+    steps:
+    - intent: inciate_conv
+      entities:
+      - user_logged: "NOT_LOGGED"
+    - action: utter_greet_and_ask_name
+    - intent: retrieve_proceso_participativo
+    - action: action_procesos_participativos
+    - slot_was_set:
+      - actual_slug_PP: cuidemhortaguinardo
+    - intent: give_neighborhood
+    - action: action_validar_neighbor
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Sants"
+    - action: action_validar_neighbor
+
+  - story: First message ask for pp and give neighbor 2
+    steps:
+    - intent: inciate_conv
+      entities:
+      - user_logged: "NOT_LOGGED"
+    - action: utter_greet_and_ask_name
+    - intent: give_name
+      entities:
+      - user_name: "Victor"
+    - action: utter_discoverability
+    - intent: retrieve_proceso_participativo
+    - action: action_procesos_participativos
+    - slot_was_set:
+      - actual_slug_PP: cuidemhortaguinardo
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Horta"
+    - action: action_validar_neighbor
+
 
  # QUIEN PUEDE PARTICIPAR
   - story: First message and quien puede participar HAPPY PATH
@@ -231,6 +158,30 @@ stories:
       entities:
       - neighborhood_location: "Horta"
     - action: action_procesos_participativos
+    
+  - story: First message and quien puede participar HAPPY PATH 2
+    steps:
+    - intent: inciate_conv
+      entities:
+      - user_logged: "NOT_LOGGED"
+    - action: utter_greet_and_ask_name
+    - intent: give_name
+      entities:
+      - user_name: "Victor"
+    - action: utter_discoverability
+    - intent: quien_puede_participar
+    - action: utter_quien_puede_participar
+    - action: utter_offer_proceso_participativo
+    - intent: affirm
+    - action: utter_suggest_location
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Horta"
+    - action: action_procesos_participativos
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Horta"
+    - action: action_validar_neighbor
 
 
   - story: First message and quien puede participar SAD PATH
@@ -248,6 +199,26 @@ stories:
     - action: utter_offer_proceso_participativo
     - intent: deny
     - action: utter_farewell
+    
+  - story: First message and quien puede participar SAD PATH 2
+    steps:
+    - intent: inciate_conv
+      entities:
+      - user_logged: "NOT_LOGGED"
+    - action: utter_greet_and_ask_name
+    - intent: give_name
+      entities:
+      - user_name: "Victor"
+    - action: utter_discoverability
+    - intent: quien_puede_participar
+    - action: utter_quien_puede_participar
+    - action: utter_offer_proceso_participativo
+    - intent: deny
+    - action: utter_farewell
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Horta"
+    - action: action_validar_neighbor
 
 
  # COMO PUEDE PARTICIPAR
@@ -271,6 +242,31 @@ stories:
       - neighborhood_location: "Horta"
     - action: action_procesos_participativos
 
+
+  - story: First message and como puedo participar HAPPY PATH 2 
+    steps:
+    - intent: inciate_conv
+      entities:
+      - user_logged: "NOT_LOGGED"
+    - action: utter_greet_and_ask_name
+    - intent: give_name
+      entities:
+      - user_name: "Victor"
+    - action: utter_discoverability
+    - intent: como_puedo_participar
+    - action: utter_como_puedo_participar
+    - action: utter_offer_proceso_participativo
+    - intent: affirm
+    - action: utter_suggest_location
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Horta"
+    - action: action_procesos_participativos
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Horta"
+    - action: action_validar_neighbor
+
   - story: First message and como puedo participar SAD PATH
     steps:
     - intent: inciate_conv
@@ -287,6 +283,25 @@ stories:
     - intent: deny
     - action: utter_farewell
 
+  - story: First message and como puedo participar SAD PATH 2
+    steps:
+    - intent: inciate_conv
+      entities:
+      - user_logged: "NOT_LOGGED"
+    - action: utter_greet_and_ask_name
+    - intent: give_name
+      entities:
+      - user_name: "Victor"
+    - action: utter_discoverability
+    - intent: como_puedo_participar
+    - action: utter_como_puedo_participar
+    - action: utter_offer_proceso_participativo
+    - intent: deny
+    - action: utter_farewell
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Horta"
+    - action: action_validar_neighbor
 
    
  # QUE ES DECIDIM
@@ -303,49 +318,24 @@ stories:
     - intent: decidim
     - action: utter_decidim
 
+  - story: First message and que es decidim 2
+    steps:
+    - intent: inciate_conv
+      entities:
+      - user_logged: "NOT_LOGGED"
+    - action: utter_greet_and_ask_name
+    - intent: give_name
+      entities:
+      - user_name: "Victor"
+    - action: utter_discoverability
+    - intent: decidim
+    - action: utter_decidim
+    - intent: give_neighborhood
+      entities:
+      - neighborhood_location: "Horta"
+    - action: action_validar_neighbor
 
 
-
-
-#  - story: change neighbor
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: give_neighborhood
-#      entities:
-#      - neighborhood_location: Horta
-#    - action: action_validar_neighbor
-#    - slot_was_set:
-#      - neighborhood_location: Horta
-#    - intent: give_neighborhood
-#      entities:
-#      - neighborhood_location: Sants
-#    - action: action_validar_neighbor
-#    - slot_was_set:
-#      - new_neighborhood_location: Sants
-#    - intent: affirm
-#    - action: action_change_neighbor
-#    - slot_was_set:
-#      - neighborhood_location: Sants
-
-
-#  - story: dont change neighbor
-#    steps:
-#    - intent: greet
-#    - action: utter_greet
-#    - intent: give_neighborhood
-#      entities:
-#      - neighborhood_location: Horta
-#    - action: action_validar_neighbor
-#    - slot_was_set:
-#      - neighborhood_location: Horta
-#    - intent: give_neighborhood
-#      entities:
-#      - neighborhood_location: Sants
-#    - action: action_validar_neighbor
-#    - slot_was_set:
-#      - new_neighborhood_location: Sants
-#    - intent: deny
 
 # STORES PARTICIPATIVE PROCESS
   - story: ask for PP

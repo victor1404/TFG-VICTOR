@@ -165,6 +165,45 @@ def query_Components_ParticipatoryProceses(slug):
 
     return json_data
 
+def query_ParticipatoryProces_by_slug(slug):
+    query = ("""query {
+                    participatoryProcess(slug: """ + '"' + f"{slug}" + '"' +  """) {
+                        slug
+                        id
+                        publishedAt
+                        endDate
+                        attachments {
+                        url
+                        thumbnail
+                        }
+                        components {
+                        name {
+                            translation(locale: "es")
+                        }
+                        }
+                        description {
+                        translation(locale: "es")
+                        }
+                        localArea {
+                        translation(locale: "es")
+                        }
+                        title {
+                        translation(locale: "es")
+                        }                    }
+                }""")
+
+    print(query)
+
+    url = 'https://www.decidim.barcelona/api/'
+    r = requests.post(url, json={'query': query})
+    print(r.status_code)
+
+    json_data = json.loads(r.text)["data"]["participatoryProcess"]
+
+    response = json_data
+    found = False
+    return response
+
 
 
 

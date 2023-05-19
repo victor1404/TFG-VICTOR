@@ -261,7 +261,8 @@ nlu:
       - Que es esto?
       - Donde estoy?
       - Que hago ahora?
-      - No sé que hacer.
+      - Que puedo hacer aqui?
+      - No se que hacer.
 
   - intent: affirm
     examples: |
@@ -399,6 +400,8 @@ nlu:
   - intent: retrieve_proceso_participativo
     examples: |
       - Me puedes ofrecer algun proceso participativo, en [Horta](neighborhood_location)?
+      - Me puedes ofrecer algun proceso participativo, en [mi](mention) barrio?
+      - Me puedes dar el [ultimo](mention) proceso participativo del que hablamos?
       - Que hay nuevo en los procesos participativos, en la zona de [Sants](neighborhood_location)?
       - Ha salido algun proceso participativo nuevo, cerca de [Montjuic](neighborhood_location)?
       - Cual es el ultimo proceso participativo que ha salido, cerca de [Guinardó](neighborhood_location)?
@@ -406,8 +409,10 @@ nlu:
       - No sé que procesos participativos hay, en la zona de [Nou Barris](neighborhood_location).
       - Me puedes ayudar a escoger un proceso participativo, en [Sant Andreu](neighborhood_location)?
       - De acuerdo, me puedes dar uno de [Les Corts](neighborhood_location)?
+      - De acuerdo, me puedes dar uno de [mi](mention) barrio?
       - Dame un proceso participativo de [Eixample](neighborhood_location), por favor
       - Hay algun proceso participativo en [Ciutat Vella](neighborhood_location)?
+      - Cual era el [ultimo](mention) proceso participativo?
 
   - intent: debate_in_participatory_process
     examples: |
@@ -449,11 +454,18 @@ nlu:
   - intent: como_puedo_participar
     examples: |
       - Como puedo participar
-      - De que forma se participa?
+      - De que forma se participa?     
+
+  - intent: signIn
+    examples: |
+      - Como puedo registrarme
+      - Com me puedo registrar?
+      - De que forma me registro?
+      - Como creo una cuenta?
 
 # OTHERS
 
-  - intent: discoverabilty
+  - intent: discoverability
     examples: |
       - En que me puedes ayudar?
       - Hola, podrias ayudarme?
@@ -464,11 +476,6 @@ nlu:
       - Para que sirves?
       - Que puedes hacer?
 
-  # - intent: discoverabilty_conceptos
-  #   examples: |
-  #     - A que te refieres con conceptos de la web?
-  #     - Sobre que conceptos te puedo preguntar?
-
   - intent: quien_eres
     examples: |
       - Que eres?
@@ -476,11 +483,6 @@ nlu:
       - Quien eres?
       - Porque sales en mi ordenador?
       - Cual es tu nombre?
-
-  # - intent: ofrecer_location
-  #   examples: |
-  #     - quiero decir un lugar
-  #     - quiero dar una localizacion
 
   - intent: give_neighborhood
     examples: |
@@ -502,139 +504,8 @@ nlu:
       - Del [segundo](mention)
       - Me interesa el [tercero](mention)
       - [cuarto](mention)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# - intent: retrieve_debates
-#   examples: |
-#     - Me puedes ofrecer algun debate, en [Horta](neighborhood_location)?
-#     - Que hay nuevo en los debates, cerca de [Sants](neighborhood_location)?
-#     - Ha salido algun debate nuevo, en la zona de [Guinardó](neighborhood_location)?
-#     - Hay algun debate interesante, en [Horta](neighborhood_location)?
-#     - Me puedes dar lo ultimo de debates, cerca de [Sants](neighborhood_location)?
-#     - Cual es el ultimo debate que ha salido, en la zona de [Guinardó](neighborhood_location)?
-#     - Quiero ver algun debate, que me recomiendas, en [Horta](neighborhood_location)?
-#     - No sé que debates hay, cerca de [Sants](neighborhood_location).
-#     - No sé que debates hay, dame alguno, en la zona de [Guinardó](neighborhood_location).
-#     - Me puedes ayudar a escoger un debate, en [Horta](neighborhood_location)?
-#     - Hay algun debate nuevo, en la zona de [Guinardó](neighborhood_location)?
-# - intent: retrieve_debates_location
-#   examples: |
-#     - Me puedes ofrecer algun debate, en [Horta](neighborhood_location)?
-#     - Que hay nuevo en los debates, en la zona de [Guinardó](neighborhood_location)?
-#     - Ha salido algun debate nuevo, cerca de [Sants](neighborhood_location)?
-#     - Hay algun debate interesante, en la zona de [Guinardó](neighborhood_location)?
-#     - Me puedes dar lo ultimo de debates, cerca de [Sants](neighborhood_location)?
-#     - Cual es el ultimo debate que ha salido, en [Horta](neighborhood_location)?
-#     - Quiero ver algun debate, que me recomiendas, cerca de [Sants](neighborhood_location)?
-#     - No sé que debates hay, en la zona de [Guinardó](neighborhood_location).
-#     - No sé que debates hay, dame alguno, cerca de [Sants](neighborhood_location).
-#     - Me puedes ayudar a escoger un debate, en [Horta](neighborhood_location)?
-#     - Hay algun debate nuevo, en la zona de [Guinardó](neighborhood_location)?
-
-# - intent: retrieve_surveys
-#   examples: |
-#     - Me puedes ofrecer alguna encuesta?
-#     - Que hay nuevo en las encuestas?
-#     - Ha salido alguna encuesta nueva?
-#     - Hay alguna encuesta interesante?
-#     - Me puedes dar lo ultimo de encuestas?
-#     - Cual es la ultima encuesta que ha salido?
-#     - Quiero ver alguna encuesta, que me recomiendas?
-#     - No sé que encuesta hay.
-#     - No sé que encuesta hay, dame alguna.
-#     - Me puedes ayudar a escoger una encuesta?
-#     - Hay alguna encuesta nueva?
-# - intent: retrieve_surveys_location
-#   examples: |
-#     - Me puedes ofrecer alguna encuesta, en la zona de [Guinardó](neighborhood_location)?
-#     - Que hay nuevo en las encuestas, en [Horta](neighborhood_location)?
-#     - Ha salido alguna encuesta nueva, cerca de [Sants](neighborhood_location)?
-#     - Hay alguna encuesta interesante, en [Horta](neighborhood_location)?
-#     - Me puedes dar lo ultimo de encuestas, en la zona de [Guinardó](neighborhood_location)?
-#     - Cual es la ultima encuesta que ha salido, cerca de [Sants](neighborhood_location)?
-#     - Quiero ver alguna encuesta, que me recomiendas, en la zona de [Guinardó](neighborhood_location)?
-#     - No sé que encuesta hay, en [Horta](neighborhood_location).
-#     - No sé que encuesta hay, dame alguna, cerca de [Sants](neighborhood_location).
-#     - Me puedes ayudar a escoger una encuesta, en la zona de [Guinardó](neighborhood_location)?
-#     - Hay alguna encuesta nueva, en [Horta](neighborhood_location)?
-
-# - intent: retrieve_budgets
-#   examples: |
-#     - Me puedes ofrecer algun presupuesto?
-#     - Que hay nuevo en los presupuestos?
-#     - Ha salido algun presupuesto nuevo?
-#     - Hay algun presupuesto interesante?
-#     - Me puedes dar lo ultimo de presupuestos?
-#     - Cual es el ultimo presupuesto que ha salido?
-#     - Quiero ver algun presupuesto, que me recomiendas?
-#     - No sé que presupuestos hay.
-#     - No sé que presupuestos hay, dame alguno.
-#     - Me puedes ayudar a escoger un presupuesto?
-#     - Hay algun presupuesto nuevo?
-# - intent: retrieve_budgets_location
-#   examples: |
-#     - Me puedes ofrecer algun presupuesto, en [Horta](neighborhood_location)?
-#     - Que hay nuevo en los presupuestos, cerca de [Sants](neighborhood_location)?
-#     - Ha salido algun presupuesto nuevo, en la zona de [Guinardó](neighborhood_location)?
-#     - Hay algun presupuesto interesante, en [Horta](neighborhood_location)?
-#     - Me puedes dar lo ultimo de presupuestos, cerca de [Sants](neighborhood_location)?
-#     - Cual es el ultimo presupuesto que ha salido, en la zona de [Guinardó](neighborhood_location)?
-#     - Quiero ver algun presupuesto, que me recomiendas, en [Horta](neighborhood_location)?
-#     - No sé que presupuestos hay, cerca de [Sants](neighborhood_location).
-#     - No sé que presupuestos hay, dame alguno, en la zona de [Guinardó](neighborhood_location).
-#     - Me puedes ayudar a escoger un presupuesto, en [Horta](neighborhood_location), en [Horta](neighborhood_location)?
-#     - Hay algun presupuesto nuevo, en la zona de [Guinardó](neighborhood_location)?
-
-# - intent: retrieve_proposals
-#   examples: |
-#     - Me puedes ofrecer alguna propuesta?
-#     - Que hay nuevo en las propuestas?
-#     - Ha salido alguna propuesta nueva?
-#     - Hay alguna propuesta interesante?
-#     - Me puedes dar lo ultimo de propuestas?
-#     - Cual es la ultima propuesta que ha salido?
-#     - Quiero ver alguna propuesta, que me recomiendas?
-#     - No sé que propuesta hay.
-#     - No sé que propuesta hay, dame alguna.
-#     - Me puedes ayudar a escoger una propuesta?
-#     - Hay alguna propuesta nueva?
-# - intent: retrieve_proposals_location
-#   examples: |
-#     - Me puedes ofrecer alguna propuesta, cerca de [Sants](neighborhood_location)?
-#     - Que hay nuevo en las propuestas, en [Horta](neighborhood_location)?
-#     - Ha salido alguna propuesta nueva, en la zona de [Guinardó](neighborhood_location)?
-#     - Hay alguna propuesta interesante, cerca de [Sants](neighborhood_location)?
-#     - Me puedes dar lo ultimo de propuestas, en [Horta](neighborhood_location)?
-#     - Cual es la ultima propuesta que ha salido, en la zona de [Guinardó](neighborhood_location)?
-#     - Quiero ver alguna propuesta, que me recomiendas, cerca de [Sants](neighborhood_location)?
-#     - No sé que propuesta hay, en [Horta](neighborhood_location).
-#     - No sé que propuesta hay, dame alguna, en [Horta](neighborhood_location).
-#     - Me puedes ayudar a escoger una propuesta, en la zona de [Guinardó](neighborhood_location)?
-#     - Hay alguna propuesta nueva, en [Horta](neighborhood_location)?
-
+      - Sí, el [1o](mention)
+      - El [2o], por favor
+      - Sí, del [3o], por favor
+      - Resume el [1o]
+      - Hazme un resumen del [2o](mention)
