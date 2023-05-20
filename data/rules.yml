@@ -41,7 +41,9 @@ rules:
    - action: action_listen
    wait_for_user_input: true
 
- - rule: no hacer nada 3
+
+
+ - rule: ofrecer propuestas
    condition:
    - slot_was_set:
      - user_logged: "LOGGED"
@@ -49,8 +51,9 @@ rules:
      - context: "PROCESO PROPUESTAS"
    steps:
    - intent: change_context
-   - action: action_listen
-   wait_for_user_input: true
+   - action: action_last_3_proposals
+  #  wait_for_user_input: true
+
 
 
 

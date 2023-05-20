@@ -371,3 +371,4 @@ actions:
 - action_show_context_and_id
 - action_offer_sumarization_debates
 - action_sumarization
+- action_last_3_proposals

@@ -72,14 +72,51 @@ class ActionGET_ParticipatoryeProcess(Action):
 
         neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
         mention = next(tracker.get_latest_entity_values("mention"), None)
+        user_logged = tracker.get_slot("user_logged")
+        user_name = tracker.get_slot("user_name")
+
+        if user_logged == "LOGGED" and mention == "mi":
+            dbname = get_database()
+
+
+            collection_name = dbname["users_list"]
+            item_details = list(collection_name.find({"user_name" : user_name }))
+
+            if len(item_details) == 0:
+                print("error con usuario")
+                return []
+
+            for item in item_details:
+                neighborhood = item["neigbor"]
+
+            response_dict = querys.query_ParticipatoryProceses_location(neighborhood)
+            ACTUAL_PP = response_dict
+            print(ACTUAL_PP)
+
+            title = response_dict["title"]["translation"]
+            if mention == "mi":
+                dispatcher.utter_message(text="He intentado buscar cerca tu barrio")
+            else:
+                dispatcher.utter_message(text=f"He intentado buscar cerca de {neighborhood}")
+
+            dispatcher.utter_message(text=f"He encontrado esto: **{title}**")
+
+            slug = response_dict["slug"]
+            l = "https://www.decidim.barcelona/processes/" + slug
+            
+            if title == "Reurbanización de los interiores de manzana de la Guineueta":
+                l = "ProcesoGuineueta-decidim.barcelona.html"
+            dispatcher.utter_template("utter_give_link", tracker, link=l)
+
+            return [SlotSet("actual_slug_PP", slug)]
+
 
         if neighborhood is None and mention == "mi":
             neighborhood = tracker.get_slot("neighborhood_location")
             if neighborhood is None:
                 dispatcher.utter_message(text="No sé cual es tu barrio") 
                 return []  
-        print(neighborhood)
-        print(mention)
+
 
         if mention.lower() == "ultimo":
             slug = tracker.get_slot('actual_slug_PP')
@@ -98,6 +135,7 @@ class ActionGET_ParticipatoryeProcess(Action):
             dispatcher.utter_template("utter_give_link", tracker, link=l)
             return []
 
+
         if neighborhood is None:
             # no nos ha proporcionado un lugar. 
             response_dict = querys.query_latest_ParticipatoryProceses()
@@ -111,6 +149,7 @@ class ActionGET_ParticipatoryeProcess(Action):
             l = "http://localhost:5000/procesoGuineueta"
             dispatcher.utter_template("utter_give_link", tracker, link=l)
             return [SlotSet("actual_slug_PP", slug)]
+
 
         else:
             response_dict = querys.query_ParticipatoryProceses_location(neighborhood)
@@ -217,7 +256,6 @@ class ActionLOOK_ParticipatoryProcess(Action):
             return []
 
 
-
 class ActionGET_CONTEXT_AND_ID(Action):
 
     def name(self) -> Text:
@@ -263,6 +301,58 @@ class ActionGET_CONTEXT_AND_ID(Action):
 
         return []
 
+
+class ActionLAST3_PROPOSALS(Action):
+
+    def name(self) -> Text:
+        return "action_last_3_proposals"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        intent = tracker.latest_message['intent'].get('name')
+
+        if intent == "change_context":
+            state_context = tracker.get_slot('state_context')
+            print(state_context)
+            entity = next(tracker.get_latest_entity_values("context"), None)
+
+            if state_context[entity]:
+                state_context[entity] = False
+                actual_slug_PP = str(tracker.get_slot('actual_slug_PP'))
+
+                response = querys.query_last3_Proposals_by_slug(actual_slug_PP)
+                
+                dispatcher.utter_message(text="Estas son las ultimas 3 propuestas:")
+
+                for component in response["components"]:
+                    if "proposals" in component.keys():
+                        id = component["id"]
+                        for proposal in component["proposals"]["nodes"]:
+                            link = "https://www.decidim.barcelona/processes/" + actual_slug_PP + "/f/" + id + "/proposals/" + proposal["id"]
+                            dispatcher.utter_message(text=link)
+                return [SlotSet('state_context', state_context)]
+
+            return []
+
+
+        actual_slug_PP = str(tracker.get_slot('actual_slug_PP'))
+
+        response = querys.query_last3_Proposals_by_slug(actual_slug_PP)
+        
+        dispatcher.utter_message(text="Estas son las ultimas 3 propuestas:")
+
+        for component in response["components"]:
+            if "proposals" in component.keys():
+                id = component["id"]
+                for proposal in component["proposals"]["nodes"]:
+                    link = "https://www.decidim.barcelona/processes/" + actual_slug_PP + "/f/" + id + "/proposals/" + proposal["id"]
+                    dispatcher.utter_message(text=link)
+
+        return []
+
+
 class ActionOFFER_SUMARIZATION_DEBATES(Action):
 
     def name(self) -> Text:
@@ -271,7 +361,46 @@ class ActionOFFER_SUMARIZATION_DEBATES(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
+        intent = tracker.latest_message['intent'].get('name')
+
+        if intent == "change_context":
+            state_context = tracker.get_slot('state_context')
+            print(state_context)
+            entity = next(tracker.get_latest_entity_values("context"), None)
+            if state_context[entity]:
+                state_context[entity] = False
+                dbname = get_database()
+
+                slug = str(tracker.get_slot('actual_slug_PP'))
+
+
+                collection_name = dbname["ProcesosParticipativos"]
+                item_details = list(collection_name.find({"_id" : slug}))
+
+                if len(item_details) == 0:
+                    print("sin encuentros")
+                    if str(tracker.latest_message['intent'].get('name')) == "sumarization_debates":
+                        dispatcher.utter_message("Lo siento no puedo hacer un resumen si no hay comentarios")
+                    return []
+
+                dispatcher.utter_message(f"Tenemos los siguientes debates para el proceso {slug}:")
+
+                encuentros = []
+                for item in item_details:
+                    for encuentro in item["encuentros"]:
+                        nombre = encuentro["nombre"]
+                        encuentros.append(nombre)
+                        dispatcher.utter_message(f"- {nombre}")
+
+                dispatcher.utter_message("Puedo hacerte un resumen de alguno de ellos si quieres")
+
+                return [SlotSet('state_context', state_context)]
+            return []
+
+
+
+
+
         dbname = get_database()
 
         slug = str(tracker.get_slot('actual_slug_PP'))
@@ -298,6 +427,7 @@ class ActionOFFER_SUMARIZATION_DEBATES(Action):
         dispatcher.utter_message("Puedo hacerte un resumen de alguno de ellos si quieres")
 
         return [SlotSet('list_offered', encuentros)]
+
 
 class ActionSumarization(Action):
 

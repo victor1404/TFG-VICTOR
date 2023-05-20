@@ -118,6 +118,9 @@ def query_ParticipatoryProceses_location(location):
                         title {
                         translation(locale: "es")
                         }
+                        metaScope {
+                        translation(locale: "es")
+                        }
                     }
                 }""")
 
@@ -136,7 +139,10 @@ def query_ParticipatoryProceses_location(location):
     for process in json_data:
         if not found:
             if process["endDate"] >= today:
-                if location in process["title"]["translation"] or location in process["description"]["translation"] or location in process["localArea"]["translation"]:
+                if location in process["metaScope"]["translation"]:
+                    found = True
+                    response = process
+                elif location in process["title"]["translation"] or location in process["description"]["translation"] or location in process["localArea"]["translation"]:
                     found = True
                     response = process
     return response
@@ -189,7 +195,43 @@ def query_ParticipatoryProces_by_slug(slug):
                         }
                         title {
                         translation(locale: "es")
-                        }                    }
+                        }                    
+                    }
+                }""")
+
+    print(query)
+
+    url = 'https://www.decidim.barcelona/api/'
+    r = requests.post(url, json={'query': query})
+    print(r.status_code)
+
+    json_data = json.loads(r.text)["data"]["participatoryProcess"]
+
+    response = json_data
+    found = False
+    return response
+
+
+def query_last3_Proposals_by_slug(slug):
+    query = ("""query {
+                    participatoryProcess(slug: """ + '"' + f"{slug}" + '"' +  """) {
+                        id
+                        components {
+                        ... on Proposals {
+                            id
+                            proposals(last: 3) {
+                            nodes {
+                                id
+                                __typename
+                                createdAt
+                                position
+                                publishedAt
+                                reference
+                            }
+                            }
+                        }
+                        }
+                    }
                 }""")
 
     print(query)
@@ -207,18 +249,28 @@ def query_ParticipatoryProces_by_slug(slug):
 
 
 
-# def iniciate_conv(){
-#     session_id = "89fuf9j2fe92jicdhf2920efjdkflf2020"
-#     # url = 'http://localhost:5005/conversations/' + session_id + '/trigger_intent?token=DataVisualizationInLinguisticsSecretToken&include_events=NONE&output_channel=socketio'
-#     url = 'http://localhost:5005/conversations/' + session_id + '/trigger_intent?output_channel=socketio'
-#     json_msg = {
-#         "name": "change_context",
-#         "entities": {
-#             "context": "PAGINA PRINCIPAL"
-#         }
-#     }
-#     requests.post(url, json=json_msg)
-# }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
