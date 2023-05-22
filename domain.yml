@@ -93,7 +93,6 @@ slots:
   user_name:
     type: text
     influence_conversation: false
-    # initial_value: 0
     mappings:
     - type: from_entity
       entity: user_name
@@ -142,7 +141,7 @@ responses:
 
      ¿Comó te llamas?
   utter_welcome_back:
-  - text: "Hola, de nuevo!"
+  - text: "Hola de nuevo! {user_name}"
 
 
   utter_wait:

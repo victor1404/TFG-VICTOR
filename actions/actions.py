@@ -87,7 +87,7 @@ class ActionGET_ParticipatoryeProcess(Action):
                 return []
 
             for item in item_details:
-                neighborhood = item["neigbor"]
+                neighborhood = item["neighbor"]
 
             response_dict = querys.query_ParticipatoryProceses_location(neighborhood)
             ACTUAL_PP = response_dict
@@ -718,44 +718,3 @@ class ActionValidarNeighbor(Action):
     #         return [] 
 
 
-
-# class ValidateSimpleLocationForm(FormValidationAction):
-
-#     def name(self) -> Text:
-#         return "validate_simple_location_form"
-
-#     def validate_neighborhood_location(
-#         self,
-#         slot_value: Any,
-#         dispatcher: CollectingDispatcher,
-#         tracker: Tracker,
-#         domain: DomainDict,
-#     ) -> Dict[Text, Any]:
-#         """Validate `neighborhood_location` value."""
-
-#         print(slot_value)
-
-#         if slot_value.lower() not in ALLOWED_LOCATIONS:
-#             dispatcher.utter_message(text=f"Esa localizacion no sirve. Debe ser Horta o Gracia.")
-#             return {"neighborhood_location": None}
-#         dispatcher.utter_message(text=f"OK! guardamos el valor {slot_value}.")
-#         return {"neighborhood_location": slot_value}
-
-# class ActionChangeNeighbor(Action):
-
-#     def name(self) -> Text:
-#         return "action_change_neighbor"
-
-#     def run(self, dispatcher: CollectingDispatcher,
-#     tracker: Tracker,
-#     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-#         neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
-#         print("\nEntity:")
-#         print(neighborhood)
-#         if neighborhood is None:
-#             slot = tracker.get_slot("new_neighborhood_location")
-#             print("Slot:")
-#             print(slot)
-#             return [SlotSet("neighborhood_location", slot)]
-#         return [SlotSet("neighborhood_location", neighborhood)]

@@ -20,6 +20,5 @@ user_3 = {
   "neighbor" : "Sants"
   }
 
-# DARÁ ERROR SI YA EXISTEN LOS USERS
 collection_name.insert_many([user_1,user_2,user_3])
 # collection_name.insert_one(item_3)
