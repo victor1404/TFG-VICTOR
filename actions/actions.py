@@ -414,30 +414,26 @@ class ActionOFFER_SUMARIZATION_DEBATES(Action):
 
 
                 collection_name = dbname["ProcesosParticipativos"]
-                item_details = list(collection_name.find({"_id" : slug}))
+                item_details = list(collection_name.find({"_id" : slug}))[0]
+                # print(item_details)
 
-                if len(item_details) == 0:
+                if "encuentros" not in item_details.keys():
                     print("sin encuentros")
-                    if str(tracker.latest_message['intent'].get('name')) == "sumarization_debates":
-                        dispatcher.utter_message("Lo siento no puedo hacer un resumen si no hay comentarios")
-                    return []
+                    return [SlotSet('state_context', state_context)]
 
                 dispatcher.utter_message(f"Tenemos los siguientes debates para el proceso {slug}:")
 
                 encuentros = []
-                for item in item_details:
-                    for encuentro in item["encuentros"]:
-                        nombre = encuentro["nombre"]
-                        encuentros.append(nombre)
-                        dispatcher.utter_message(f"- {nombre}")
+                for encuentro in item_details["encuentros"]:
+                    print(encuentro)
+                    nombre = encuentro["nombre"]
+                    encuentros.append(nombre)
+                    dispatcher.utter_message(f"- {nombre}")
 
                 dispatcher.utter_message("Puedo hacerte un resumen de alguno de ellos si quieres")
 
                 return [SlotSet('state_context', state_context)]
             return []
-
-
-
 
 
         dbname = get_database()
@@ -446,9 +442,9 @@ class ActionOFFER_SUMARIZATION_DEBATES(Action):
 
 
         collection_name = dbname["ProcesosParticipativos"]
-        item_details = list(collection_name.find({"_id" : slug}))
+        item_details = list(collection_name.find({"_id" : slug}))[0]
 
-        if len(item_details) == 0:
+        if "encuentros" not in item_details.keys():
             print("sin encuentros")
             if str(tracker.latest_message['intent'].get('name')) == "sumarization_debates":
                 dispatcher.utter_message("Lo siento no puedo hacer un resumen si no hay comentarios")
@@ -457,14 +453,13 @@ class ActionOFFER_SUMARIZATION_DEBATES(Action):
         dispatcher.utter_message(f"Tenemos los siguientes debates para el proceso {slug}:")
 
         encuentros = []
-        for item in item_details:
-            for encuentro in item["encuentros"]:
-                nombre = encuentro["nombre"]
-                encuentros.append(nombre)
-                dispatcher.utter_message(f"- {nombre}")
+        for encuentro in item_details["encuentros"]:
+            nombre = encuentro["nombre"]
+            encuentros.append(nombre)
+            dispatcher.utter_message(f"- {nombre}")
 
         dispatcher.utter_message("Puedo hacerte un resumen de alguno de ellos si quieres")
-
+        print(encuentros)
         return [SlotSet('list_offered', encuentros)]
 
 
@@ -508,7 +503,7 @@ class ActionSumarization(Action):
         list_offered = tracker.get_slot('list_offered')
         print(list_offered)
 
-        if value > len(list_offered):
+        if value > len(list_offered) or value < 0:
             dispatcher.utter_message("Escoja una de las que he mencionado por favor")
             return []
             
