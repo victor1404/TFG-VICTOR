@@ -441,8 +441,9 @@ nlu:
 
   - intent: sumarization_debates
     examples: |
-      - Me puedes resumir los ultimos debates?
+      - Me puedes resumir los ultimos encuentros?
       - Hazme un resumen de este encuentro
+      - Me puedes hacer un resumen?
 
 # HOW CAN I
 

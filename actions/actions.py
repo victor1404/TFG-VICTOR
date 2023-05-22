@@ -353,6 +353,45 @@ class ActionLAST3_PROPOSALS(Action):
         return []
 
 
+class Action_CONTRL_FLOW_PROPOSALS(Action):
+
+    def name(self) -> Text:
+        return "action_control_flow_proposals"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        intent = tracker.latest_message['intent'].get('name')
+
+        if intent == "change_context":
+            state_context = tracker.get_slot('state_context')
+            print(state_context)
+            entity = next(tracker.get_latest_entity_values("context"), None)
+            if state_context[entity]:
+                state_context[entity] = False
+                dispatcher.utter_template("utter_control_flow_proposals", tracker)
+                return [SlotSet('state_context', state_context)]
+            return []
+        
+        dispatcher.utter_template("utter_control_flow_proposals", tracker)
+        return []
+
+
+class Action_OFRECER_PROPUESTAS_AMIGOS(Action):
+
+    def name(self) -> Text:
+        return "action_propuestas_amigos"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        intent = tracker.latest_message['intent'].get('name')        
+        
+        dispatcher.utter_message("FUNCIONALIDAD AUN EN DESARROLLO...")
+        return []
+
+
+
 class ActionOFFER_SUMARIZATION_DEBATES(Action):
 
     def name(self) -> Text:

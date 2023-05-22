@@ -22,12 +22,27 @@ stories:
 
 
 # USER LOGGED
-  - story: User not logged HELLO
+  - story: User logged HELLO
     steps:
     - intent: inciate_conv
       entities:
       - user_logged: "LOGGED"
+      - user_name: "Victor"
     - action: utter_welcome_back
+
+
+    
+  - story: ordenar propuestas
+    steps:
+    - action: action_control_flow_proposals
+    - intent: ordenar_propuestas
+    - action: action_last_3_proposals
+    
+  - story: ofrecer propuestas de amigos
+    steps:
+    - action: action_control_flow_proposals
+    - intent: propuestas_amigos
+    - action: action_propuestas_amigos
 
 
 # USER NOT LOGGED

@@ -39,6 +39,8 @@ intents:
 - signIn
 - sumarization_debates
 - resolve_mention
+- ordenar_propuestas
+- propuestas_amigos
 
 entities:
 - neighborhood_location
@@ -351,6 +353,20 @@ responses:
 
 
 
+  utter_control_flow_proposals:
+  - text: |
+      Puedo ordenar o escoger según tu circulo de amistad.
+      
+      Estas son las opciones disponibles:
+    buttons:
+    - title: "Ordenar"
+      payload: '/ordenar_propuestas'
+    - title: "Amistad"
+      payload: '/propuestas_amigos'
+
+
+
+
 
   utter_default:
   - text: "Lo siento. No te he entendido.. Intenta reformular la frase. También puedes visitar el link https://www.decidim.barcelona/pages?locale=es"
@@ -371,3 +387,5 @@ actions:
 - action_offer_sumarization_debates
 - action_sumarization
 - action_last_3_proposals
+- action_control_flow_proposals
+- action_propuestas_amigos
