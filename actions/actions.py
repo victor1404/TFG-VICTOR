@@ -368,7 +368,7 @@ class Action_CONTRL_FLOW_PROPOSALS(Action):
             print(state_context)
             entity = next(tracker.get_latest_entity_values("context"), None)
             if state_context[entity]:
-                state_context[entity] = False
+                # state_context[entity] = False
                 dispatcher.utter_template("utter_control_flow_proposals", tracker)
                 return [SlotSet('state_context', state_context)]
             return []
@@ -385,9 +385,40 @@ class Action_OFRECER_PROPUESTAS_AMIGOS(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        intent = tracker.latest_message['intent'].get('name')        
-        
-        dispatcher.utter_message("FUNCIONALIDAD AUN EN DESARROLLO...")
+        user_name = tracker.get_slot("user_name")
+        print(user_name)
+
+        if user_name is not None:
+
+            dbname = get_database()     
+            collection_name = dbname["users_list"]
+            item_details = list(collection_name.find({"user_name" : user_name}))[0]
+            
+            if "community" in item_details.keys():
+                arrayToFind = item_details["community"]
+                print(arrayToFind)
+                community = list(collection_name.find({"user_name" : { "$in" : arrayToFind } }))
+                for member in community:
+                    for pp in member["participative_processes"]:
+                        slug = list(pp.keys())[0]
+                        print(pp)
+                        for propuesta in pp[slug]:
+                            nombre = propuesta["nombre"]
+                            dispatcher.utter_message(f"- {nombre}")
+
+
+                return []
+
+
+            else:
+                dispatcher.utter_message("No tienes amigos...")
+                return []   
+
+
+
+
+            
+        dispatcher.utter_message("Ha habido algun error con tu nombre de usuario...")
         return []
 
 
