@@ -439,7 +439,7 @@ nlu:
       - El ultimo proceso participativo tenia algun presupuesto?    
       - Tiene presupuestos?
 
-  - intent: sumarization_debates
+  - intent: sumarization_encuentros
     examples: |
       - Me puedes resumir los ultimos encuentros?
       - Hazme un resumen de este encuentro

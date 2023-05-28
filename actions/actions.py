@@ -330,6 +330,8 @@ class ActionLAST3_PROPOSALS(Action):
                     if "proposals" in component.keys():
                         id = component["id"]
                         for proposal in component["proposals"]["nodes"]:
+                            nombre = proposal["title"]
+                            dispatcher.utter_message(f"- {nombre}")
                             link = "https://www.decidim.barcelona/processes/" + actual_slug_PP + "/f/" + id + "/proposals/" + proposal["id"]
                             dispatcher.utter_message(text=link)
                 return [SlotSet('state_context', state_context)]
@@ -347,6 +349,8 @@ class ActionLAST3_PROPOSALS(Action):
             if "proposals" in component.keys():
                 id = component["id"]
                 for proposal in component["proposals"]["nodes"]:
+                    nombre = proposal["title"]
+                    dispatcher.utter_message(f"- {nombre}")
                     link = "https://www.decidim.barcelona/processes/" + actual_slug_PP + "/f/" + id + "/proposals/" + proposal["id"]
                     dispatcher.utter_message(text=link)
 
@@ -368,7 +372,7 @@ class Action_CONTRL_FLOW_PROPOSALS(Action):
             print(state_context)
             entity = next(tracker.get_latest_entity_values("context"), None)
             if state_context[entity]:
-                # state_context[entity] = False
+                state_context[entity] = False
                 dispatcher.utter_template("utter_control_flow_proposals", tracker)
                 return [SlotSet('state_context', state_context)]
             return []
@@ -406,28 +410,24 @@ class Action_OFRECER_PROPUESTAS_AMIGOS(Action):
                             for propuesta in pp[slug]:
                                 nombre = propuesta["nombre"]
                                 dispatcher.utter_message(f"- {nombre}")
-
+                                link = propuesta["url"]
+                                dispatcher.utter_message(text=link)
 
                 return []
-
 
             else:
                 dispatcher.utter_message("No tienes amigos...")
                 return []   
-
-
-
 
             
         dispatcher.utter_message("Ha habido algun error con tu nombre de usuario...")
         return []
 
 
-
-class ActionOFFER_SUMARIZATION_DEBATES(Action):
+class ActionOFFER_sumarization_encuentros(Action):
 
     def name(self) -> Text:
-        return "action_offer_sumarization_debates"
+        return "action_offer_sumarization_encuentros"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -453,16 +453,16 @@ class ActionOFFER_SUMARIZATION_DEBATES(Action):
                     print("sin encuentros")
                     return []
 
-                dispatcher.utter_message(f"Tenemos los siguientes debates para el proceso {slug}:")
+                dispatcher.utter_message(f"Tenemos los siguientes encuentros para el proceso {slug}:")
 
                 encuentros = []
                 for encuentro in item_details["encuentros"]:
-                    print(encuentro)
+                    # print(encuentro)
                     nombre = encuentro["nombre"]
                     encuentros.append(nombre)
                     dispatcher.utter_message(f"- {nombre}")
 
-                dispatcher.utter_message("Puedo hacerte un resumen de alguno de ellos si quieres")
+                dispatcher.utter_message("Puedo hacerte un resumen de alguno de ellos si quieres, dime cual")
                 
                 SlotSet('state_context', state_context) 
                 return [SlotSet('list_offered', encuentros)]
@@ -479,7 +479,7 @@ class ActionOFFER_SUMARIZATION_DEBATES(Action):
 
         if "encuentros" not in item_details.keys():
             print("sin encuentros")
-            if str(tracker.latest_message['intent'].get('name')) == "sumarization_debates":
+            if str(tracker.latest_message['intent'].get('name')) == "sumarization_encuentros":
                 dispatcher.utter_message("Lo siento no puedo hacer un resumen si no hay comentarios")
             return []
 
@@ -491,8 +491,8 @@ class ActionOFFER_SUMARIZATION_DEBATES(Action):
             encuentros.append(nombre)
             dispatcher.utter_message(f"- {nombre}")
 
-        dispatcher.utter_message("Puedo hacerte un resumen de alguno de ellos si quieres")
-        print(encuentros)
+        dispatcher.utter_message("Puedo hacerte un resumen de alguno de ellos si quieres, dime cual")
+
         return [SlotSet('list_offered', encuentros)]
 
 
@@ -542,7 +542,7 @@ class ActionSumarization(Action):
             
 
         encuentro = list_offered[value-1]
-        print("Has escogido: " + encuentro)
+
         dispatcher.utter_message(f"Te resumiré el encuentro *{encuentro}*:")
         dispatcher.utter_message("Un momento, por favor")
 
@@ -551,10 +551,7 @@ class ActionSumarization(Action):
         item_details = collection_name.find({"_id" : slug})
         comentarios=[]
         for item in item_details:
-            # print(item)
             comentarios = item["encuentros"][value-1]["comentarios"]
-
-        print(comentarios)
 
         text = ''.join(comentarios)
         threshold = 1.2
@@ -562,11 +559,34 @@ class ActionSumarization(Action):
         while summary == "":
             threshold -= 0.1
             summary = run_summarization(text, threshold)
-        print(summary)
 
-        dispatcher.utter_message(f"El resumen: {summary}")
+        dispatcher.utter_message("El resumen es el siguiente:")
+        dispatcher.utter_message(f"{summary}")
         return []
 
+
+class Action_CONTRL_FLOW(Action):
+
+    def name(self) -> Text:
+        return "action_control_flow"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        intent = tracker.latest_message['intent'].get('name')
+
+        if intent == "change_context":
+            state_context = tracker.get_slot('state_context')
+            print(state_context)
+            entity = next(tracker.get_latest_entity_values("context"), None)
+            if state_context[entity]:
+                state_context[entity] = False
+                dispatcher.utter_template("utter_control_flow", tracker)
+                return [SlotSet('state_context', state_context)]
+            return []
+        
+        dispatcher.utter_template("utter_control_flow", tracker)
+        return []
 
 class ActionOfferPP_Tematica(Action):
 
@@ -577,48 +597,35 @@ class ActionOfferPP_Tematica(Action):
         tracker: Tracker,
         domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        intent = tracker.latest_message['intent'].get('name')
+        user_name = tracker.get_slot('user_name')
 
-        if intent == "change_context":
-            state_context = tracker.get_slot('state_context')
-            print(state_context)
-            entity = next(tracker.get_latest_entity_values("context"), None)
+        if user_name is not None:
+            dbname = get_database()     
+            collection_name = dbname["users_list"]
+            item_details = list(collection_name.find({"user_name" : user_name}))[0]
+            
+            if "interests" in item_details.keys():
+                arrayToFind = item_details["interests"]
+                response = querys.query_ParticipatoryProceses_interests(arrayToFind)
+                # print(response)
 
-            if state_context[entity]:
-                state_context[entity] = False
-                user_name = tracker.get_slot("user_name")
-                print(user_name)
+                if response:
+                    dispatcher.utter_message("Tenemos los siguientes procesos según tus intereses: ")
+                    for pp in response:
+                        slug = pp["slug"]
+                        nombre = pp["title"]["translation"]
+                        dispatcher.utter_message(f"- {nombre}")
+                        link = "https://www.decidim.barcelona/processes/" + slug
+                        dispatcher.utter_message(text=link)
 
-                if user_name is not None:
+                return []
+                
+            else:
+                dispatcher.utter_message("No tienes intereses...")
+                return []   
 
-                    dbname = get_database()     
-                    collection_name = dbname["users_list"]
-                    item_details = list(collection_name.find({"user_name" : user_name}))[0]
-                    
-                    if "interests" in item_details.keys():
-                        arrayToFind = item_details["interests"]
-                        print(arrayToFind)
-                        response = querys.query_ParticipatoryProceses_interests(arrayToFind)
-                        # print(response)
-
-                        if response:
-                            dispatcher.utter_message("Tenemos los siguientes procesos según tus intereses: ")
-                            for pp in response:
-                                print(pp["slug"])
-                                nombre = pp["title"]["translation"]
-                                dispatcher.utter_message(f"- {nombre}")
-
-                        return [SlotSet('state_context', state_context)]
-                        
-
-
-                    else:
-                        dispatcher.utter_message("No tienes intereses...")
-                        return [SlotSet('state_context', state_context)]   
-
-                dispatcher.utter_message("Ha habido algun error con tu nombre de usuario...")
-                return [SlotSet('state_context', state_context)]
-            return []
+        dispatcher.utter_message("Ha habido algun error con tu nombre de usuario...")
+        return []
 
 
 class ActionValidarNeighbor(Action):

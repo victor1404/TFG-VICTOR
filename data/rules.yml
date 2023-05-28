@@ -19,16 +19,6 @@ rules:
    - intent: change_context
    - action: action_show_context_and_id
 
- - rule: no hacer nada
-   condition:
-   - slot_was_set:
-     - user_logged: "LOGGED"
-   - slot_was_set:
-     - context: "LISTADO PROCESOS"
-   steps:
-   - intent: change_context
-   - action: action_offer_pp_tematica
-  #  wait_for_user_input: true
 
  - rule: no hacer nada 2
    condition:
@@ -43,6 +33,16 @@ rules:
 
 
 
+ - rule: ofrecer procesos
+   condition:
+   - slot_was_set:
+     - user_logged: "LOGGED"
+   - slot_was_set:
+     - context: "LISTADO PROCESOS"
+   steps:
+   - intent: change_context
+   - action: action_control_flow
+  #  wait_for_user_input: true
 
 
 
@@ -93,7 +93,7 @@ rules:
      - context: "PROCESO ENCUENTROS"
    steps:
    - intent: change_context
-   - action: action_offer_sumarization_debates
+   - action: action_offer_sumarization_encuentros
    wait_for_user_input: false
 
  - rule: ofrecer resumen 2
@@ -103,14 +103,14 @@ rules:
    - slot_was_set:
      - context: "PROCESO ENCUENTROS"
    steps:
-   - intent: sumarization_debates
-   - action: action_offer_sumarization_debates
+   - intent: sumarization_encuentros
+   - action: action_offer_sumarization_encuentros
    wait_for_user_input: false
 
 # probar a poner varias rules con condition user logged y context = X
  - rule: hacer resumen
    steps:
-    - action: action_offer_sumarization_debates
+    - action: action_offer_sumarization_encuentros
     - intent: resolve_mention
     - action: action_sumarization
 

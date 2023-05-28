@@ -43,6 +43,18 @@ stories:
     - action: action_control_flow_proposals
     - intent: propuestas_amigos
     - action: action_propuestas_amigos
+    
+  - story: ofrecer proceso según sus gustos
+    steps:
+    - action: action_control_flow
+    - intent: affirm
+    - action: action_offer_pp_tematica
+    
+  - story: no ofrecer proceso según sus gustos
+    steps:
+    - action: action_control_flow
+    - intent: deny
+    - action: action_listen
 
 
 # USER NOT LOGGED

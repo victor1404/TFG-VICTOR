@@ -221,6 +221,9 @@ def query_last3_Proposals_by_slug(slug):
                             id
                             proposals(last: 3) {
                             nodes {
+                                title {
+                                translation(locale: "es")
+                                }
                                 id
                                 __typename
                                 createdAt

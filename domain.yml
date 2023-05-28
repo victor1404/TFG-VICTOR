@@ -37,7 +37,7 @@ intents:
 - discoverability_conceptos
 - discoverability_extended
 - signIn
-- sumarization_debates
+- sumarization_encuentros
 - resolve_mention
 - ordenar_propuestas
 - propuestas_amigos
@@ -364,6 +364,14 @@ responses:
     - title: "Amistad"
       payload: '/propuestas_amigos'
 
+  utter_control_flow:
+  - text: Puedo buscarte un proceso según tus intereses, te parece bien?
+    buttons:
+    - title: "Si"
+      payload: '/affirm'
+    - title: "No"
+      payload: '/deny'
+
 
 
 
@@ -384,9 +392,10 @@ actions:
 - action_mirar_en_proceso_participativo
 - utter_greet_and_ask_name
 - action_show_context_and_id
-- action_offer_sumarization_debates
+- action_offer_sumarization_encuentros
 - action_sumarization
 - action_last_3_proposals
 - action_control_flow_proposals
 - action_propuestas_amigos
 - action_offer_pp_tematica
+- action_control_flow
