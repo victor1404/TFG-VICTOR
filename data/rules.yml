@@ -27,8 +27,8 @@ rules:
      - context: "LISTADO PROCESOS"
    steps:
    - intent: change_context
-   - action: action_listen
-   wait_for_user_input: true
+   - action: action_offer_pp_tematica
+  #  wait_for_user_input: true
 
  - rule: no hacer nada 2
    condition:

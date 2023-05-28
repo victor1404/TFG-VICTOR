@@ -246,7 +246,55 @@ def query_last3_Proposals_by_slug(slug):
     found = False
     return response
 
+def query_ParticipatoryProceses_interests(arrayToFind):
+    query = ("""query {
+                    participatoryProcesses(order: {publishedAt: "desc"}) {
+                        slug
+                        id
+                        endDate
+                        publishedAt
+                        attachments {
+                        url
+                        thumbnail
+                        }
+                        components {
+                        name {
+                            translation(locale: "es")
+                        }
+                        }
+                        description {
+                        translation(locale: "es")
+                        }
+                        localArea {
+                        translation(locale: "es")
+                        }
+                        title {
+                        translation(locale: "es")
+                        }
+                        metaScope {
+                        translation(locale: "es")
+                        }
+                    }
+                }""")
 
+    print(query)
+
+    url = 'https://www.decidim.barcelona/api/'
+    r = requests.post(url, json={'query': query})
+    print(r.status_code)
+    # print(r.text)
+    json_data = json.loads(r.text)["data"]["participatoryProcesses"]
+
+    response = []
+    found = False
+    today = datetime.today().strftime('%Y-%m-%d')
+
+    for process in json_data:
+        if process["endDate"] >= today:
+            for interest in arrayToFind:
+                if interest.lower() in process["localArea"]["translation"].lower() and process not in response:
+                    response.append(process)
+    return response
 
 
 

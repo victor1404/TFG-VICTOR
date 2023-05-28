@@ -8,7 +8,8 @@ user_1 = {
   "user_name" : "Victor",
   "neighbour" : "Nou Barris", 
   "participative_processes" : [{"usostallermasriera" : [{"nombre":"Poliesportiu piscina municipal"}, {"nombre" : "Taller Masriera Ateneu"}]}],
-  "community" : ["Inma", "Maite"]
+  "community" : ["Inma", "Maite"],
+  "interests": ["Urbanismo", "Urbano"]
   }
 
 user_2 = {
@@ -16,7 +17,8 @@ user_2 = {
   "user_name" : "Inma",
   "neighbour" : "Horta", 
   "participative_processes" : [{"usostallermasriera" : [{"nombre":"Un espai per una biblioteca polivalent com espai cultural"}]}],
-  "community" : ["Maite"]
+  "community" : ["Maite"],
+  "interests": ["Medio Ambiente"]
   }
 
 user_3 = {
@@ -24,7 +26,8 @@ user_3 = {
   "user_name" : "Maite",
   "neighbour" : "Sants", 
   "participative_processes" : [{"usostallermasriera" : [{"nombre":"La Dreta de l'Eixample necessita un Ateneu"}]}],
-  "community" : ["Inma"]
+  "community" : ["Inma"],
+  "interests": ["Educación"]
   }
 
 user_4 = {
@@ -32,7 +35,8 @@ user_4 = {
   "user_name" : "Jerónimo",
   "neighbour" : "Sant Andreu", 
   "participative_processes" : [{}],
-  "community" : ["Victor"]
+  "community" : ["Victor"],
+  "interests": []
   }
 
 

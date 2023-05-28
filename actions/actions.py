@@ -399,12 +399,13 @@ class Action_OFRECER_PROPUESTAS_AMIGOS(Action):
                 print(arrayToFind)
                 community = list(collection_name.find({"user_name" : { "$in" : arrayToFind } }))
                 for member in community:
-                    for pp in member["participative_processes"]:
-                        slug = list(pp.keys())[0]
-                        print(pp)
-                        for propuesta in pp[slug]:
-                            nombre = propuesta["nombre"]
-                            dispatcher.utter_message(f"- {nombre}")
+                    if "participative_processes" in member.keys():
+                        for pp in member["participative_processes"]:
+                            slug = list(pp.keys())[0]
+                            print(pp)
+                            for propuesta in pp[slug]:
+                                nombre = propuesta["nombre"]
+                                dispatcher.utter_message(f"- {nombre}")
 
 
                 return []
@@ -446,11 +447,11 @@ class ActionOFFER_SUMARIZATION_DEBATES(Action):
 
                 collection_name = dbname["ProcesosParticipativos"]
                 item_details = list(collection_name.find({"_id" : slug}))[0]
-                # print(item_details)
+                print(item_details)
 
                 if "encuentros" not in item_details.keys():
                     print("sin encuentros")
-                    return [SlotSet('state_context', state_context)]
+                    return []
 
                 dispatcher.utter_message(f"Tenemos los siguientes debates para el proceso {slug}:")
 
@@ -462,8 +463,9 @@ class ActionOFFER_SUMARIZATION_DEBATES(Action):
                     dispatcher.utter_message(f"- {nombre}")
 
                 dispatcher.utter_message("Puedo hacerte un resumen de alguno de ellos si quieres")
-
-                return [SlotSet('state_context', state_context)]
+                
+                SlotSet('state_context', state_context) 
+                return [SlotSet('list_offered', encuentros)]
             return []
 
 
@@ -564,6 +566,59 @@ class ActionSumarization(Action):
 
         dispatcher.utter_message(f"El resumen: {summary}")
         return []
+
+
+class ActionOfferPP_Tematica(Action):
+
+    def name(self) -> Text:
+        return "action_offer_pp_tematica"
+
+    def run(self, dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        intent = tracker.latest_message['intent'].get('name')
+
+        if intent == "change_context":
+            state_context = tracker.get_slot('state_context')
+            print(state_context)
+            entity = next(tracker.get_latest_entity_values("context"), None)
+
+            if state_context[entity]:
+                state_context[entity] = False
+                user_name = tracker.get_slot("user_name")
+                print(user_name)
+
+                if user_name is not None:
+
+                    dbname = get_database()     
+                    collection_name = dbname["users_list"]
+                    item_details = list(collection_name.find({"user_name" : user_name}))[0]
+                    
+                    if "interests" in item_details.keys():
+                        arrayToFind = item_details["interests"]
+                        print(arrayToFind)
+                        response = querys.query_ParticipatoryProceses_interests(arrayToFind)
+                        # print(response)
+
+                        if response:
+                            dispatcher.utter_message("Tenemos los siguientes procesos según tus intereses: ")
+                            for pp in response:
+                                print(pp["slug"])
+                                nombre = pp["title"]["translation"]
+                                dispatcher.utter_message(f"- {nombre}")
+
+                        return [SlotSet('state_context', state_context)]
+                        
+
+
+                    else:
+                        dispatcher.utter_message("No tienes intereses...")
+                        return [SlotSet('state_context', state_context)]   
+
+                dispatcher.utter_message("Ha habido algun error con tu nombre de usuario...")
+                return [SlotSet('state_context', state_context)]
+            return []
 
 
 class ActionValidarNeighbor(Action):

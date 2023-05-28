@@ -389,3 +389,4 @@ actions:
 - action_last_3_proposals
 - action_control_flow_proposals
 - action_propuestas_amigos
+- action_offer_pp_tematica
