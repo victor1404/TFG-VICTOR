@@ -182,7 +182,7 @@ responses:
     - title: Qué son las propuestas
       payload: /propuestas
   utter_iniciativas_ciudadanas:
-  - text: Las iniciativas ciudadanas es el medio que tiene la ciudadanía para promover a través de la recogida de firmas, que el Ayuntamiento lleve a cabo una determinada acción de interés colectivo.
+  - text: Las iniciativas ciudadanas son el medio que tiene la ciudadanía para promover a través de la recogida de firmas, que el Ayuntamiento lleve a cabo una determinada acción de interés colectivo.
   utter_debate:
   - text: Un debate es un espacio digital para informarte y decidir sobre las *propuestas* de cada *proceso participativo*.
     buttons:
@@ -355,13 +355,13 @@ responses:
 
   utter_control_flow_proposals:
   - text: |
-      Puedo ordenar o escoger según tu circulo de amistad.
+      Puedo ofrecerte las ultimas propuestas en caso de que no hayas entrado aquí en un tiempo.
       
-      Estas son las opciones disponibles:
+      También puedo ofrecerte las propuestas que siguen tus amigos, {user_name}.
     buttons:
-    - title: "Ordenar"
+    - title: "Ultimas propuestas"
       payload: '/ordenar_propuestas'
-    - title: "Amistad"
+    - title: "Propuestas de amigos"
       payload: '/propuestas_amigos'
 
   utter_control_flow:

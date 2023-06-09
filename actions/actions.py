@@ -117,23 +117,23 @@ class ActionGET_ParticipatoryeProcess(Action):
                 dispatcher.utter_message(text="No sé cual es tu barrio") 
                 return []  
 
+        if mention is not None:
+            if mention.lower() == "ultimo":
+                slug = tracker.get_slot('actual_slug_PP')
+                if slug == None:
+                    dispatcher.utter_message(text="No sé de que proceso me hablas") 
+                    return []              
 
-        if mention.lower() == "ultimo":
-            slug = tracker.get_slot('actual_slug_PP')
-            if slug == None:
-                dispatcher.utter_message(text="No sé de que proceso me hablas") 
-                return []              
+                response_dict = querys.query_ParticipatoryProces_by_slug(slug)
+                ACTUAL_PP = response_dict
+                print(ACTUAL_PP)
+                title = response_dict["title"]["translation"]
+                dispatcher.utter_message(text=f"El ultimo del que hablamos era: **{title}**")               
 
-            response_dict = querys.query_ParticipatoryProces_by_slug(slug)
-            ACTUAL_PP = response_dict
-            print(ACTUAL_PP)
-            title = response_dict["title"]["translation"]
-            dispatcher.utter_message(text=f"El ultimo del que hablamos era: **{title}**")               
-
-            slug = response_dict["slug"]
-            l = "https://www.decidim.barcelona/processes/" + slug
-            dispatcher.utter_template("utter_give_link", tracker, link=l)
-            return []
+                slug = response_dict["slug"]
+                l = "https://www.decidim.barcelona/processes/" + slug
+                dispatcher.utter_template("utter_give_link", tracker, link=l)
+                return []
 
 
         if neighborhood is None:
@@ -330,7 +330,7 @@ class ActionLAST3_PROPOSALS(Action):
                     if "proposals" in component.keys():
                         id = component["id"]
                         for proposal in component["proposals"]["nodes"]:
-                            nombre = proposal["title"]
+                            nombre = proposal["title"]["translation"]
                             dispatcher.utter_message(f"- {nombre}")
                             link = "https://www.decidim.barcelona/processes/" + actual_slug_PP + "/f/" + id + "/proposals/" + proposal["id"]
                             dispatcher.utter_message(text=link)
@@ -349,7 +349,9 @@ class ActionLAST3_PROPOSALS(Action):
             if "proposals" in component.keys():
                 id = component["id"]
                 for proposal in component["proposals"]["nodes"]:
-                    nombre = proposal["title"]
+                    nombre = proposal["title"]["translation"]
+                    if nombre is None:
+                        nombre = "Sin titulo"
                     dispatcher.utter_message(f"- {nombre}")
                     link = "https://www.decidim.barcelona/processes/" + actual_slug_PP + "/f/" + id + "/proposals/" + proposal["id"]
                     dispatcher.utter_message(text=link)
@@ -372,7 +374,7 @@ class Action_CONTRL_FLOW_PROPOSALS(Action):
             print(state_context)
             entity = next(tracker.get_latest_entity_values("context"), None)
             if state_context[entity]:
-                state_context[entity] = False
+                # state_context[entity] = False
                 dispatcher.utter_template("utter_control_flow_proposals", tracker)
                 return [SlotSet('state_context', state_context)]
             return []
@@ -397,20 +399,31 @@ class Action_OFRECER_PROPUESTAS_AMIGOS(Action):
             dbname = get_database()     
             collection_name = dbname["users_list"]
             item_details = list(collection_name.find({"user_name" : user_name}))[0]
+            # print(item_details)
             
             if "community" in item_details.keys():
                 arrayToFind = item_details["community"]
                 print(arrayToFind)
                 community = list(collection_name.find({"user_name" : { "$in" : arrayToFind } }))
+                # print(community)
                 for member in community:
                     if "participative_processes" in member.keys():
+                        # print(member)
                         for pp in member["participative_processes"]:
-                            slug = list(pp.keys())[0]
                             print(pp)
+                            slug = list(pp.keys())[0]
                             for propuesta in pp[slug]:
                                 nombre = propuesta["nombre"]
+                                print(nombre)
                                 dispatcher.utter_message(f"- {nombre}")
-                                link = propuesta["url"]
+                                
+                                collection_procesos = dbname["ProcesosParticipativos"]
+                                proceso = list(collection_procesos.find({"_id" : slug}))[0]
+                                print(proceso)
+                                link = ""
+                                for p in proceso["propuestas"]:
+                                    if p["nombre"] == nombre:
+                                        link = p["url"]
                                 dispatcher.utter_message(text=link)
 
                 return []
@@ -453,7 +466,8 @@ class ActionOFFER_sumarization_encuentros(Action):
                     print("sin encuentros")
                     return []
 
-                dispatcher.utter_message(f"Tenemos los siguientes encuentros para el proceso {slug}:")
+                # dispatcher.utter_message(f"Tenemos los siguientes encuentros para el proceso {slug}:")
+                dispatcher.utter_message(f"Puedo ofrecerte un resumen de algun encuentro del proceso {slug}:")
 
                 encuentros = []
                 for encuentro in item_details["encuentros"]:
@@ -462,7 +476,7 @@ class ActionOFFER_sumarization_encuentros(Action):
                     encuentros.append(nombre)
                     dispatcher.utter_message(f"- {nombre}")
 
-                dispatcher.utter_message("Puedo hacerte un resumen de alguno de ellos si quieres, dime cual")
+                dispatcher.utter_message("Indicame cual prefieres")
                 
                 SlotSet('state_context', state_context) 
                 return [SlotSet('list_offered', encuentros)]
@@ -483,7 +497,7 @@ class ActionOFFER_sumarization_encuentros(Action):
                 dispatcher.utter_message("Lo siento no puedo hacer un resumen si no hay comentarios")
             return []
 
-        dispatcher.utter_message(f"Tenemos los siguientes debates para el proceso {slug}:")
+        dispatcher.utter_message(f"Puedo ofrecerte un resumen de algun encuentro del proceso {slug}:")
 
         encuentros = []
         for encuentro in item_details["encuentros"]:
@@ -491,7 +505,7 @@ class ActionOFFER_sumarization_encuentros(Action):
             encuentros.append(nombre)
             dispatcher.utter_message(f"- {nombre}")
 
-        dispatcher.utter_message("Puedo hacerte un resumen de alguno de ellos si quieres, dime cual")
+        dispatcher.utter_message("Indicame cual prefieres")
 
         return [SlotSet('list_offered', encuentros)]
 

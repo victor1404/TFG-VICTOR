@@ -12,7 +12,7 @@ def query_decidim():
     }"""
 
     url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
+    r = requests.post(url, json={'query': query}, verify=False)
     print(r.status_code)
     print(r.text)
     json_data = json.loads(r.text)
@@ -36,7 +36,7 @@ def query_user_information(user_name):
     print(query)
 
     url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
+    r = requests.post(url, json={'query': query}, verify=False)
     print(r.status_code)
     print(r.text)
     json_data = json.loads(r.text)
@@ -74,7 +74,8 @@ def query_latest_ParticipatoryProceses():
     print(query)
 
     url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
+    print(url)
+    r = requests.post(url, json={'query': query}, verify=False)
     print(r.status_code)
     # print(r.text)
     json_data = json.loads(r.text)["data"]["participatoryProcesses"]
@@ -127,7 +128,7 @@ def query_ParticipatoryProceses_location(location):
     print(query)
 
     url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
+    r = requests.post(url, json={'query': query}, verify=False)
     print(r.status_code)
     # print(r.text)
     json_data = json.loads(r.text)["data"]["participatoryProcesses"]
@@ -148,7 +149,6 @@ def query_ParticipatoryProceses_location(location):
     return response
 
 
-
 def query_Components_ParticipatoryProceses(slug):
     query = ("""query {
                     participatoryProcess(slug: """ + '"' + f"{slug}" + '"' +  """) {
@@ -163,13 +163,14 @@ def query_Components_ParticipatoryProceses(slug):
     print(query)
 
     url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
+    r = requests.post(url, json={'query': query}, verify=False)
     print(r.status_code)
     # print(r.text)
     json_data = json.loads(r.text)["data"]["participatoryProcess"]["components"]
     print(json_data)
 
     return json_data
+
 
 def query_ParticipatoryProces_by_slug(slug):
     query = ("""query {
@@ -202,7 +203,7 @@ def query_ParticipatoryProces_by_slug(slug):
     print(query)
 
     url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
+    r = requests.post(url, json={'query': query}, verify=False)
     print(r.status_code)
 
     json_data = json.loads(r.text)["data"]["participatoryProcess"]
@@ -240,7 +241,7 @@ def query_last3_Proposals_by_slug(slug):
     print(query)
 
     url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
+    r = requests.post(url, json={'query': query}, verify=False)
     print(r.status_code)
 
     json_data = json.loads(r.text)["data"]["participatoryProcess"]
@@ -248,6 +249,7 @@ def query_last3_Proposals_by_slug(slug):
     response = json_data
     found = False
     return response
+
 
 def query_ParticipatoryProceses_interests(arrayToFind):
     query = ("""query {
@@ -283,7 +285,7 @@ def query_ParticipatoryProceses_interests(arrayToFind):
     print(query)
 
     url = 'https://www.decidim.barcelona/api/'
-    r = requests.post(url, json={'query': query})
+    r = requests.post(url, json={'query': query}, verify=False)
     print(r.status_code)
     # print(r.text)
     json_data = json.loads(r.text)["data"]["participatoryProcesses"]
@@ -363,7 +365,7 @@ def query_ParticipatoryProceses_interests(arrayToFind):
         print(query)
 
         url = 'https://www.decidim.barcelona/api/'
-        r = requests.post(url, json={'query': query})
+        r = requests.post(url, json={'query': query}, verify=False)
         print(r.status_code)
         # print(r.text)
         json_data = json.loads(r.text)
@@ -395,7 +397,7 @@ def query_ParticipatoryProceses_interests(arrayToFind):
         print(query)
 
         url = 'https://www.decidim.barcelona/api/'
-        r = requests.post(url, json={'query': query})
+        r = requests.post(url, json={'query': query}, verify=False)
         print(r.status_code)
         # print(r.text)
         json_data = json.loads(r.text)
@@ -427,7 +429,7 @@ def query_ParticipatoryProceses_interests(arrayToFind):
         print(query)
 
         url = 'https://www.decidim.barcelona/api/'
-        r = requests.post(url, json={'query': query})
+        r = requests.post(url, json={'query': query}, verify=False)
         print(r.status_code)
         # print(r.text)
         json_data = json.loads(r.text)
@@ -459,7 +461,7 @@ def query_ParticipatoryProceses_interests(arrayToFind):
         print(query)
 
         url = 'https://www.decidim.barcelona/api/'
-        r = requests.post(url, json={'query': query})
+        r = requests.post(url, json={'query': query}, verify=False)
         print(r.status_code)
         # print(r.text)
         json_data = json.loads(r.text)
@@ -498,7 +500,7 @@ def query_ParticipatoryProceses_interests(arrayToFind):
         print(query)
 
         url = 'https://www.decidim.barcelona/api/'
-        r = requests.post(url, json={'query': query})
+        r = requests.post(url, json={'query': query}, verify=False)
         print(r.status_code)
         # print(r.text)
         json_data = json.loads(r.text)
@@ -536,7 +538,7 @@ def query_ParticipatoryProceses_interests(arrayToFind):
         print(query)
 
         url = 'https://www.decidim.barcelona/api/'
-        r = requests.post(url, json={'query': query})
+        r = requests.post(url, json={'query': query}, verify=False)
         print(r.status_code)
         # print(r.text)
         json_data = json.loads(r.text)
@@ -574,7 +576,7 @@ def query_ParticipatoryProceses_interests(arrayToFind):
         print(query)
 
         url = 'https://www.decidim.barcelona/api/'
-        r = requests.post(url, json={'query': query})
+        r = requests.post(url, json={'query': query}, verify=False)
         print(r.status_code)
         # print(r.text)
         json_data = json.loads(r.text)
@@ -612,7 +614,7 @@ def query_ParticipatoryProceses_interests(arrayToFind):
         print(query)
 
         url = 'https://www.decidim.barcelona/api/'
-        r = requests.post(url, json={'query': query})
+        r = requests.post(url, json={'query': query}, verify=False)
         print(r.status_code)
         # print(r.text)
         json_data = json.loads(r.text)
