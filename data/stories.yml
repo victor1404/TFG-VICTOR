@@ -2,18 +2,18 @@ version: '3.1'
 
 stories:
 
-# GREET
-  - story: greet and discoverability
+# saludar
+  - story: saludar and discoverability
     steps:
-    - intent: greet
-    - action: utter_greet
+    - intent: saludar
+    - action: utter_saludar
     - intent: discoverability
     - action: utter_discoverability
 
-  - story: greet and discoverability2
+  - story: saludar and discoverability2
     steps:
-    - intent: greet
-    - action: utter_greet
+    - intent: saludar
+    - action: utter_saludar
     - intent: quien_eres
     - action: utter_quien_eres
     - intent: discoverability
@@ -21,12 +21,12 @@ stories:
 
 
 
-# USER LOGGED
-  - story: User logged HELLO
+# USER REGISTRADO
+  - story: User REGISTRADO HELLO
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "LOGGED"
+      - usuario_registrado: "REGISTRADO"
       - user_name: "Victor"
     - action: utter_welcome_back
 
@@ -44,301 +44,296 @@ stories:
     - intent: propuestas_amigos
     - action: action_propuestas_amigos
     
-  - story: ofrecer proceso según sus gustos
-    steps:
-    - action: action_control_flow
-    - intent: affirm
-    - action: action_offer_pp_tematica
     
   - story: no ofrecer proceso según sus gustos
     steps:
     - action: action_control_flow
-    - intent: deny
+    - intent: negar
     - action: action_listen
 
 
-# USER NOT LOGGED
+# USER NOT REGISTRADO
 
  # INICIO DE CONVERSACION
   - story: First message and give neighbor and ask for pp
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_neighborhood
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_validar_neighbor
-    - intent: retrieve_proceso_participativo
+    - intent: devolver_proceso_participativo
     - action: action_procesos_participativos
     - slot_was_set:
-      - actual_slug_PP: cuidemhortaguinardo
+      - slug_actual: cuidemhortaguinardo
 
   - story: First message and give neighbor and ask for pp SAD PATH
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_neighborhood
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_barrio
     - action: action_validar_neighbor
-    - intent: give_neighborhood
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Sants"
+      - barrio: "Sants"
     - action: action_validar_neighbor
-    - intent: retrieve_proceso_participativo
+    - intent: devolver_proceso_participativo
     - action: action_procesos_participativos
     - slot_was_set:
-      - actual_slug_PP: cuidemhortaguinardo
+      - slug_actual: cuidemhortaguinardo
 
   - story: First message and give neighbor and ask for pp 2
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_name
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_nombre
       entities:
       - user_name: "Victor"
     - action: utter_discoverability
-    - intent: give_neighborhood
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_validar_neighbor
-    - intent: retrieve_proceso_participativo
+    - intent: devolver_proceso_participativo
     - action: action_procesos_participativos
     - slot_was_set:
-      - actual_slug_PP: cuidemhortaguinardo
+      - slug_actual: cuidemhortaguinardo
 
 
       
   - story: First message ask for pp and give neighbor
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: retrieve_proceso_participativo
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: devolver_proceso_participativo
     - action: action_procesos_participativos
     - slot_was_set:
-      - actual_slug_PP: cuidemhortaguinardo
-    - intent: give_neighborhood
+      - slug_actual: cuidemhortaguinardo
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_validar_neighbor
       
   - story: First message ask for pp and give neighbor SAD PATH
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: retrieve_proceso_participativo
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: devolver_proceso_participativo
     - action: action_procesos_participativos
     - slot_was_set:
-      - actual_slug_PP: cuidemhortaguinardo
-    - intent: give_neighborhood
+      - slug_actual: cuidemhortaguinardo
+    - intent: dar_barrio
     - action: action_validar_neighbor
-    - intent: give_neighborhood
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Sants"
+      - barrio: "Sants"
     - action: action_validar_neighbor
 
   - story: First message ask for pp and give neighbor 2
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_name
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_nombre
       entities:
       - user_name: "Victor"
     - action: utter_discoverability
-    - intent: retrieve_proceso_participativo
+    - intent: devolver_proceso_participativo
     - action: action_procesos_participativos
     - slot_was_set:
-      - actual_slug_PP: cuidemhortaguinardo
-    - intent: give_neighborhood
+      - slug_actual: cuidemhortaguinardo
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_validar_neighbor
 
 
  # QUIEN PUEDE PARTICIPAR
   - story: First message and quien puede participar HAPPY PATH
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_name
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_nombre
       entities:
       - user_name: "Victor"
     - action: utter_discoverability
     - intent: quien_puede_participar
     - action: utter_quien_puede_participar
     - action: utter_offer_proceso_participativo
-    - intent: affirm
+    - intent: afirmar
     - action: utter_suggest_location
-    - intent: give_neighborhood
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_procesos_participativos
     
   - story: First message and quien puede participar HAPPY PATH 2
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_name
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_nombre
       entities:
       - user_name: "Victor"
     - action: utter_discoverability
     - intent: quien_puede_participar
     - action: utter_quien_puede_participar
     - action: utter_offer_proceso_participativo
-    - intent: affirm
+    - intent: afirmar
     - action: utter_suggest_location
-    - intent: give_neighborhood
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_procesos_participativos
-    - intent: give_neighborhood
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_validar_neighbor
 
 
   - story: First message and quien puede participar SAD PATH
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_name
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_nombre
       entities:
       - user_name: "Victor"
     - action: utter_discoverability
     - intent: quien_puede_participar
     - action: utter_quien_puede_participar
     - action: utter_offer_proceso_participativo
-    - intent: deny
-    - action: utter_farewell
+    - intent: negar
+    - action: utter_despedirse
     
   - story: First message and quien puede participar SAD PATH 2
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_name
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_nombre
       entities:
       - user_name: "Victor"
     - action: utter_discoverability
     - intent: quien_puede_participar
     - action: utter_quien_puede_participar
     - action: utter_offer_proceso_participativo
-    - intent: deny
-    - action: utter_farewell
-    - intent: give_neighborhood
+    - intent: negar
+    - action: utter_despedirse
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_validar_neighbor
 
 
  # COMO PUEDE PARTICIPAR
   - story: First message and como puedo participar HAPPY PATH
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_name
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_nombre
       entities:
       - user_name: "Victor"
     - action: utter_discoverability
     - intent: como_puedo_participar
     - action: utter_como_puedo_participar
     - action: utter_offer_proceso_participativo
-    - intent: affirm
+    - intent: afirmar
     - action: utter_suggest_location
-    - intent: give_neighborhood
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_procesos_participativos
 
 
   - story: First message and como puedo participar HAPPY PATH 2 
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_name
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_nombre
       entities:
       - user_name: "Victor"
     - action: utter_discoverability
     - intent: como_puedo_participar
     - action: utter_como_puedo_participar
     - action: utter_offer_proceso_participativo
-    - intent: affirm
+    - intent: afirmar
     - action: utter_suggest_location
-    - intent: give_neighborhood
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_procesos_participativos
-    - intent: give_neighborhood
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_validar_neighbor
 
   - story: First message and como puedo participar SAD PATH
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_name
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_nombre
       entities:
       - user_name: "Victor"
     - action: utter_discoverability
     - intent: como_puedo_participar
     - action: utter_como_puedo_participar
     - action: utter_offer_proceso_participativo
-    - intent: deny
-    - action: utter_farewell
+    - intent: negar
+    - action: utter_despedirse
 
   - story: First message and como puedo participar SAD PATH 2
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_name
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_nombre
       entities:
       - user_name: "Victor"
     - action: utter_discoverability
     - intent: como_puedo_participar
     - action: utter_como_puedo_participar
     - action: utter_offer_proceso_participativo
-    - intent: deny
-    - action: utter_farewell
-    - intent: give_neighborhood
+    - intent: negar
+    - action: utter_despedirse
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_validar_neighbor
 
    
  # QUE ES DECIDIM
   - story: First message and que es decidim
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_name
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_nombre
       entities:
       - user_name: "Victor"
     - action: utter_discoverability
@@ -347,19 +342,19 @@ stories:
 
   - story: First message and que es decidim 2
     steps:
-    - intent: inciate_conv
+    - intent: iniciar_conv
       entities:
-      - user_logged: "NOT_LOGGED"
-    - action: utter_greet_and_ask_name
-    - intent: give_name
+      - usuario_registrado: "NO_REGISTRADO"
+    - action: utter_saludar_and_ask_name
+    - intent: dar_nombre
       entities:
       - user_name: "Victor"
     - action: utter_discoverability
     - intent: decidim
     - action: utter_decidim
-    - intent: give_neighborhood
+    - intent: dar_barrio
       entities:
-      - neighborhood_location: "Horta"
+      - barrio: "Horta"
     - action: action_validar_neighbor
 
 
@@ -367,48 +362,48 @@ stories:
 # STORES PARTICIPATIVE PROCESS
   - story: ask for PP
     steps:
-    - intent: greet
-    - action: utter_greet
-    - intent: retrieve_proceso_participativo
+    - intent: saludar
+    - action: utter_saludar
+    - intent: devolver_proceso_participativo
     - slot_was_set:
-      - actual_slug_PP: neighborhood_location
+      - slug_actual: barrio
     - action: action_procesos_participativos
     - slot_was_set:
-      - actual_slug_PP: cuidemhortaguinardo
+      - slug_actual: cuidemhortaguinardo
 
 
   - story: ask for PP wrong first
     steps:
-    - intent: greet
-    - action: utter_greet
-    - intent: retrieve_proceso_participativo
+    - intent: saludar
+    - action: utter_saludar
+    - intent: devolver_proceso_participativo
       entities:
-      - neighborhood_location: Virrei Amat
+      - barrio: Virrei Amat
     - action: action_procesos_participativos
-    - intent: retrieve_proceso_participativo
+    - intent: devolver_proceso_participativo
       entities:
-      - neighborhood_location: Horta
+      - barrio: Horta
     - action: action_procesos_participativos
     - slot_was_set:
-      - actual_slug_PP: cuidemhortaguinardo
+      - slug_actual: cuidemhortaguinardo
 
   - story: ask for PP and ask for components in PP
     steps:
-    - intent: greet
-    - action: utter_greet
+    - intent: saludar
+    - action: utter_saludar
     - intent: discoverability
     - action: utter_discoverability
-    - intent: retrieve_proceso_participativo
+    - intent: devolver_proceso_participativo
       entities:
-      - neighborhood_location: Horta
+      - barrio: Horta
     - action: action_procesos_participativos
     - slot_was_set:
-      - actual_slug_PP: interiorsdillaGuineueta
-    - intent: debate_in_participatory_process
+      - slug_actual: interiorsdillaGuineueta
+    - intent: debate_en_proceso_participativo
     - action: action_mirar_en_proceso_participativo
-    - intent: proposals_in_participatory_process
+    - intent: propuesta_en_proceso_participativo
     - action: action_mirar_en_proceso_participativo
-    - intent: meeting_in_participatory_process
+    - intent: encuentro_en_proceso_participativo
     - action: action_mirar_en_proceso_participativo
 
 

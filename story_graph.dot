@@ -5,8 +5,8 @@ digraph  {
 2 [class=active, fontsize=12, label=action_validar_neighbor];
 3 [class=active, fontsize=12, label=action_procesos_participativos];
 4 [class="intent dashed active", label="  ?  ", shape=rect];
-5 [class="intent active", fillcolor=lightblue, label="/give_neighborhood", shape=rect, style=filled];
-6 [class="intent active", fillcolor=lightblue, label="/give_neighborhood", shape=rect, style=filled];
+5 [class="intent active", fillcolor=lightblue, label="/dar_barrio", shape=rect, style=filled];
+6 [class="intent active", fillcolor=lightblue, label="/dar_barrio", shape=rect, style=filled];
 0 -> "-1"  [class="", key=NONE, label=""];
 0 -> 1  [class=active, key=NONE, label=""];
 1 -> 5  [class=active, key=0];

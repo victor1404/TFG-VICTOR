@@ -1,5 +1,5 @@
 responses:
-   utter_greet:
+   utter_saludar:
        - text: |
            Hello! How can I help you?
        - text: |

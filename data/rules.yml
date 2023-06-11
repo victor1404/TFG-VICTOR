@@ -11,23 +11,23 @@ rules:
 
 
 
- - rule: show context and id
+ - rule: show contexto and id
    condition:
    - slot_was_set:
-     - user_logged: "NOT_LOGGED"
+     - usuario_registrado: "NO_REGISTRADO"
    steps:
-   - intent: change_context
-   - action: action_show_context_and_id
+   - intent: cambio_pagina
+   - action: action_show_contexto_and_id
 
 
  - rule: no hacer nada 2
    condition:
    - slot_was_set:
-     - user_logged: "LOGGED"
+     - usuario_registrado: "REGISTRADO"
    - slot_was_set:
-     - context: "PROCESO"
+     - contexto: "PROCESO"
    steps:
-   - intent: change_context
+   - intent: cambio_pagina
    - action: action_listen
    wait_for_user_input: true
 
@@ -36,24 +36,34 @@ rules:
  - rule: ofrecer procesos
    condition:
    - slot_was_set:
-     - user_logged: "LOGGED"
+     - usuario_registrado: "REGISTRADO"
    - slot_was_set:
-     - context: "LISTADO PROCESOS"
+     - contexto: "LISTADO PROCESOS"
    steps:
-   - intent: change_context
+   - intent: cambio_pagina
    - action: action_control_flow
-  #  wait_for_user_input: true
 
+
+ - rule: ofrecer proceso según sus gustos
+   condition:
+   - slot_was_set:
+     - usuario_registrado: "REGISTRADO"
+   - slot_was_set:
+     - contexto: "LISTADO PROCESOS"
+   steps:
+   - action: action_control_flow
+   - intent: afirmar
+   - action: action_offer_pp_tematica
 
 
  - rule: ofrecer propuestas
    condition:
    - slot_was_set:
-     - user_logged: "LOGGED"
+     - usuario_registrado: "REGISTRADO"
    - slot_was_set:
-     - context: "PROCESO PROPUESTAS"
+     - contexto: "PROCESO PROPUESTAS"
    steps:
-   - intent: change_context
+   - intent: cambio_pagina
    - action: action_control_flow_proposals
   #  - action: action_last_3_proposals
   #  wait_for_user_input: false
@@ -61,9 +71,9 @@ rules:
  - rule: ordenar propuestas
    condition:
    - slot_was_set:
-     - user_logged: "LOGGED"
+     - usuario_registrado: "REGISTRADO"
    - slot_was_set:
-     - context: "PROCESO PROPUESTAS"
+     - contexto: "PROCESO PROPUESTAS"
    steps:
     - action: action_control_flow_proposals
     - intent: ordenar_propuestas
@@ -72,9 +82,9 @@ rules:
  - rule: ofrecer propuestas de amigos
    condition:
    - slot_was_set:
-     - user_logged: "LOGGED"
+     - usuario_registrado: "REGISTRADO"
    - slot_was_set:
-     - context: "PROCESO PROPUESTAS"
+     - contexto: "PROCESO PROPUESTAS"
    steps:
     - action: action_control_flow_proposals
     - intent: propuestas_amigos
@@ -88,30 +98,30 @@ rules:
  - rule: ofrecer resumen
    condition:
    - slot_was_set:
-     - user_logged: "LOGGED"
+     - usuario_registrado: "REGISTRADO"
    - slot_was_set:
-     - context: "PROCESO ENCUENTROS"
+     - contexto: "PROCESO ENCUENTROS"
    steps:
-   - intent: change_context
-   - action: action_offer_sumarization_encuentros
+   - intent: cambio_pagina
+   - action: action_offer_resumen_encuentros
    wait_for_user_input: false
 
  - rule: ofrecer resumen 2
    condition:
    - slot_was_set:
-     - user_logged: "LOGGED"
+     - usuario_registrado: "REGISTRADO"
    - slot_was_set:
-     - context: "PROCESO ENCUENTROS"
+     - contexto: "PROCESO ENCUENTROS"
    steps:
-   - intent: sumarization_encuentros
-   - action: action_offer_sumarization_encuentros
+   - intent: resumen_encuentros
+   - action: action_offer_resumen_encuentros
    wait_for_user_input: false
 
-# probar a poner varias rules con condition user logged y context = X
+# probar a poner varias rules con condition user REGISTRADO y contexto = X
  - rule: hacer resumen
    steps:
-    - action: action_offer_sumarization_encuentros
-    - intent: resolve_mention
+    - action: action_offer_resumen_encuentros
+    - intent: resolver_mencion
     - action: action_sumarization
 
 
@@ -121,18 +131,18 @@ rules:
 
  - rule: welcome
    steps:
-   - intent: greet
-   - action: utter_greet
+   - intent: saludar
+   - action: utter_saludar
 
- - rule: farewell
+ - rule: despedirse
    steps:
-   - intent: farewell
-   - action: utter_farewell
+   - intent: despedirse
+   - action: utter_despedirse
 
  - rule: thank u
    steps:
-   - intent: thanks
-   - action: utter_yourwelcome
+   - intent: agradecer
+   - action: utter_agradecer
 
 
 
@@ -141,8 +151,8 @@ rules:
 
  - rule: the user doesnt know what to do
    steps:
-   - intent: whereami
-   - action: action_show_context_and_id
+   - intent: donde_estoy
+   - action: action_show_contexto_and_id
 
  - rule: quien eres
    steps:
@@ -156,8 +166,8 @@ rules:
    
  - rule: discoverability Extended
    steps:
-   - intent: discoverability_extended
-   - action: utter_discoverability_extended
+   - intent: discoverability_extendida
+   - action: utter_discoverability_extendida
 
  - rule: discoverability Conceptos
    steps:
@@ -243,30 +253,21 @@ rules:
  - rule: ask for components in participative process
    steps:
    - or:
-     - intent: debate_in_participatory_process
-     - intent: meeting_in_participatory_process
-     - intent: proposals_in_participatory_process
-     - intent: budgets_in_participatory_process
+     - intent: debate_en_proceso_participativo
+     - intent: encuentro_en_proceso_participativo
+     - intent: propuesta_en_proceso_participativo
+     - intent: presupuesto_en_proceso_participativo
    - action: action_mirar_en_proceso_participativo
 
 
  - rule: offer neighbor
    steps:
    - action: utter_suggest_location
-   - intent: give_neighborhood
+   - intent: dar_barrio
    - action: action_procesos_participativos
   
 
 
-  
-   
-#  - rule: demo
-#    steps: 
-#    - intent: demo
-#    - action: "action_show_context_and_id"
-# #  - action: "action_go_to_page"
-# #  - action: "action_picker"
-# #  - action: "action_yes_no"
 
 
 

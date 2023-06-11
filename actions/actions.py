@@ -70,12 +70,12 @@ class ActionGET_ParticipatoryeProcess(Action):
     tracker: Tracker,
     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
-        mention = next(tracker.get_latest_entity_values("mention"), None)
-        user_logged = tracker.get_slot("user_logged")
+        neighborhood = next(tracker.get_latest_entity_values("barrio"), None)
+        mencion = next(tracker.get_latest_entity_values("mencion"), None)
+        usuario_registrado = tracker.get_slot("usuario_registrado")
         user_name = tracker.get_slot("user_name")
 
-        if user_logged == "LOGGED" and mention == "mi":
+        if usuario_registrado == "REGISTRADO" and mencion == "mi":
             dbname = get_database()
 
 
@@ -94,7 +94,7 @@ class ActionGET_ParticipatoryeProcess(Action):
             print(ACTUAL_PP)
 
             title = response_dict["title"]["translation"]
-            if mention == "mi":
+            if mencion == "mi":
                 dispatcher.utter_message(text="He intentado buscar cerca tu barrio")
             else:
                 dispatcher.utter_message(text=f"He intentado buscar cerca de {neighborhood}")
@@ -108,18 +108,18 @@ class ActionGET_ParticipatoryeProcess(Action):
                 l = "ProcesoGuineueta-decidim.barcelona.html"
             dispatcher.utter_template("utter_give_link", tracker, link=l)
 
-            return [SlotSet("actual_slug_PP", slug)]
+            return [SlotSet("slug_actual", slug)]
 
 
-        if neighborhood is None and mention == "mi":
-            neighborhood = tracker.get_slot("neighborhood_location")
+        if neighborhood is None and mencion == "mi":
+            neighborhood = tracker.get_slot("barrio")
             if neighborhood is None:
                 dispatcher.utter_message(text="No sé cual es tu barrio") 
                 return []  
 
-        if mention is not None:
-            if mention.lower() == "ultimo":
-                slug = tracker.get_slot('actual_slug_PP')
+        if mencion is not None:
+            if mencion.lower() == "ultimo":
+                slug = tracker.get_slot('slug_actual')
                 if slug == None:
                     dispatcher.utter_message(text="No sé de que proceso me hablas") 
                     return []              
@@ -148,7 +148,7 @@ class ActionGET_ParticipatoryeProcess(Action):
             # l = "https://www.decidim.barcelona/processes/" + slug
             l = "http://localhost:5000/procesoGuineueta"
             dispatcher.utter_template("utter_give_link", tracker, link=l)
-            return [SlotSet("actual_slug_PP", slug)]
+            return [SlotSet("slug_actual", slug)]
 
 
         else:
@@ -157,7 +157,7 @@ class ActionGET_ParticipatoryeProcess(Action):
             print(ACTUAL_PP)
 
             title = response_dict["title"]["translation"]
-            if mention == "mi":
+            if mencion == "mi":
                 dispatcher.utter_message(text="He intentado buscar cerca tu barrio")
             else:
                 dispatcher.utter_message(text=f"He intentado buscar cerca de {neighborhood}")
@@ -171,7 +171,7 @@ class ActionGET_ParticipatoryeProcess(Action):
                 l = "ProcesoGuineueta-decidim.barcelona.html"
             dispatcher.utter_template("utter_give_link", tracker, link=l)
 
-            return [SlotSet("actual_slug_PP", slug)]
+            return [SlotSet("slug_actual", slug)]
 
 
 class ActionLOOK_ParticipatoryProcess(Action):
@@ -183,7 +183,7 @@ class ActionLOOK_ParticipatoryProcess(Action):
     tracker: Tracker,
     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         intent = tracker.latest_message['intent'].get('name')
-        slug = tracker.get_slot("actual_slug_PP") 
+        slug = tracker.get_slot("slug_actual") 
         print(intent)
         print(tracker.latest_message['entities'])
         print(ACTUAL_PP)
@@ -191,7 +191,7 @@ class ActionLOOK_ParticipatoryProcess(Action):
             dispatcher.utter_message("No sé a que proceso participativo te refieres")
             return []
 
-        if intent == "debate_in_participatory_process":
+        if intent == "debate_en_proceso_participativo":
             SlotSet("interests", "Debates")
             componentes = querys.query_Components_ParticipatoryProceses(slug)
 
@@ -207,7 +207,7 @@ class ActionLOOK_ParticipatoryProcess(Action):
             dispatcher.utter_message("Parece que no tiene debate")
             return []
 
-        elif intent == "meeting_in_participatory_process":
+        elif intent == "encuentro_en_proceso_participativo":
             SlotSet("interests", "Meetings")
             componentes = querys.query_Components_ParticipatoryProceses(slug)
 
@@ -223,7 +223,7 @@ class ActionLOOK_ParticipatoryProcess(Action):
             dispatcher.utter_message("Parece que no tiene encuentros")
             return []
 
-        elif intent == "proposals_in_participatory_process":
+        elif intent == "propuesta_en_proceso_participativo":
             SlotSet("interests", "Proposals")
             componentes = querys.query_Components_ParticipatoryProceses(slug)
 
@@ -239,7 +239,7 @@ class ActionLOOK_ParticipatoryProcess(Action):
             dispatcher.utter_message("Parece que no tiene propuestas")
             return []
 
-        elif intent == "budgets_in_participatory_process":
+        elif intent == "presupuesto_en_proceso_participativo":
             SlotSet("interests", "Budgets")
             componentes = querys.query_Components_ParticipatoryProceses(slug)
 
@@ -256,32 +256,32 @@ class ActionLOOK_ParticipatoryProcess(Action):
             return []
 
 
-class ActionGET_CONTEXT_AND_ID(Action):
+class ActionGET_contexto_AND_ID(Action):
 
     def name(self) -> Text:
-        return "action_show_context_and_id"
+        return "action_show_contexto_and_id"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        context = tracker.get_slot('context')
+        contexto = tracker.get_slot('contexto')
 
-        if context == None:
+        if contexto == None:
             dispatcher.utter_template("utter_inform", tracker)
             dispatcher.utter_template("utter_discoverability", tracker)
             return []
 
         intent = tracker.latest_message['intent'].get('name')
 
-        if intent == "change_context":
-            state_context = tracker.get_slot('state_context')
-            print(state_context)
-            entity = next(tracker.get_latest_entity_values("context"), None)
-            if state_context[entity]:
-                state_context[entity] = False
+        if intent == "cambio_pagina":
+            estado_contexto = tracker.get_slot('estado_contexto')
+            print(estado_contexto)
+            entity = next(tracker.get_latest_entity_values("contexto"), None)
+            if estado_contexto[entity]:
+                estado_contexto[entity] = False
                 dispatcher.utter_template("utter_change_page", tracker)
-                return [SlotSet('state_context', state_context)]
+                return [SlotSet('estado_contexto', estado_contexto)]
             return []
 
 
@@ -289,12 +289,12 @@ class ActionGET_CONTEXT_AND_ID(Action):
         id = tracker.sender_id 
         print(id)
 
-        print(context)
+        print(contexto)
 
-        pp = str(tracker.get_slot('actual_slug_PP'))
+        pp = str(tracker.get_slot('slug_actual'))
         print(pp)
 
-        state = str(tracker.get_slot('user_logged'))
+        state = str(tracker.get_slot('usuario_registrado'))
         print(state)
 
         dispatcher.utter_template("utter_change_page", tracker)
@@ -313,16 +313,16 @@ class ActionLAST3_PROPOSALS(Action):
         
         intent = tracker.latest_message['intent'].get('name')
 
-        if intent == "change_context":
-            state_context = tracker.get_slot('state_context')
-            print(state_context)
-            entity = next(tracker.get_latest_entity_values("context"), None)
+        if intent == "cambio_pagina":
+            estado_contexto = tracker.get_slot('estado_contexto')
+            print(estado_contexto)
+            entity = next(tracker.get_latest_entity_values("contexto"), None)
 
-            if state_context[entity]:
-                state_context[entity] = False
-                actual_slug_PP = str(tracker.get_slot('actual_slug_PP'))
+            if estado_contexto[entity]:
+                estado_contexto[entity] = False
+                slug_actual = str(tracker.get_slot('slug_actual'))
 
-                response = querys.query_last3_Proposals_by_slug(actual_slug_PP)
+                response = querys.query_last3_Proposals_by_slug(slug_actual)
                 
                 dispatcher.utter_message(text="Estas son las ultimas 3 propuestas:")
 
@@ -332,16 +332,16 @@ class ActionLAST3_PROPOSALS(Action):
                         for proposal in component["proposals"]["nodes"]:
                             nombre = proposal["title"]["translation"]
                             dispatcher.utter_message(f"- {nombre}")
-                            link = "https://www.decidim.barcelona/processes/" + actual_slug_PP + "/f/" + id + "/proposals/" + proposal["id"]
+                            link = "https://www.decidim.barcelona/processes/" + slug_actual + "/f/" + id + "/proposals/" + proposal["id"]
                             dispatcher.utter_message(text=link)
-                return [SlotSet('state_context', state_context)]
+                return [SlotSet('estado_contexto', estado_contexto)]
 
             return []
 
 
-        actual_slug_PP = str(tracker.get_slot('actual_slug_PP'))
+        slug_actual = str(tracker.get_slot('slug_actual'))
 
-        response = querys.query_last3_Proposals_by_slug(actual_slug_PP)
+        response = querys.query_last3_Proposals_by_slug(slug_actual)
         
         dispatcher.utter_message(text="Estas son las ultimas 3 propuestas:")
 
@@ -353,7 +353,7 @@ class ActionLAST3_PROPOSALS(Action):
                     if nombre is None:
                         nombre = "Sin titulo"
                     dispatcher.utter_message(f"- {nombre}")
-                    link = "https://www.decidim.barcelona/processes/" + actual_slug_PP + "/f/" + id + "/proposals/" + proposal["id"]
+                    link = "https://www.decidim.barcelona/processes/" + slug_actual + "/f/" + id + "/proposals/" + proposal["id"]
                     dispatcher.utter_message(text=link)
 
         return []
@@ -369,14 +369,14 @@ class Action_CONTRL_FLOW_PROPOSALS(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         intent = tracker.latest_message['intent'].get('name')
 
-        if intent == "change_context":
-            state_context = tracker.get_slot('state_context')
-            print(state_context)
-            entity = next(tracker.get_latest_entity_values("context"), None)
-            if state_context[entity]:
-                # state_context[entity] = False
+        if intent == "cambio_pagina":
+            estado_contexto = tracker.get_slot('estado_contexto')
+            print(estado_contexto)
+            entity = next(tracker.get_latest_entity_values("contexto"), None)
+            if estado_contexto[entity]:
+                # estado_contexto[entity] = False
                 dispatcher.utter_template("utter_control_flow_proposals", tracker)
-                return [SlotSet('state_context', state_context)]
+                return [SlotSet('estado_contexto', estado_contexto)]
             return []
         
         dispatcher.utter_template("utter_control_flow_proposals", tracker)
@@ -437,25 +437,25 @@ class Action_OFRECER_PROPUESTAS_AMIGOS(Action):
         return []
 
 
-class ActionOFFER_sumarization_encuentros(Action):
+class ActionOFFER_resumen_encuentros(Action):
 
     def name(self) -> Text:
-        return "action_offer_sumarization_encuentros"
+        return "action_offer_resumen_encuentros"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         intent = tracker.latest_message['intent'].get('name')
 
-        if intent == "change_context":
-            state_context = tracker.get_slot('state_context')
-            print(state_context)
-            entity = next(tracker.get_latest_entity_values("context"), None)
-            if state_context[entity]:
-                state_context[entity] = False
+        if intent == "cambio_pagina":
+            estado_contexto = tracker.get_slot('estado_contexto')
+            print(estado_contexto)
+            entity = next(tracker.get_latest_entity_values("contexto"), None)
+            if estado_contexto[entity]:
+                estado_contexto[entity] = False
                 dbname = get_database()
 
-                slug = str(tracker.get_slot('actual_slug_PP'))
+                slug = str(tracker.get_slot('slug_actual'))
 
 
                 collection_name = dbname["ProcesosParticipativos"]
@@ -478,14 +478,14 @@ class ActionOFFER_sumarization_encuentros(Action):
 
                 dispatcher.utter_message("Indicame cual prefieres")
                 
-                SlotSet('state_context', state_context) 
-                return [SlotSet('list_offered', encuentros)]
+                SlotSet('estado_contexto', estado_contexto) 
+                return [SlotSet('lista_ofrecida', encuentros)]
             return []
 
 
         dbname = get_database()
 
-        slug = str(tracker.get_slot('actual_slug_PP'))
+        slug = str(tracker.get_slot('slug_actual'))
 
 
         collection_name = dbname["ProcesosParticipativos"]
@@ -493,7 +493,7 @@ class ActionOFFER_sumarization_encuentros(Action):
 
         if "encuentros" not in item_details.keys():
             print("sin encuentros")
-            if str(tracker.latest_message['intent'].get('name')) == "sumarization_encuentros":
+            if str(tracker.latest_message['intent'].get('name')) == "resumen_encuentros":
                 dispatcher.utter_message("Lo siento no puedo hacer un resumen si no hay comentarios")
             return []
 
@@ -507,7 +507,7 @@ class ActionOFFER_sumarization_encuentros(Action):
 
         dispatcher.utter_message("Indicame cual prefieres")
 
-        return [SlotSet('list_offered', encuentros)]
+        return [SlotSet('lista_ofrecida', encuentros)]
 
 
 class ActionSumarization(Action):
@@ -521,41 +521,41 @@ class ActionSumarization(Action):
         
         dbname = get_database()
 
-        slug = str(tracker.get_slot('actual_slug_PP'))
-        mention = next(tracker.get_latest_entity_values("mention"), None)
-        print(mention)
+        slug = str(tracker.get_slot('slug_actual'))
+        mencion = next(tracker.get_latest_entity_values("mencion"), None)
+        print(mencion)
 
         value = 1
 
         try:
-            value = int(mention)
+            value = int(mencion)
             print("es un numero: ", value)
         except:
-            if mention == "unico" or mention == "unica":
+            if mencion == "unico" or mencion == "unica":
                 value = 1
                 print("La unica")
-            if mention == "primera" or mention == "primero" or mention == "1o" or mention == "1a":
+            if mencion == "primera" or mencion == "primero" or mencion == "1o" or mencion == "1a":
                 value = 1
                 print("La primera")
-            if mention == "segunda" or mention == "segundo" or mention == "2o" or mention == "2a":
+            if mencion == "segunda" or mencion == "segundo" or mencion == "2o" or mencion == "2a":
                 value = 2
                 print("La segunda")
-            if mention == "tercera" or mention == "tercero" or mention == "3o" or mention == "3a":
+            if mencion == "tercera" or mencion == "tercero" or mencion == "3o" or mencion == "3a":
                 value = 3
                 print("La tercera")
-            if mention == "ultima" or mention == "ultimo":
+            if mencion == "ultima" or mencion == "ultimo":
                 value = 0
                 print("La ultima")
 
-        list_offered = tracker.get_slot('list_offered')
-        print(list_offered)
+        lista_ofrecida = tracker.get_slot('lista_ofrecida')
+        print(lista_ofrecida)
 
-        if value > len(list_offered) or value < 0:
+        if value > len(lista_ofrecida) or value < 0:
             dispatcher.utter_message("Escoja una de las que he mencionado por favor")
             return []
             
 
-        encuentro = list_offered[value-1]
+        encuentro = lista_ofrecida[value-1]
 
         dispatcher.utter_message(f"Te resumiré el encuentro *{encuentro}*:")
         dispatcher.utter_message("Un momento, por favor")
@@ -589,14 +589,14 @@ class Action_CONTRL_FLOW(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         intent = tracker.latest_message['intent'].get('name')
 
-        if intent == "change_context":
-            state_context = tracker.get_slot('state_context')
-            print(state_context)
-            entity = next(tracker.get_latest_entity_values("context"), None)
-            if state_context[entity]:
-                state_context[entity] = False
+        if intent == "cambio_pagina":
+            estado_contexto = tracker.get_slot('estado_contexto')
+            print(estado_contexto)
+            entity = next(tracker.get_latest_entity_values("contexto"), None)
+            if estado_contexto[entity]:
+                estado_contexto[entity] = False
                 dispatcher.utter_template("utter_control_flow", tracker)
-                return [SlotSet('state_context', state_context)]
+                return [SlotSet('estado_contexto', estado_contexto)]
             return []
         
         dispatcher.utter_template("utter_control_flow", tracker)
@@ -651,211 +651,13 @@ class ActionValidarNeighbor(Action):
     tracker: Tracker,
     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        neighborhood = next(tracker.get_latest_entity_values("neighborhood_location"), None)
+        neighborhood = next(tracker.get_latest_entity_values("barrio"), None)
         if neighborhood is not None:
             if neighborhood.title() in ALLOWED_LOCATIONS:
                 dispatcher.utter_message(f"Genial. Recordaré ese barrio ({neighborhood})")
-                return [SlotSet("neighborhood_location", neighborhood)]
+                return [SlotSet("barrio", neighborhood)]
 
         dispatcher.utter_message("Puedes indicarme uno de estos barrios y recordaré que te interesa:")
         dispatcher.utter_message("Ciutat Vella, Eixample, Sants, Sarria, Sant Gervasi, Les Corts, Gracia, Horta, Guinardó, Nou Barris, Sant Andreu o Sant Martí.")
         return []
-
-
-
-#QUERYS_ANTIGUAS
-
-    # class ActionAPI_Latest_Debate(Action):
-    
-    #     def name(self) -> Text:
-    #         return "action_latest_Debate"
-
-    #     def run(self, dispatcher: CollectingDispatcher,
-    #     tracker: Tracker,
-    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-    #         response_dict = querys.query_Debates()
-    #         s = response_dict["title"]["translation"]
-    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-
-    #         l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
-    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-    #         return []  
-
-
-    # class ActionAPI_Latest_Survey(Action):
-    
-    #     def name(self) -> Text:
-    #         return "action_latest_Survey"
-
-    #     def run(self, dispatcher: CollectingDispatcher,
-    #     tracker: Tracker,
-    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-    #         response_dict = querys.query_Surveys()
-    #         s = response_dict["title"]["translation"]
-    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-
-    #         l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
-    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-    #         return [] 
-
-
-    # class ActionAPI_Latest_Budget(Action):
-    
-    #     def name(self) -> Text:
-    #         return "action_latest_Budget"
-
-    #     def run(self, dispatcher: CollectingDispatcher,
-    #     tracker: Tracker,
-    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-    #         response_dict = querys.query_Budgets()
-    #         s = response_dict["title"]["translation"]
-    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-
-    #         l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
-    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-    #         return []  
-
-
-    # class ActionAPI_Latest_Proposal(Action):
-  
-    #     def name(self) -> Text:
-    #         return "action_latest_Proposal"
-
-    #     def run(self, dispatcher: CollectingDispatcher,
-    #     tracker: Tracker,
-    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-    #         response_dict = querys.query_Proposals()
-    #         s = response_dict["title"]["translation"]
-    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-
-    #         l = "https://www.decidim.barcelona/processes/" + response_dict["slug"]
-    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-    #         return []
-
-
-# QUERYS CON LOCATION
-
-    # class ActionAPI_Debate_Location(Action):
-    
-    #     def name(self) -> Text:
-    #         return "action_debate_location"
-
-    #     def run(self, dispatcher: CollectingDispatcher,
-    #     tracker: Tracker,
-    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-    #         ent = tracker.latest_message['entities'][0]['value']    
-    #         # slot_value = str(tracker.get_slot('neighborhood_location'))
-    #         response_dict = querys.query_Debate_location()
-    #         response = response_dict[0]
-    #         found = False
-            
-    #         for d in response_dict:
-    #             if not found:
-    #                 if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
-    #                     found = True
-    #                     response = d
-                    
-
-    #         s = response["title"]["translation"]
-    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-
-    #         l = "https://www.decidim.barcelona/processes/" + response["slug"]
-    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-    #         return [] 
-
-
-    # class ActionAPI_Surveys_Location(Action):
-    
-    #     def name(self) -> Text:
-    #         return "action_surveys_location"
-
-    #     def run(self, dispatcher: CollectingDispatcher,
-    #     tracker: Tracker,
-    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-    #         ent = tracker.latest_message['entities'][0]['value']    
-    #         # slot_value = str(tracker.get_slot('neighborhood_location'))
-    #         response_dict = querys.query_Surveys_location()
-    #         response = response_dict[0]
-    #         found = False
-            
-    #         for d in response_dict:
-    #             if not found:
-    #                 if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
-    #                     found = True
-    #                     response = d
-                    
-
-    #         s = response["title"]["translation"]
-    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-
-    #         l = "https://www.decidim.barcelona/processes/" + response["slug"]
-    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-    #         return [] 
-
-
-    # class ActionAPI_Budget_Location(Action):
-    
-    #     def name(self) -> Text:
-    #         return "action_budget_location"
-
-    #     def run(self, dispatcher: CollectingDispatcher,
-    #     tracker: Tracker,
-    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-    #         ent = tracker.latest_message['entities'][0]['value']    
-    #         # slot_value = str(tracker.get_slot('neighborhood_location'))
-    #         response_dict = querys.query_Budget_location()
-    #         response = response_dict[0]
-    #         found = False
-            
-    #         for d in response_dict:
-    #             if not found:
-    #                 if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
-    #                     found = True
-    #                     response = d
-                    
-
-    #         s = response["title"]["translation"]
-    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-
-    #         l = "https://www.decidim.barcelona/processes/" + response["slug"]
-    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-    #         return [] 
-
-
-    # class ActionAPI_Proposal_Location(Action):
-  
-    #     def name(self) -> Text:
-    #         return "action_proposal_location"
-
-    #     def run(self, dispatcher: CollectingDispatcher,
-    #     tracker: Tracker,
-    #     domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-    #         ent = tracker.latest_message['entities'][0]['value']    
-    #         # slot_value = str(tracker.get_slot('neighborhood_location'))
-    #         response_dict = querys.query_Proposal_location()
-    #         response = response_dict[0]
-    #         found = False
-            
-    #         for d in response_dict:
-    #             if not found:
-    #                 if ent in d["title"]["translation"] or ent in d["description"]["translation"] or ent in d["localArea"]["translation"]:
-    #                     found = True
-    #                     response = d
-                    
-
-    #         s = response["title"]["translation"]
-    #         dispatcher.utter_message(text=f"Te recomiendo el proceso: {s}")
-
-    #         l = "https://www.decidim.barcelona/processes/" + response["slug"]
-    #         dispatcher.utter_template("utter_give_link", tracker, link=l)
-
-    #         return [] 
-
 

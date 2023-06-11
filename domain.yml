@@ -4,64 +4,63 @@ session_config:
   carry_over_slots_to_new_session: true
   
 intents:
-- affirm
-- thanks
-- comentarios
+- afirmar
+- agradecer
+- negar
+- despedirse
+- saludar
+- dar_nombre
 - consejo_de_barrio
 - debate
-- demo
-- deny
-- discoverability
 - encuentros
-- farewell
-- give_neighborhood
-- greet
+- comentarios
 - iniciativas_ciudadanas
 - organos_de_participacion
 - presupuesto
 - procesos_participativos
 - propuestas
-- quien_eres
-- whereami
-- retrieve_proceso_participativo
-- debate_in_participatory_process
-- meeting_in_participatory_process
-- proposals_in_participatory_process
-- budgets_in_participatory_process
-- inciate_conv
-- give_name
 - quien_puede_participar
 - como_puedo_participar
 - decidim
-- change_context
-- discoverability_conceptos
-- discoverability_extended
 - signIn
-- sumarization_encuentros
-- resolve_mention
+- dar_barrio
+- devolver_proceso_participativo
+- debate_en_proceso_participativo
+- encuentro_en_proceso_participativo
+- propuesta_en_proceso_participativo
+- presupuesto_en_proceso_participativo
+- resumen_encuentros
 - ordenar_propuestas
 - propuestas_amigos
+- discoverability
+- quien_eres
+- donde_estoy
+- iniciar_conv
+- cambio_pagina
+- discoverability_conceptos
+- discoverability_extendida
+- resolver_mencion
 
 entities:
-- neighborhood_location
+- barrio
 - user_name
-- context
-- user_logged
-- mention
-- actual_slug_PP
+- contexto
+- usuario_registrado
+- mencion
+- slug_actual
 - link:
     influence_conversation: false
 
 slots:
 
-  neighborhood_location:
+  barrio:
     type: text
     influence_conversation: true
     mappings:
     - type: from_entity
-      entity: neighborhood_location
+      entity: barrio
 
-  context:
+  contexto:
     type: categorical
     values:
       - LISTADO PROCESOS
@@ -71,26 +70,21 @@ slots:
     influence_conversation: true
     mappings:
     - type: from_entity
-      entity: context
+      entity: contexto
 
-  actual_slug_PP:
+  slug_actual:
     type: text
     influence_conversation: false
     mappings:
     - type: from_entity
-      entity: actual_slug_PP
+      entity: slug_actual
 
-  list_offered:
+  lista_ofrecida:
     type: list
     influence_conversation: false
     mappings:
      - type: custom
 
-  # interest:
-  #   type: list
-  #   influence_conversation: false
-  #   mappings:
-  #    - type: custom
 
   user_name:
     type: text
@@ -99,33 +93,33 @@ slots:
     - type: from_entity
       entity: user_name
 
-  user_logged:
+  usuario_registrado:
     type: categorical
     values:
-      - LOGGED
-      - NOT_LOGGED
+      - REGISTRADO
+      - NO_REGISTRADO
     influence_conversation: true
     mappings:
     - type: from_entity
-      entity: user_logged
+      entity: usuario_registrado
 
-  state_context:
+  estado_contexto:
     type: any
     initial_value: {"LISTADO PROCESOS": True, "PROCESO": True, "PROCESO ENCUENTROS": True, "PROCESO PROPUESTAS": True}
     mappings:
     - type: custom
 responses:
-  utter_greet:
+  utter_saludar:
   - text: Hola, como puedo ayudarte?
   - text: Hola, en que puedo ayudarte?
   - text: Hola!
   - text: Holaa!
-  utter_farewell:
+  utter_despedirse:
   - text: Adeu!
   - text: Adios! Hasta la proxima!
   - text: Genial. Cualquier cosa estoy por aquí!
   - text: Nos vemoos! No dudes en preguntarme.
-  utter_yourwelcome:
+  utter_agradecer:
   - text: De nada!
   - text: No hay problema!
 
@@ -137,7 +131,7 @@ responses:
   utter_quien_eres:
   - text: Me llamo Sara, soy una IA a tu servicio. Te ayudaré en lo que necesites en Decidim Barcelona. 
 
-  utter_greet_and_ask_name:
+  utter_saludar_and_ask_name:
   - text: |
      Hola, Soy Sara, el chatbot de Decidim BCN. Estoy aquí para ayudarte en el ámbito de los procesos participativos. 
 
@@ -157,12 +151,10 @@ responses:
   - text: 'Aquí tienes el enlace: {link}'
 
   utter_signIn:
-# TODO: AÑADIR FOTO PARA INDICAR DONDE ESTÁN LOS BOTONES
   - text: |
      Para registrarte o iniciar sesión haz click en sus respectivos botones en la parte superior de la web
      
      Posteriormente rellena los datos que te pidan. Te aconsejo iniciar sesión con Google, es más rápido y cómodo
-    # image: "C:\Users\vicll\OneDrive\Escritorio\UNI 2022-2023\TFG\PROYECTOS\project\img\SignIn.png"
     image: "/static/SignIn.png"
   utter_decidim:
   - text: Decidim es la plataforma digital de participación del Ayuntamiento de Barcelona para construir una ciudad más democrática. Un espacio para construir una ciudad con el protagonismo de quien la habita.
@@ -225,7 +217,7 @@ responses:
   - text: "Recordaré ese barrio"
     condition:
         - type: slot
-          name: neighborhood_location       
+          name: barrio       
   - text: Recordaré eso
 
 
@@ -242,7 +234,7 @@ responses:
       - title: "¿Cómo se participa?"
         payload: /como_puedo_participar
       - title: "Otros.."
-        payload: /discoverability_extended
+        payload: /discoverability_extendida
       text: "Hola, puedes preguntarme, entre otras cosas sobre:"
       
     - text: "Hola {user_name}, puedes preguntarme, entre otras cosas sobre:"
@@ -254,34 +246,9 @@ responses:
       - title: "¿Cómo se participa?"
         payload: /como_puedo_participar
       - title: "Otros.."
-        payload: /discoverability_extended
+        payload: /discoverability_extendida
 
-      # buttons:
-      #   - payload: /affirm
-      #     title: Yes
-      #   - payload: /deny
-      #     title: No
-      # text: would you like to provide name and other details.   
-  # - condition:
-  #     - type: slot
-  #       name: user_name
-  #       value: null
-  #   text: "Hola sinnombre"
-  # - text: "Hola {user_name}"
-  
-  # - text: "Hola {user_name}, puedes preguntarme, entre otras cosas sobre:"
-  #   buttons:
-  #   - title: "¿Qué es decidim?"
-  #     payload: /decidim
-  #   - title: "¿Quién puede participar en los procesos participativos?"
-  #     payload: /quien_puede_participar
-  #   - title: "¿Cómo se participa?"
-  #     payload: /como_puedo_participar
-  #   - title: "Otros.."
-  #     payload: /discoverability_extended
-
-
-  utter_discoverability_extended:
+  utter_discoverability_extendida:
   - text: "También puedes preguntarme sobre:"
     buttons:
     - title: "Conceptos de decidim"
@@ -307,9 +274,9 @@ responses:
   - text: Quieres que te busque algún proceso participativo de ejemplo?
     buttons:
     - title: "Si"
-      payload: /affirm
+      payload: /afirmar
     - title: "No"
-      payload: /deny
+      payload: /negar
       
   utter_suggest_location:
   - text: |
@@ -318,23 +285,23 @@ responses:
       Estos son algunos disponibles:
     buttons:
     - title: "Sants"
-      payload: '/give_neighborhood{{"neighborhood_location":"Sants"}}'
+      payload: '/dar_barrio{{"barrio":"Sants"}}'
     - title: "Horta"
-      payload: '/give_neighborhood{{"neighborhood_location":"Horta"}}'
+      payload: '/dar_barrio{{"barrio":"Horta"}}'
     - title: "Guinardó"
-      payload: '/give_neighborhood{{"neighborhood_location":"Guinardó"}}'
+      payload: '/dar_barrio{{"barrio":"Guinardó"}}'
     - title: "Nou Barris"
-      payload: '/give_neighborhood{{"neighborhood_location":"Nou Barris"}}'
+      payload: '/dar_barrio{{"barrio":"Nou Barris"}}'
   
   utter_change_page:
   - condition:
       - type: slot
-        name: context
+        name: contexto
         value: LISTADO PROCESOS
     text: "Desde aquí podrás ver todos los procesos que existen. ¡Te animo a que cliques en alguno!"
   - condition:
       - type: slot
-        name: context
+        name: contexto
         value: PROCESO
     text: |
      Esta es la página principal de este proceso. Desde aquí puedes ver de qué trata el proceso y en que fase se encuentra. Si quieres más información de las fases clica en 'Ver las fases'
@@ -342,12 +309,12 @@ responses:
      Algunos procesos tienen *encuentros*, *debates*, *propuestas*, y más. ¡Te animo a clicar en ellos!
   - condition:
       - type: slot
-        name: context
+        name: contexto
         value: PROCESO ENCUENTROS
     text: "Estás en la página de encuentros de este proyecto. Desde aquí puedes ver los encuentros presenciales que hay disponibles. Desde el mapa podrás ver su localización. "
   - condition:
       - type: slot
-        name: context
+        name: contexto
         value: PROCESO PROPUESTAS
     text: "Estás en la página de propuestas de este proyecto. Desde aquí puedes ver las diferentes propuestas que hay disponibles. Te animo a seguir alguna."
 
@@ -368,9 +335,9 @@ responses:
   - text: Puedo buscarte un proceso según tus intereses, te parece bien?
     buttons:
     - title: "Si"
-      payload: '/affirm'
+      payload: '/afirmar'
     - title: "No"
-      payload: '/deny'
+      payload: '/negar'
 
 
 
@@ -384,15 +351,15 @@ responses:
 
 actions:
 - '...'
-- utter_farewell
-- utter_greet
+- utter_despedirse
+- utter_saludar
 - utter_inform
 - action_validar_neighbor
 - action_procesos_participativos
 - action_mirar_en_proceso_participativo
-- utter_greet_and_ask_name
-- action_show_context_and_id
-- action_offer_sumarization_encuentros
+- utter_saludar_and_ask_name
+- action_show_contexto_and_id
+- action_offer_resumen_encuentros
 - action_sumarization
 - action_last_3_proposals
 - action_control_flow_proposals
