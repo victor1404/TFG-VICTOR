@@ -18,6 +18,10 @@ nlu:
       - Nou Barris
       - Sant Andreu
       - Sant Marti
+      - Virrei
+      - Sagrera
+      - Clot
+      - Sant Pau
 
   - lookup: user_name
     examples: |

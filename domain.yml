@@ -110,41 +110,41 @@ slots:
     - type: custom
 responses:
   utter_saludar:
-  - text: Hola, como puedo ayudarte?
-  - text: Hola, en que puedo ayudarte?
-  - text: Hola!
-  - text: Holaa!
+  - text: Hola, ¿cómo puedo ayudarte?
+  - text: Hola, ¿en qué puedo ayudarte?
+  - text: ¡Hola!
+  - text: ¡Holaa!
   utter_despedirse:
-  - text: Adeu!
-  - text: Adios! Hasta la proxima!
-  - text: Genial. Cualquier cosa estoy por aquí!
-  - text: Nos vemoos! No dudes en preguntarme.
+  - text: ¡Adeu!
+  - text: ¡Adiós, hasta la próxima!
+  - text: Genial. ¡Cualquier cosa estoy por aquí!
+  - text: ¡Nos vemos! No dudes en preguntarme.
   utter_agradecer:
-  - text: De nada!
-  - text: No hay problema!
+  - text: ¡De nada!
+  - text: ¡No hay problema!
 
   utter_inform:
   - text: |
-      Esta es la página oficial de Decidim Barcelona, en ella podrás ver los diferentes procesos que se están llevando a cabo, participar en diferentes debates, ver presupuestos... 
+      Esta es la página oficial de Decidim Barcelona, en ella podrás ver los diferentes procesos que se están llevando a cabo, participar en diferentes debates, ver propuestas... 
       
       Te aconsejo que te registres antes de nada.       
   utter_quien_eres:
-  - text: Me llamo Sara, soy una IA a tu servicio. Te ayudaré en lo que necesites en Decidim Barcelona. 
+  - text: Me llamo Sara, soy una IA a tu servicio. Te intentaré ayudar en lo que necesites en Decidim Barcelona. 
 
   utter_saludar_and_ask_name:
   - text: |
-     Hola, Soy Sara, el chatbot de Decidim BCN. Estoy aquí para ayudarte en el ámbito de los procesos participativos. 
+     ¡Hola! Soy Sara, el chatbot de Decidim BCN. Estoy aquí para ayudarte en el ámbito de los procesos participativos. 
 
-     ¿Comó te llamas?
+     ¿Cómo te llamas?
   utter_welcome_back:
-  - text: "Hola de nuevo! {user_name}"
+  - text: "¡Hola de nuevo! {user_name}"
 
 
   utter_wait:
-  - text: Por favor espere un segundo
-  - text: Un momento, por favor
-  - text: Claro, un segundo
-  - text: Claro, un momento
+  - text: Por favor espere un segundo.
+  - text: Un momento, por favor.
+  - text: Claro, un segundo.
+  - text: Claro, un momento.
 
   utter_give_link:
   - text: 'Si te interesa aquí tienes el enlace: {link}'
@@ -152,9 +152,9 @@ responses:
 
   utter_signIn:
   - text: |
-     Para registrarte o iniciar sesión haz click en sus respectivos botones en la parte superior de la web
+     Para registrarte o iniciar sesión haz click en sus respectivos botones en la parte superior de la web.
      
-     Posteriormente rellena los datos que te pidan. Te aconsejo iniciar sesión con Google, es más rápido y cómodo
+     Posteriormente rellena los datos que te pidan. Si prefieres no crear una cuenta nueva, te recomiendo que uses alguna cuenta de tus redes sociales.
     image: "/static/SignIn.png"
   utter_decidim:
   - text: Decidim es la plataforma digital de participación del Ayuntamiento de Barcelona para construir una ciudad más democrática. Un espacio para construir una ciudad con el protagonismo de quien la habita.
@@ -162,63 +162,63 @@ responses:
   utter_procesos_participativos:
   - text: Los procesos participativos son una serie de *encuentros* delimitados en un tiempo concreto para promover el debate y el contraste de argumentos.
     buttons:
-    - title: Qué es un encuentro
+    - title: ¿Qué es un encuentro?
       payload: /encuentros
   utter_organos_de_participacion:
-  - text: Los órganos de participación son grupos de personas que se reúnen con el fin de *debatir* y recoger *propuestas* en torno a *procesos participativos*, 
+  - text: Los órganos de participación son grupos de personas que se reúnen con el fin de *debatir* y recoger *propuestas* en torno a *procesos participativos*.
     buttons:
-    - title: Qué son los procesos participativos
+    - title: ¿Qué son los procesos participativos?
       payload: /procesos_participativos
-    - title: Qué es un debate
+    - title: ¿Qué es un debate?
       payload: /debate
-    - title: Qué son las propuestas
+    - title: ¿Qué son las propuestas?
       payload: /propuestas
   utter_iniciativas_ciudadanas:
   - text: Las iniciativas ciudadanas son el medio que tiene la ciudadanía para promover a través de la recogida de firmas, que el Ayuntamiento lleve a cabo una determinada acción de interés colectivo.
   utter_debate:
   - text: Un debate es un espacio digital para informarte y decidir sobre las *propuestas* de cada *proceso participativo*.
     buttons:
-    - title: Qué son las propuestas
+    - title: ¿Qué son las propuestas?
       payload: /propuestas
-    - title: Qué son los procesos participativos
+    - title: ¿Qué son los procesos participativos?
       payload: /procesos_participativos
   utter_encuentros:
   - text: Los encuentros son reuniones presenciales relacionadas con los *procesos participativos* y de donde surgen *propuestas*.
     buttons:
-    - title: Qué son los procesos participativos
+    - title: ¿Qué son los procesos participativos?
       payload: /procesos_participativos
-    - title: Qué son las propuestas
+    - title: ¿Qué son las propuestas?
       payload: /propuestas
   utter_propuestas:
-  - text: Las propuestas son contribuciones de los participantes que pueden recibir el apoyo de los usuarios, los cuales pueden votar sobre ella
+  - text: Las propuestas son contribuciones de los participantes que pueden recibir el apoyo de los usuarios, los cuales pueden votar sobre ella.
   utter_presupuesto:
   - text: Un presupuesto es un cálculo anticipado del coste de una obra o un servicio.
   utter_consejo_de_barrio:
   - text: Los consejos de barrio son *órganos para la participación* de los vecinos delimitados según los barrios.
     buttons:
-    - title: Qué son los órganos de participación
+    - title: ¿Qué son los órganos de participación?
       payload: /organos_de_participacion
   utter_comentarios:
   - text: Los comentarios son contribuciones de los usuarios al hilo de una *propuesta* o *debate* y que pueden recibir una votación negativa o positiva.
     buttons:
-    - title: Qué son las propuestas
+    - title: ¿Qué son las propuestas?
       payload: /propuestas
-    - title: Qué es un debate
+    - title: ¿Qué es un debate?
       payload: /debate
 
 
   utter_quien_puede_participar:
-  - text: "Cualquier usuario registrado sin necesidad de estar empadronado puede participar en los debates presenciales, y también es posible lanzar una propuesta o comentar las propuestas existentes a la plataforma. Solamente apoyar o votar en una propuesta se limita a la gente empadronada"
+  - text: "Cualquier usuario registrado sin necesidad de estar empadronado puede participar en los debates presenciales, y también es posible lanzar una propuesta o comentar las propuestas existentes en la plataforma. Solamente apoyar o votar en una propuesta se limita a la gente empadronada."
   utter_como_puedo_participar:
   - text: "Regístrate para seguir los procesos participativos, para añadir propuestas, compartir ideas en los debates o hacer comentarios. Si eres un ciudadano de Barcelona empadronado podrás, además, apoyar las propuestas."
 
 
   utter_remember_location:
-  - text: "Recordaré ese barrio"
+  - text: "Recordaré ese barrio."
     condition:
         - type: slot
           name: barrio       
-  - text: Recordaré eso
+  - text: Recordaré eso.
 
 
   utter_discoverability:
@@ -227,11 +227,11 @@ responses:
           name: user_name
           value: null
       buttons:
-      - title: "¿Qué es decidim?"
+      - title: "¿Qué es Decidim?"
         payload: /decidim
       - title: "¿Quién puede participar en los procesos participativos?"
         payload: /quien_puede_participar
-      - title: "¿Cómo se participa?"
+      - title: "¿Cómo puedo participar en Decidim Barcelona?"
         payload: /como_puedo_participar
       - title: "Otros.."
         payload: /discoverability_extendida
@@ -239,11 +239,11 @@ responses:
       
     - text: "Hola {user_name}, puedes preguntarme, entre otras cosas sobre:"
       buttons:
-      - title: "¿Qué es decidim?"
+      - title: "¿Qué es Decidim?"
         payload: /decidim
       - title: "¿Quién puede participar en los procesos participativos?"
         payload: /quien_puede_participar
-      - title: "¿Cómo se participa?"
+      - title: "¿Cómo puedo participar en Decidim Barcelona?"
         payload: /como_puedo_participar
       - title: "Otros.."
         payload: /discoverability_extendida
@@ -251,7 +251,7 @@ responses:
   utter_discoverability_extendida:
   - text: "También puedes preguntarme sobre:"
     buttons:
-    - title: "Conceptos de decidim"
+    - title: "Conceptos de Decidim"
       payload: /discoverability_conceptos
     - title: "¿Cómo me registro?"
       payload: /signIn
@@ -260,9 +260,9 @@ responses:
   - text: |
       Estos son algunos de los conceptos que tal vez no entiendas
       
-      Pero puedes preguntarme cualquier otro que veas en decidim:
+      Pero puedes preguntarme sobre otros que veas en Decidim:
     buttons:
-    - title: "Organos de Participacion"
+    - title: "Órganos de Participación"
       payload: /organos_de_participacion
     - title: "Iniciativas Ciudadanas"
       payload: /iniciativas_ciudadanas 
@@ -271,18 +271,18 @@ responses:
 
 
   utter_offer_proceso_participativo:
-  - text: Quieres que te busque algún proceso participativo de ejemplo?
+  - text: ¿Quieres que te busque algún proceso participativo de ejemplo?
     buttons:
-    - title: "Si"
+    - title: "Sí"
       payload: /afirmar
     - title: "No"
       payload: /negar
       
   utter_suggest_location:
   - text: |
-      También me puedes pedir procesos de un lugar en concreto. O dime que barrio te interesa e intentaré buscar para la próxima.
+      Además, me puedes pedir procesos de un barrio en concreto.
       
-      Estos son algunos disponibles:
+      Estos son algunos de los disponibles:
     buttons:
     - title: "Sants"
       payload: '/dar_barrio{{"barrio":"Sants"}}'
@@ -298,43 +298,43 @@ responses:
       - type: slot
         name: contexto
         value: LISTADO PROCESOS
-    text: "Desde aquí podrás ver todos los procesos que existen. ¡Te animo a que cliques en alguno!"
+    text: "Esta es la página donde se listan todos los procesos participativos que existen en Decidim Barcelona. ¡Te animo a que cliques en alguno!"
   - condition:
       - type: slot
         name: contexto
         value: PROCESO
     text: |
-     Esta es la página principal de este proceso. Desde aquí puedes ver de qué trata el proceso y en que fase se encuentra. Si quieres más información de las fases clica en 'Ver las fases'
+     Esta es la página principal de un proceso participativo. Desde aquí puedes ver de qué trata dicho proceso y en qué fase se encuentra. Si quieres más información de las fases clica en *Ver las fases*
 
      Algunos procesos tienen *encuentros*, *debates*, *propuestas*, y más. ¡Te animo a clicar en ellos!
   - condition:
       - type: slot
         name: contexto
         value: PROCESO ENCUENTROS
-    text: "Estás en la página de encuentros de este proyecto. Desde aquí puedes ver los encuentros presenciales que hay disponibles. Desde el mapa podrás ver su localización. "
+    text: "Esta es la *página de encuentros* de este proceso. Desde aquí puedes ver los encuentros presenciales que hay disponibles. Desde el mapa podrás ver su localización. "
   - condition:
       - type: slot
         name: contexto
         value: PROCESO PROPUESTAS
-    text: "Estás en la página de propuestas de este proyecto. Desde aquí puedes ver las diferentes propuestas que hay disponibles. Te animo a seguir alguna."
+    text: "Estas es la *página de propuestas* de este proceso. Desde aquí puedes ver las diferentes propuestas que hay disponibles. Te animo a seguir alguna."
 
 
 
   utter_control_flow_proposals:
   - text: |
-      Puedo ofrecerte las ultimas propuestas en caso de que no hayas entrado aquí en un tiempo.
+      Hola {user_name}, puedo ofrecerte las últimas propuestas en caso de que no hayas entrado aquí en un tiempo.
       
-      También puedo ofrecerte las propuestas que siguen tus amigos, {user_name}.
+      También puedo ofrecerte las propuestas que siguen tus amistades.
     buttons:
-    - title: "Ultimas propuestas"
+    - title: "Últimas propuestas"
       payload: '/ordenar_propuestas'
-    - title: "Propuestas de amigos"
+    - title: "Propuestas de amistades"
       payload: '/propuestas_amigos'
 
   utter_control_flow:
-  - text: Puedo buscarte un proceso según tus intereses, te parece bien?
+  - text: Puedo buscarte un proceso según tus intereses, ¿te parece bien?
     buttons:
-    - title: "Si"
+    - title: "Sí"
       payload: '/afirmar'
     - title: "No"
       payload: '/negar'
@@ -344,7 +344,7 @@ responses:
 
 
   utter_default:
-  - text: "Lo siento. No te he entendido.. Intenta reformular la frase. También puedes visitar el link https://www.decidim.barcelona/pages?locale=es"
+  - text: "Lo siento. No te he entendido. Intenta reformular la frase. También puedes visitar el link https://www.decidim.barcelona/pages?locale=es"
   utter_ask_rephrase:
   - text: "No te he entendido, por favor vuelve a escribir la frase de otra forma"
 

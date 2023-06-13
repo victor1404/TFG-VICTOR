@@ -65,8 +65,7 @@ rules:
    steps:
    - intent: cambio_pagina
    - action: action_control_flow_proposals
-  #  - action: action_last_3_proposals
-  #  wait_for_user_input: false
+
 
  - rule: ordenar propuestas
    condition:
@@ -117,7 +116,6 @@ rules:
    - action: action_offer_resumen_encuentros
    wait_for_user_input: false
 
-# probar a poner varias rules con condition user REGISTRADO y contexto = X
  - rule: hacer resumen
    steps:
     - action: action_offer_resumen_encuentros
